@@ -1,0 +1,15 @@
+.button {
+  background-color: #f6f6f6;
+
+  &.is-invalid {
+    background-color: #f00;
+  }
+
+  &.is-exist {
+    background-color: #ff0;
+  }
+
+  &.is-valid {
+    background-color: green;
+  }
+}
