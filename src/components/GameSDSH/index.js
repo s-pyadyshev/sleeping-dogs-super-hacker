@@ -88,7 +88,9 @@ const GameSDSH = observer(({ currentUser }) => {
             "is-exist":
               gameSDSHStore.code.includes(gameSDSHStore.userCode[0].value) &&
               !gameSDSHStore.userCode[0].isValid,
-            "is-valid": gameSDSHStore.userCode[0].isValid,
+            "is-valid":
+              gameSDSHStore.userCode[0].isValid &&
+              gameSDSHStore.code[0] === gameSDSHStore.userCode[0].value,
           })}
         />
         <input
@@ -106,7 +108,9 @@ const GameSDSH = observer(({ currentUser }) => {
             "is-exist":
               gameSDSHStore.code.includes(gameSDSHStore.userCode[1].value) &&
               !gameSDSHStore.userCode[1].isValid,
-            "is-valid": gameSDSHStore.userCode[1].isValid,
+            "is-valid":
+              gameSDSHStore.userCode[1].isValid &&
+              gameSDSHStore.code[1] === gameSDSHStore.userCode[1].value,
           })}
         />
         <input
@@ -124,7 +128,9 @@ const GameSDSH = observer(({ currentUser }) => {
             "is-exist":
               gameSDSHStore.code.includes(gameSDSHStore.userCode[2].value) &&
               !gameSDSHStore.userCode[2].isValid,
-            "is-valid": gameSDSHStore.userCode[2].isValid,
+            "is-valid":
+              gameSDSHStore.userCode[2].isValid &&
+              gameSDSHStore.code[2] === gameSDSHStore.userCode[2].value,
           })}
         />
         <input
@@ -142,7 +148,9 @@ const GameSDSH = observer(({ currentUser }) => {
             "is-exist":
               gameSDSHStore.code.includes(gameSDSHStore.userCode[3].value) &&
               !gameSDSHStore.userCode[3].isValid,
-            "is-valid": gameSDSHStore.userCode[3].isValid,
+            "is-valid":
+              gameSDSHStore.userCode[3].isValid &&
+              gameSDSHStore.code[3] === gameSDSHStore.userCode[3].value,
           })}
         />
         {!gameSDSHStore.isUnlocked ? (
