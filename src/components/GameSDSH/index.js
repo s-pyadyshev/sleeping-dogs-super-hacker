@@ -2,9 +2,11 @@ import React, { useRef, useEffect, useState } from "react";
 import { observer } from "mobx-react";
 import { useStores } from "../../hooks/use-stores";
 import cn from "classnames";
+import { firestore } from "../../firebase/firebase.util";
 
-const GameSDSH = observer(() => {
-  const { gameSDSHStore } = useStores();
+const GameSDSH = observer(({ currentUser }) => {
+  const { gameSDSHStore, counterStore } = useStores();
+  const currentDate = new Date();
 
   const handleKeyboardActions = (event) => {
     gameSDSHStore.setCodeNumber(
@@ -31,10 +33,42 @@ const GameSDSH = observer(() => {
     // }
   };
 
+  const submitUserScore = (event) => {
+    event.preventDefault();
+
+    const userId = currentUser.displayName.replace(/\s+/g, "");
+
+    const userScore = {
+      username: currentUser.displayName,
+      score: counterStore.counter,
+      date: "17.08.2020",
+      comment: "comment",
+    };
+
+    // Add a new document in collection "scores"
+    firestore
+      .collection("scores")
+      .doc(userId)
+      .set(userScore)
+      .then(function () {
+        console.log("Document successfully written!");
+      })
+      .catch(function (error) {
+        console.error("Error writing document: ", error);
+      });
+  };
+
   useEffect(() => {
-    gameSDSHStore.generateSecretCode();
-    gameSDSHStore.startCounter();
-  }, [gameSDSHStore.counter]);
+    if (!counterStore.counterInProgress) {
+      gameSDSHStore.generateSecretCode();
+      counterStore.startCounter();
+      counterStore.counterInProgress = !counterStore.counterInProgress;
+    }
+
+    if (gameSDSHStore.isUnlocked) {
+      counterStore.endCounter();
+    }
+  }, [counterStore.counter]);
 
   return (
     <div>
@@ -111,9 +145,21 @@ const GameSDSH = observer(() => {
             "is-valid": gameSDSHStore.userCode[3].isValid,
           })}
         />
-        <h1>Time: {gameSDSHStore.counter}</h1>
-        <button type="submit">Submit</button>
+        {!gameSDSHStore.isUnlocked ? (
+          <h1>Time: {counterStore.counter}</h1>
+        ) : null}
       </form>
+
+      {gameSDSHStore.isUnlocked ? (
+        <form onSubmit={submitUserScore}>
+          <h3>Username: {currentUser ? currentUser.displayName : null}</h3>
+          <h3>Score: {counterStore.counter}</h3>
+          {/* <h3>Date: {currentDate}</h3> */}
+          <label>Leave a comment:</label>
+          <textarea></textarea>
+          <button type="submit">Submit</button>
+        </form>
+      ) : null}
     </div>
   );
 });

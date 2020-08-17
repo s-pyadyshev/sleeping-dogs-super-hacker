@@ -19,19 +19,6 @@ class GameSDSHStore {
     this.rootStore = rootStore;
   }
 
-  counter = 0;
-  counterTimeout;
-
-  startCounter() {
-    this.counterTimeout = setTimeout(() => {
-      this.counter++;
-    }, 1000);
-  }
-
-  endCounter() {
-    clearTimeout(this.counterTimeout);
-  }
-
   generateSecretCode = () => {
     this.code = [
       shuffledSecretCodeFull[0],
@@ -82,7 +69,6 @@ class GameSDSHStore {
     if (isEqualCodes) {
       this.userCode[id].isValid = !this.userCode[id].isValid;
       this.isUnlocked = !this.isUnlocked;
-      this.endCounter();
     } else if (isUserValueExist && !isUserValueValid) {
       this.userCode[id].isExist = true;
     } else if (isUserValueValid) {
@@ -104,25 +90,15 @@ class GameSDSHStore {
   decrement(id) {
     this.userCode[id] -= 1;
   }
-
-  // getTodos(user) {
-  //   // access GameSDSHStore through the root store
-  //   return this.rootStore.todoStore.todos.filter(
-  //     (todo) => todo.author === user
-  //   );
-  // }
 }
 
 decorate(GameSDSHStore, {
-  counter: observable,
   generateSecretCode: action,
   userCode: observable,
   increment: action,
   decrement: action,
   setCodeNumber: action,
   setCodeComparisonState: action,
-  startCounter: action,
-  endCounter: action,
 });
 
 export default GameSDSHStore;

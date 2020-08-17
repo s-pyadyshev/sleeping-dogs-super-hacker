@@ -1,8 +1,10 @@
 class RootStore {
   constructor() {
-    // this.userStore = new UserStore(this);
-    this.todoStore = new GameSDSHStore(this);
+    this.counterStore = new CounterStore(this);
+    this.gameSDSHStore = new GameSDSHStore(this);
   }
 }
 
 export default RootStore;
+
+// https://mobx.js.org/best/store.html

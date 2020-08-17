@@ -3,30 +3,29 @@ import Button from "@material-ui/core/Button";
 import { signInWithGoogle } from "../../firebase/firebase.util";
 
 const SignIn = () => {
-  const [signInData, setSignInData] = useState({});
+  // const [signInData, setSignInData] = useState({});
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
 
-    setSignInData({ email: "", password: "" });
-  };
+  //   setSignInData({ email: "", password: "" });
+  // };
 
-  const handleChange = (event) => {
-    const { value, name } = event.target;
+  // const handleChange = (event) => {
+  //   const { value, name } = event.target;
 
-    setSignInData({ [name]: value });
-  };
+  //   setSignInData({ [name]: value });
+  // };
 
   return (
     <div className="sign-in">
-      <h2>I already have an account</h2>
-      <span>Sign in with your email and password</span>
+      <h2>Sign in with Google</h2>
 
-      <form onSubmit={handleSubmit}>
+      {/* <form onSubmit={handleSubmit}>
         <input
           name="email"
           type="email"
-          handleChange={handleChange}
+          onChange={handleChange}
           value={signInData.email}
           label="email"
           required
@@ -35,14 +34,14 @@ const SignIn = () => {
           name="password"
           type="password"
           value={signInData.password}
-          handleChange={handleChange}
+          onChange={handleChange}
           label="password"
           required
         />
-        <Button type="submit" onClick={signInWithGoogle}>
-          Sign in
-        </Button>
-      </form>
+      </form> */}
+      <Button type="submit" onClick={signInWithGoogle}>
+        Sign in
+      </Button>
     </div>
   );
 };
