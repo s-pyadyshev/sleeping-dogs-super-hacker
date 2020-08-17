@@ -68,7 +68,7 @@ const GameSDSH = observer(({ currentUser }) => {
     if (gameSDSHStore.isUnlocked) {
       counterStore.endCounter();
     }
-  }, [counterStore.counter]);
+  }, [counterStore.counter, gameSDSHStore]);
 
   return (
     <div>
