@@ -53,6 +53,12 @@ class GameSDSHStore {
     },
   ];
 
+  attempts = 4;
+
+  decreaseAttempts() {
+    this.attempts = this.attempts - 1;
+  }
+
   isUnlocked = false;
 
   checkNumberValidity(id, value) {
@@ -81,16 +87,17 @@ class GameSDSHStore {
     this.userCode[id].value = value;
   }
 
-  increment(id) {
-    this.userCode[id] += 1;
-  }
+  // increment(id) {
+  //   this.userCode[id] += 1;
+  // }
 
-  decrement(id) {
-    this.userCode[id] -= 1;
-  }
+  // decrement(id) {
+  //   this.userCode[id] -= 1;
+  // }
 }
 
 decorate(GameSDSHStore, {
+  attempts: observable,
   generateSecretCode: action,
   userCode: observable,
   increment: action,
