@@ -53,8 +53,6 @@ class GameSDSHStore {
     },
   ];
 
-  codeClasses = [];
-
   isUnlocked = false;
 
   checkNumberValidity(id, value) {

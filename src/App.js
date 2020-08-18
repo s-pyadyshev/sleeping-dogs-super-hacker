@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import SignIn from "./components/SignIn";
 import Header from "./components/Header";
 import GameSDSH from "./components/GameSDSH";
+import Scoreboard from "./components/Scoreboard";
 import { auth } from "./firebase/firebase.util";
 
 import "./App.scss";
@@ -34,6 +35,7 @@ function App() {
       <Header currentUser={currentUser} />
       <SignIn />
       <GameSDSH currentUser={currentUser} />
+      <Scoreboard />
       {/* <Router>
         <Switch>
           <Route path="/signin" component={SignInAndSignUpPage} />

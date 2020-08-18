@@ -1,12 +1,12 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { observer } from "mobx-react";
 import { useStores } from "../../hooks/use-stores";
 import cn from "classnames";
-import { firestore } from "../../firebase/firebase.util";
+import SubmitForm from "../SubmitForm";
 
 const GameSDSH = observer(({ currentUser }) => {
   const { gameSDSHStore, counterStore } = useStores();
-  const currentDate = new Date();
+  const buttonsIds = [0, 1, 2, 3];
 
   const handleKeyboardActions = (event) => {
     gameSDSHStore.setCodeNumber(
@@ -33,31 +33,6 @@ const GameSDSH = observer(({ currentUser }) => {
     // }
   };
 
-  const submitUserScore = (event) => {
-    event.preventDefault();
-
-    const userId = currentUser.displayName.replace(/\s+/g, "");
-
-    const userScore = {
-      username: currentUser.displayName,
-      score: counterStore.counter,
-      date: "17.08.2020",
-      comment: "comment",
-    };
-
-    // Add a new document in collection "scores"
-    firestore
-      .collection("scores")
-      .doc(userId)
-      .set(userScore)
-      .then(function () {
-        console.log("Document successfully written!");
-      })
-      .catch(function (error) {
-        console.error("Error writing document: ", error);
-      });
-  };
-
   useEffect(() => {
     if (!counterStore.counterInProgress) {
       gameSDSHStore.generateSecretCode();
@@ -73,101 +48,38 @@ const GameSDSH = observer(({ currentUser }) => {
   return (
     <div>
       <form>
-        <input
-          type="text"
-          min="0"
-          max="9"
-          maxLength="1"
-          data-key="0"
-          onChange={handleKeyboardActions}
-          className={cn({
-            button: true,
-            "is-invalid":
-              !gameSDSHStore.code.includes(gameSDSHStore.userCode[0].value) &&
-              !gameSDSHStore.userCode[0].isValid,
-            "is-exist":
-              gameSDSHStore.code.includes(gameSDSHStore.userCode[0].value) &&
-              !gameSDSHStore.userCode[0].isValid,
-            "is-valid":
-              gameSDSHStore.userCode[0].isValid &&
-              gameSDSHStore.code[0] === gameSDSHStore.userCode[0].value,
-          })}
-        />
-        <input
-          type="text"
-          min="0"
-          max="9"
-          maxLength="1"
-          data-key="1"
-          onChange={handleKeyboardActions}
-          className={cn({
-            button: true,
-            "is-invalid":
-              !gameSDSHStore.code.includes(gameSDSHStore.userCode[1].value) &&
-              !gameSDSHStore.userCode[1].isValid,
-            "is-exist":
-              gameSDSHStore.code.includes(gameSDSHStore.userCode[1].value) &&
-              !gameSDSHStore.userCode[1].isValid,
-            "is-valid":
-              gameSDSHStore.userCode[1].isValid &&
-              gameSDSHStore.code[1] === gameSDSHStore.userCode[1].value,
-          })}
-        />
-        <input
-          type="text"
-          min="0"
-          max="9"
-          maxLength="1"
-          data-key="2"
-          onChange={handleKeyboardActions}
-          className={cn({
-            button: true,
-            "is-invalid":
-              !gameSDSHStore.code.includes(gameSDSHStore.userCode[2].value) &&
-              !gameSDSHStore.userCode[2].isValid,
-            "is-exist":
-              gameSDSHStore.code.includes(gameSDSHStore.userCode[2].value) &&
-              !gameSDSHStore.userCode[2].isValid,
-            "is-valid":
-              gameSDSHStore.userCode[2].isValid &&
-              gameSDSHStore.code[2] === gameSDSHStore.userCode[2].value,
-          })}
-        />
-        <input
-          type="text"
-          min="0"
-          max="9"
-          maxLength="1"
-          data-key="3"
-          onChange={handleKeyboardActions}
-          className={cn({
-            button: true,
-            "is-invalid":
-              !gameSDSHStore.code.includes(gameSDSHStore.userCode[3].value) &&
-              !gameSDSHStore.userCode[3].isValid,
-            "is-exist":
-              gameSDSHStore.code.includes(gameSDSHStore.userCode[3].value) &&
-              !gameSDSHStore.userCode[3].isValid,
-            "is-valid":
-              gameSDSHStore.userCode[3].isValid &&
-              gameSDSHStore.code[3] === gameSDSHStore.userCode[3].value,
-          })}
-        />
+        {buttonsIds.map((id) => (
+          <input
+            type="text"
+            min="0"
+            max="9"
+            maxLength="1"
+            data-key={id}
+            onChange={handleKeyboardActions}
+            className={cn({
+              button: true,
+              "is-invalid":
+                !gameSDSHStore.code.includes(
+                  gameSDSHStore.userCode[id].value
+                ) && !gameSDSHStore.userCode[id].isValid,
+              "is-exist":
+                gameSDSHStore.code.includes(gameSDSHStore.userCode[id].value) &&
+                !gameSDSHStore.userCode[id].isValid,
+              "is-valid":
+                gameSDSHStore.userCode[id].isValid &&
+                gameSDSHStore.code[id] === gameSDSHStore.userCode[id].value,
+            })}
+          />
+        ))}
+
         {!gameSDSHStore.isUnlocked ? (
           <h1>Time: {counterStore.counter}</h1>
         ) : null}
       </form>
 
-      {gameSDSHStore.isUnlocked ? (
-        <form onSubmit={submitUserScore}>
-          <h3>Username: {currentUser ? currentUser.displayName : null}</h3>
-          <h3>Score: {counterStore.counter}</h3>
-          {/* <h3>Date: {currentDate}</h3> */}
-          <label>Leave a comment:</label>
-          <textarea></textarea>
-          <button type="submit">Submit</button>
-        </form>
-      ) : null}
+      <button onClick={() => counterStore.endCounter()}>stop it</button>
+
+      {gameSDSHStore.isUnlocked ? <SubmitForm /> : null}
     </div>
   );
 });
