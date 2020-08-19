@@ -4,7 +4,6 @@ import { useStores } from "../../hooks/use-stores";
 import cn from "classnames";
 import SubmitForm from "../SubmitForm";
 import Counter from "../Counter";
-import CounterStore from "../../stores/CounterStore";
 
 const GameSDSH = observer(() => {
   const { gameSDSHStore, counterStore } = useStores();
@@ -41,16 +40,17 @@ const GameSDSH = observer(() => {
     event.preventDefault();
     gameSDSHStore.checkCodeValidity();
 
-    if (gameSDSHStore.attempts < 1) {
+    if (!gameSDSHStore.isUnlocked && gameSDSHStore.attempts > 1) {
       gameSDSHStore.decreaseAttempts();
-    } else if (!gameSDSHStore.isUnlocked && gameSDSHStore.attempts > 0) {
-      gameSDSHStore.decreaseAttempts();
+    } else {
+      gameSDSHStore.isGameOver = true;
+      gameSDSHStore.isGameStarted = false;
+      gameSDSHStore.userCode = gameSDSHStore.initialUserCodeState;
     }
   };
 
   useEffect(() => {
     if (!counterStore.counterInProgress) {
-      gameSDSHStore.generateSecretCode();
       counterStore.startCounter();
       counterStore.counterInProgress = !counterStore.counterInProgress;
     }
@@ -78,6 +78,7 @@ const GameSDSH = observer(() => {
             ref={id === 0 ? inputRef : null}
             onChange={handleKeyboardActions}
             onFocus={handleFocus}
+            value={gameSDSHStore.userCode[id].value}
             className={cn({
               button: true,
               "is-invalid":
@@ -94,6 +95,11 @@ const GameSDSH = observer(() => {
         ))}
 
         <button onClick={handleCodeCheck}>TRY</button>
+        <div>
+          {gameSDSHStore.code.map((code) => (
+            <li>{code}</li>
+          ))}
+        </div>
 
         {!gameSDSHStore.isUnlocked ? <Counter /> : null}
         <h2>Attempts: {gameSDSHStore.attempts}</h2>

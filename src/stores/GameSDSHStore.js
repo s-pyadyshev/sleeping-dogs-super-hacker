@@ -1,25 +1,25 @@
 import { observable, action, decorate } from "mobx";
 import { isEqual } from "lodash";
 
-// Generate full secret code and shuffle it (no repeated digits)
-const allowedDigits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-function shuffle(a) {
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
-const shuffledSecretCodeFull = shuffle(allowedDigits);
-
 class GameSDSHStore {
   constructor(rootStore) {
     this.rootStore = rootStore;
   }
 
   generateSecretCode = () => {
+    // Generate full secret code and shuffle it (no repeated digits)
+    const allowedDigits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+    function shuffle(a) {
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    const shuffledSecretCodeFull = shuffle(allowedDigits);
+
     this.code = [
       shuffledSecretCodeFull[0],
       shuffledSecretCodeFull[1],
@@ -55,15 +55,10 @@ class GameSDSHStore {
 
   userCode = this.initialUserCodeState;
 
-  attempts = 4;
+  attempts = 5;
   counter = 0;
 
   decreaseAttempts() {
-    if (this.attempts === 0) {
-      this.isGameOver = true;
-      this.isGameStarted = false;
-      this.userCode = this.initialUserCodeState;
-    }
     this.attempts = this.attempts - 1;
   }
 
@@ -108,8 +103,10 @@ class GameSDSHStore {
   }
 
   gameStart() {
+    this.generateSecretCode();
     this.isGameStarted = true;
-    this.attempts = 4;
+    this.attempts = 6;
+
     // this.counter = 0;
   }
 }
