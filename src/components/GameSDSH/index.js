@@ -4,7 +4,7 @@ import { useStores } from "../../hooks/use-stores";
 import cn from "classnames";
 import SubmitForm from "../SubmitForm";
 
-const GameSDSH = observer(({ currentUser }) => {
+const GameSDSH = observer(() => {
   const { gameSDSHStore, counterStore } = useStores();
   const buttonsIds = [0, 1, 2, 3];
   const inputRef = useRef();
@@ -37,10 +37,7 @@ const GameSDSH = observer(({ currentUser }) => {
 
   const handleCodeCheck = (event) => {
     event.preventDefault();
-    gameSDSHStore.checkNumberValidity(0, gameSDSHStore.userCode.value);
-    gameSDSHStore.checkNumberValidity(1, gameSDSHStore.userCode.value);
-    gameSDSHStore.checkNumberValidity(2, gameSDSHStore.userCode.value);
-    gameSDSHStore.checkNumberValidity(3, gameSDSHStore.userCode.value);
+    gameSDSHStore.checkCodeValidity();
 
     if (gameSDSHStore.attempts < 2) {
       gameSDSHStore.decreaseAttempts();
@@ -83,15 +80,14 @@ const GameSDSH = observer(({ currentUser }) => {
             className={cn({
               button: true,
               "is-invalid":
-                !gameSDSHStore.code.includes(
-                  gameSDSHStore.userCode[id].value
-                ) && !gameSDSHStore.userCode[id].isValid,
+                !gameSDSHStore.userCode[id].isExist &&
+                !gameSDSHStore.userCode[id].isValid,
               "is-exist":
-                gameSDSHStore.code.includes(gameSDSHStore.userCode[id].value) &&
+                gameSDSHStore.userCode[id].isExist &&
                 !gameSDSHStore.userCode[id].isValid,
               "is-valid":
-                gameSDSHStore.userCode[id].isValid &&
-                gameSDSHStore.code[id] === gameSDSHStore.userCode[id].value,
+                gameSDSHStore.userCode[id].isExist &&
+                gameSDSHStore.userCode[id].isValid,
             })}
           />
         ))}

@@ -61,39 +61,41 @@ class GameSDSHStore {
 
   isUnlocked = false;
 
-  checkNumberValidity(id, value) {
-    const userCodeArray = this.userCode.map((item) => item.value);
+  checkCodeValidity() {
+    const buttonsIds = [0, 1, 2, 3];
 
+    const userCodeArray = this.userCode.map((item) => item.value);
     const isEqualCodes = isEqual(this.code, userCodeArray) ? true : false;
 
-    const isUserValueExist = this.code.includes(value) ? true : false;
+    buttonsIds.map((id) => {
+      const isUserValueExist = this.code.includes(this.userCode[id].value)
+        ? true
+        : false;
+      const isUserValueValid =
+        this.code[id] === this.userCode[id].value ? true : false;
 
-    const isUserValueValid = this.code[id] === value ? true : false;
-
-    if (isEqualCodes) {
-      this.userCode[id].isValid = !this.userCode[id].isValid;
-      this.isUnlocked = !this.isUnlocked;
-    } else if (isUserValueExist && !isUserValueValid) {
-      this.userCode[id].isExist = true;
-    } else if (isUserValueValid) {
-      this.userCode[id].isValid = true;
-    } else {
-      this.userCode[id].isValid = false;
-      this.userCode[id].isExist = false;
-    }
+      if (isEqualCodes) {
+        this.userCode.map((code) => {
+          code.isExist = true;
+          code.isValid = true;
+        });
+        this.isUnlocked = true;
+      } else if (isUserValueExist && !isUserValueValid) {
+        this.userCode[id].isExist = true;
+        this.userCode[id].isValid = false;
+      } else if (isUserValueExist && isUserValueValid) {
+        this.userCode[id].isExist = true;
+        this.userCode[id].isValid = true;
+      } else {
+        this.userCode[id].isValid = false;
+        this.userCode[id].isExist = false;
+      }
+    });
   }
 
   setCodeNumber(id, value) {
     this.userCode[id].value = value;
   }
-
-  // increment(id) {
-  //   this.userCode[id] += 1;
-  // }
-
-  // decrement(id) {
-  //   this.userCode[id] -= 1;
-  // }
 }
 
 decorate(GameSDSHStore, {
@@ -104,6 +106,7 @@ decorate(GameSDSHStore, {
   decrement: action,
   setCodeNumber: action,
   setCodeComparisonState: action,
+  checkCodeValidity: action,
 });
 
 export default GameSDSHStore;
