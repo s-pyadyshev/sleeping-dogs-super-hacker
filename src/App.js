@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
 // import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 // import SignInAndSignUpPage from "./pages/sign-in-and-sign-up";
+import { observer } from "mobx-react";
 import SignIn from "./components/SignIn";
 import Header from "./components/Header";
 import GameSDSH from "./components/GameSDSH";
 import Scoreboard from "./components/Scoreboard";
+import GameOver from "./components/GameOver";
 import { auth } from "./firebase/firebase.util";
+import { useStores } from "./hooks/use-stores";
 
 import "./App.scss";
 
-function App() {
+const App = observer(() => {
   const [currentUser, setCurrentUser] = useState(null);
+  const { gameSDSHStore } = useStores();
 
   useEffect(() => {
     // The method onAuthStateChanged sets up a subscription by adding an observer for the user's sign-in state.
@@ -30,11 +34,28 @@ function App() {
     };
   }, []);
 
+  const handleClick = () => {
+    gameSDSHStore.gameStart();
+  };
+
   return (
     <div className="App">
       <Header currentUser={currentUser} />
       <SignIn />
-      <GameSDSH currentUser={currentUser} />
+
+      {gameSDSHStore.isGameStarted === true ? (
+        <GameSDSH currentUser={currentUser} />
+      ) : null}
+
+      {gameSDSHStore.isGameOver === true &&
+      gameSDSHStore.isGameStarted === false ? (
+        <GameOver />
+      ) : null}
+
+      {!gameSDSHStore.isGameStarted === true ? (
+        <button onClick={handleClick}>Start</button>
+      ) : null}
+
       <Scoreboard />
       {/* <Router>
         <Switch>
@@ -43,6 +64,6 @@ function App() {
       </Router> */}
     </div>
   );
-}
+});
 
 export default App;

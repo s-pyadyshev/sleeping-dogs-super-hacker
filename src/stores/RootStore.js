@@ -1,3 +1,8 @@
+import { configure } from "mobx";
+
+// don't allow state modifications outside actions
+configure({ enforceActions: "always" });
+
 class RootStore {
   constructor() {
     this.counterStore = new CounterStore(this);

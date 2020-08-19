@@ -3,6 +3,8 @@ import { observer } from "mobx-react";
 import { useStores } from "../../hooks/use-stores";
 import cn from "classnames";
 import SubmitForm from "../SubmitForm";
+import Counter from "../Counter";
+import CounterStore from "../../stores/CounterStore";
 
 const GameSDSH = observer(() => {
   const { gameSDSHStore, counterStore } = useStores();
@@ -39,9 +41,8 @@ const GameSDSH = observer(() => {
     event.preventDefault();
     gameSDSHStore.checkCodeValidity();
 
-    if (gameSDSHStore.attempts < 2) {
+    if (gameSDSHStore.attempts < 1) {
       gameSDSHStore.decreaseAttempts();
-      console.log("nooooooo!");
     } else if (!gameSDSHStore.isUnlocked && gameSDSHStore.attempts > 0) {
       gameSDSHStore.decreaseAttempts();
     }
@@ -94,13 +95,13 @@ const GameSDSH = observer(() => {
 
         <button onClick={handleCodeCheck}>TRY</button>
 
-        {!gameSDSHStore.isUnlocked ? (
-          <h1>Time: {counterStore.counter}</h1>
-        ) : null}
+        {!gameSDSHStore.isUnlocked ? <Counter /> : null}
         <h2>Attempts: {gameSDSHStore.attempts}</h2>
       </form>
 
-      <button onClick={() => counterStore.endCounter()}>stop it</button>
+      <button onClick={() => clearTimeout(counterStore.counterTimeout)}>
+        stop it
+      </button>
 
       {gameSDSHStore.isUnlocked ? <SubmitForm /> : null}
     </div>

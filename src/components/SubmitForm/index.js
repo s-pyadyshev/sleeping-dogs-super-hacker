@@ -3,7 +3,7 @@ import { useStores } from "../../hooks/use-stores";
 import { firestore } from "../../firebase/firebase.util";
 
 const SubmitForm = () => {
-  const { counterStore } = useStores();
+  const { counterStore, gameSDSHStore } = useStores();
   const [userForm, setUserForm] = useState({
     comment: "no comments",
     score: "-",
@@ -44,16 +44,16 @@ const SubmitForm = () => {
   useEffect(() => {
     setUserForm({
       ...userForm,
-      score: counterStore.counter,
+      score: gameSDSHStore.counter,
     });
-  }, [counterStore.counter]);
+  }, [gameSDSHStore.counter]);
 
   return (
     <form onSubmit={submitUserScore}>
       <label htmlFor="username">Your name:</label>
       <input type="text" id="username" name="username" onChange={handleInput} />
       {/* <h3>Username: {currentUser ? currentUser.displayName : null}</h3> */}
-      <h3>Score: {counterStore.counter}</h3>
+      <h3>Score: {gameSDSHStore.counter}</h3>
       {/* <h3>Date: {currentDate}</h3> */}
       <label>Leave a comment:</label>
       <textarea name="comment" onChange={handleInput}></textarea>

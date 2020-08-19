@@ -10,7 +10,7 @@ class CounterStore {
   counterTimeout;
 
   startCounter() {
-    this.counterInProgress = !this.counterInProgress;
+    this.counterInProgress = true;
 
     this.counterTimeout = setTimeout(() => {
       this.counter++;
@@ -19,7 +19,8 @@ class CounterStore {
 
   endCounter() {
     clearTimeout(this.counterTimeout);
-    this.counterInProgress = !this.counterInProgress;
+    this.counterInProgress = false;
+    this.counter = 0;
   }
 }
 

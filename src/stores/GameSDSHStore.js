@@ -30,7 +30,7 @@ class GameSDSHStore {
 
   code = [];
 
-  userCode = [
+  initialUserCodeState = [
     {
       value: 0,
       isExist: false,
@@ -53,13 +53,23 @@ class GameSDSHStore {
     },
   ];
 
+  userCode = this.initialUserCodeState;
+
   attempts = 4;
+  counter = 0;
 
   decreaseAttempts() {
+    if (this.attempts === 0) {
+      this.isGameOver = true;
+      this.isGameStarted = false;
+      this.userCode = this.initialUserCodeState;
+    }
     this.attempts = this.attempts - 1;
   }
 
   isUnlocked = false;
+  isGameOver = false;
+  isGameStarted = false;
 
   checkCodeValidity() {
     const buttonsIds = [0, 1, 2, 3];
@@ -96,17 +106,24 @@ class GameSDSHStore {
   setCodeNumber(id, value) {
     this.userCode[id].value = value;
   }
+
+  gameStart() {
+    this.isGameStarted = true;
+    this.attempts = 4;
+    // this.counter = 0;
+  }
 }
 
 decorate(GameSDSHStore, {
   attempts: observable,
   generateSecretCode: action,
   userCode: observable,
-  increment: action,
-  decrement: action,
   setCodeNumber: action,
   setCodeComparisonState: action,
   checkCodeValidity: action,
+  isGameStarted: observable,
+  isGameOver: observable,
+  counter: observable,
 });
 
 export default GameSDSHStore;
