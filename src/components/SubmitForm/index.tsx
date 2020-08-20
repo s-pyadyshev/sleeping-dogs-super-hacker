@@ -3,14 +3,14 @@ import { useStores } from "../../hooks/use-stores";
 import { firestore } from "../../firebase/firebase.util";
 
 const SubmitForm = () => {
-  const { counterStore, gameSDSHStore } = useStores();
-  const [userForm, setUserForm] = useState({
+  const { gameSDSHStore } = useStores();
+  const [userForm, setUserForm] = useState<any>({
     comment: "no comments",
     score: "-",
     username: "unknown",
   });
 
-  const submitUserScore = (event) => {
+  const submitUserScore = (event: any) => {
     event.preventDefault();
 
     // const userId = currentUser.displayName.replace(/\s+/g, "");
@@ -34,7 +34,7 @@ const SubmitForm = () => {
       });
   };
 
-  const handleInput = (event) => {
+  const handleInput = (event: any) => {
     setUserForm({
       ...userForm,
       [event.target.getAttribute("name")]: event.target.value,

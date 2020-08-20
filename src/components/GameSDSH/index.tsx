@@ -8,9 +8,9 @@ import Counter from "../Counter";
 const GameSDSH = observer(() => {
   const { gameSDSHStore, counterStore } = useStores();
   const buttonsIds = [0, 1, 2, 3];
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleKeyboardActions = (event) => {
+  const handleKeyboardActions = (event: any) => {
     gameSDSHStore.setCodeNumber(
       event.target.getAttribute("data-key"),
       +event.target.value
@@ -32,11 +32,11 @@ const GameSDSH = observer(() => {
     // }
   };
 
-  const handleFocus = (event) => {
+  const handleFocus = (event: any) => {
     event.target.select();
   };
 
-  const handleCodeCheck = (event) => {
+  const handleCodeCheck = (event: any) => {
     event.preventDefault();
     gameSDSHStore.checkCodeValidity();
 
@@ -61,7 +61,9 @@ const GameSDSH = observer(() => {
   }, [counterStore.counter, gameSDSHStore]);
 
   useEffect(() => {
-    inputRef.current.focus();
+    if (inputRef.current !== null) {
+      inputRef.current.focus();
+    }
   }, []);
 
   return (
@@ -72,7 +74,7 @@ const GameSDSH = observer(() => {
             type="text"
             min="0"
             max="9"
-            maxLength="1"
+            maxLength={1}
             key={id}
             data-key={id}
             ref={id === 0 ? inputRef : null}

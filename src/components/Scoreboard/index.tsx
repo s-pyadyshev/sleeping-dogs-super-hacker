@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import { firestore } from "../../firebase/firebase.util";
 
 const Scoreboard = () => {
-  const [scoreboard, setScoreboard] = useState([]);
+  const [scoreboard, setScoreboard] = useState<any>([]);
 
   useEffect(() => {
     const scoresDB = firestore.collection("scores");
 
     scoresDB
       .get()
-      .then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-          setScoreboard((scoreboard) => [...scoreboard, doc.data()]);
+      .then(function (querySnapshot: any) {
+        querySnapshot.forEach(function (doc: any) {
+          setScoreboard((scoreboard: any) => [...scoreboard, doc.data()]);
         });
       })
       .catch(function (error) {
@@ -23,7 +23,7 @@ const Scoreboard = () => {
     <div>
       <h2>High scores:</h2>
       <ul>
-        {scoreboard.map((score, index) => (
+        {scoreboard.map((score: any, index: number) => (
           <li key={score.username + index}>
             <div>{score.score}</div>
             <div>{score.username}</div>
