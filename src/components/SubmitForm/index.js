@@ -3,7 +3,8 @@ import { useStores } from "../../hooks/use-stores";
 import { firestore } from "../../firebase/firebase.util";
 
 const SubmitForm = () => {
-  const { counterStore, gameSDSHStore } = useStores();
+  const { gameSDSHStore } = useStores();
+  const [formSubmitted, setFormSubmitted] = useState(false);
   const [userForm, setUserForm] = useState({
     comment: "no comments",
     score: "-",
@@ -27,7 +28,7 @@ const SubmitForm = () => {
       .doc(userForm.username)
       .set(userForm)
       .then(function () {
-        console.log("Document successfully written!");
+        setFormSubmitted(true);
       })
       .catch(function (error) {
         console.error("Error writing document: ", error);
@@ -41,6 +42,10 @@ const SubmitForm = () => {
     });
   };
 
+  // const handleClick = () => {
+  //   gameSDSHStore.gameStart();
+  // };
+
   useEffect(() => {
     setUserForm({
       ...userForm,
@@ -49,16 +54,32 @@ const SubmitForm = () => {
   }, [gameSDSHStore.counter]);
 
   return (
-    <form onSubmit={submitUserScore}>
-      <label htmlFor="username">Your name:</label>
-      <input type="text" id="username" name="username" onChange={handleInput} />
-      {/* <h3>Username: {currentUser ? currentUser.displayName : null}</h3> */}
-      <h3>Score: {gameSDSHStore.counter}</h3>
-      {/* <h3>Date: {currentDate}</h3> */}
-      <label>Leave a comment:</label>
-      <textarea name="comment" onChange={handleInput}></textarea>
-      <button type="submit">Submit</button>
-    </form>
+    <div>
+      {!formSubmitted ? (
+        <form onSubmit={submitUserScore}>
+          <label htmlFor="username">Your name:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            onChange={handleInput}
+            required
+          />
+          {/* <h3>Username: {currentUser ? currentUser.displayName : null}</h3> */}
+          <h3>Score: {gameSDSHStore.counter}</h3>
+          {/* <h3>Date: {currentDate}</h3> */}
+          <label>Leave a comment:</label>
+          <textarea name="comment" onChange={handleInput} required></textarea>
+          <button type="submit">Submit</button>
+        </form>
+      ) : null}
+      {formSubmitted ? (
+        <div>
+          <h3>Form was submitted</h3>{" "}
+          {/* <button onClick={handleClick}>Start</button> */}
+        </div>
+      ) : null}
+    </div>
   );
 };
 

@@ -38,14 +38,16 @@ const GameSDSH = observer(() => {
 
   const handleCodeCheck = (event) => {
     event.preventDefault();
-    gameSDSHStore.checkCodeValidity();
 
-    if (!gameSDSHStore.isUnlocked && gameSDSHStore.attempts > 1) {
-      gameSDSHStore.decreaseAttempts();
-    } else {
+    if (gameSDSHStore.attempts === 1) {
       gameSDSHStore.isGameOver = true;
       gameSDSHStore.isGameStarted = false;
       gameSDSHStore.userCode = gameSDSHStore.initialUserCodeState;
+    }
+
+    if (!gameSDSHStore.isUnlocked && gameSDSHStore.attempts > 1) {
+      gameSDSHStore.decreaseAttempts();
+      gameSDSHStore.checkCodeValidity();
     }
   };
 
