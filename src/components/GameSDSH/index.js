@@ -97,11 +97,6 @@ const GameSDSH = observer(() => {
         ))}
 
         <button onClick={handleCodeCheck}>TRY</button>
-        <div>
-          {gameSDSHStore.code.map((code) => (
-            <li>{code}</li>
-          ))}
-        </div>
 
         {!gameSDSHStore.isUnlocked ? <Counter /> : null}
         <h2>Attempts: {gameSDSHStore.attempts}</h2>
