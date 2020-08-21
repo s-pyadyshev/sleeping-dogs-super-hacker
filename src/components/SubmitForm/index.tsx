@@ -5,13 +5,13 @@ import { firestore } from "../../firebase/firebase.util";
 const SubmitForm = () => {
   const { gameSDSHStore } = useStores();
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [userForm, setUserForm] = useState({
+  const [userForm, setUserForm] = useState<any>({
     comment: "no comments",
     score: "-",
     username: "unknown",
   });
 
-  const submitUserScore = (event) => {
+  const submitUserScore = (event: any) => {
     event.preventDefault();
 
     // const userId = currentUser.displayName.replace(/\s+/g, "");
@@ -22,7 +22,7 @@ const SubmitForm = () => {
     //   date: "17.08.2020",
     //   comment: "comment",
     // };
-
+    // TODO refactor form logic
     firestore
       .collection("scores")
       .doc(userForm.username)
@@ -35,16 +35,12 @@ const SubmitForm = () => {
       });
   };
 
-  const handleInput = (event) => {
+  const handleInput = (event: any) => {
     setUserForm({
       ...userForm,
       [event.target.getAttribute("name")]: event.target.value,
     });
   };
-
-  // const handleClick = () => {
-  //   gameSDSHStore.gameStart();
-  // };
 
   useEffect(() => {
     setUserForm({

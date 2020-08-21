@@ -1,13 +1,15 @@
 import { observable, action, decorate } from "mobx";
 
 class CounterStore {
-  constructor(rootStore) {
+  rootStore: any;
+
+  constructor(rootStore: any) {
     this.rootStore = rootStore;
   }
 
   counter = 0;
   counterInProgress = false;
-  counterTimeout;
+  counterTimeout: any;
 
   startCounter() {
     this.counterInProgress = true;

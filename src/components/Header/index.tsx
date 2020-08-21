@@ -1,7 +1,7 @@
 import React from "react";
 import { auth } from "../../firebase/firebase.util";
 
-const Header = ({ currentUser }) => {
+const Header = ({ currentUser }: any) => {
   return (
     <header>
       Header
