@@ -40,12 +40,15 @@ const GameSDSH = observer(() => {
     event.preventDefault();
     gameSDSHStore.checkCodeValidity();
 
-    if (!gameSDSHStore.isUnlocked && gameSDSHStore.attempts > 1) {
-      gameSDSHStore.decreaseAttempts();
-    } else {
+    if (gameSDSHStore.attempts === 1) {
       gameSDSHStore.isGameOver = true;
       gameSDSHStore.isGameStarted = false;
       gameSDSHStore.userCode = gameSDSHStore.initialUserCodeState;
+    }
+
+    if (!gameSDSHStore.isUnlocked && gameSDSHStore.attempts > 1) {
+      gameSDSHStore.decreaseAttempts();
+      gameSDSHStore.checkCodeValidity();
     }
   };
 
@@ -98,7 +101,7 @@ const GameSDSH = observer(() => {
 
         <button onClick={handleCodeCheck}>TRY</button>
         <div>
-          {gameSDSHStore.code.map((code) => (
+          {gameSDSHStore.code.map((code: number) => (
             <li>{code}</li>
           ))}
         </div>

@@ -2,10 +2,13 @@ import { observable, action, decorate } from "mobx";
 import { isEqual } from "lodash";
 
 class GameSDSHStore {
-  constructor(rootStore) {
+  rootStore: any;
+
+  constructor(rootStore: any) {
     this.rootStore = rootStore;
   }
 
+  @action
   generateSecretCode = () => {
     // Generate full secret code and shuffle it (no repeated digits)
     const allowedDigits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -18,17 +21,16 @@ class GameSDSHStore {
       return a;
     }
 
-    const shuffledSecretCodeFull = shuffle(allowedDigits);
+    // const shuffledSecretCodeFull = shuffle(allowedDigits);
 
-    this.code = [
-      shuffledSecretCodeFull[0],
-      shuffledSecretCodeFull[1],
-      shuffledSecretCodeFull[2],
-      shuffledSecretCodeFull[3],
-    ];
+    // this.code = [
+    //   shuffledSecretCodeFull[0],
+    //   shuffledSecretCodeFull[1],
+    //   shuffledSecretCodeFull[2],
+    //   shuffledSecretCodeFull[3],
+    // ];
+    this.code = shuffle(allowedDigits).slice(0, 4);
   };
-
-  code = [];
 
   initialUserCodeState = [
     {
@@ -53,34 +55,47 @@ class GameSDSHStore {
     },
   ];
 
-  userCode = this.initialUserCodeState;
+  @observable
+  code: any = [];
 
+  @observable
+  userCode: any = this.initialUserCodeState;
+
+  @observable
   attempts = 5;
+
+  @observable
   counter = 0;
 
+  @action
   decreaseAttempts() {
     this.attempts = this.attempts - 1;
   }
 
+  @observable
   isUnlocked = false;
+  @observable
   isGameOver = false;
+  @observable
   isGameStarted = false;
 
+  @action
   checkCodeValidity() {
     const buttonsIds = [0, 1, 2, 3];
 
-    const userCodeArray = this.userCode.map((item) => item.value);
+    const userCodeArray = this.userCode.map((item: any) => item.value);
     const isEqualCodes = isEqual(this.code, userCodeArray) ? true : false;
 
-    buttonsIds.map((id) => {
+    buttonsIds.map((id: number) => {
       const isUserValueExist = this.code.includes(this.userCode[id].value)
         ? true
         : false;
+
       const isUserValueValid =
         this.code[id] === this.userCode[id].value ? true : false;
 
       if (isEqualCodes) {
-        this.userCode.map((code) => {
+        this.userCode.map((code: any) => {
           code.isExist = true;
           code.isValid = true;
         });
@@ -98,29 +113,18 @@ class GameSDSHStore {
     });
   }
 
-  setCodeNumber(id, value) {
+  @action
+  setCodeNumber(id: any, value: number) {
     this.userCode[id].value = value;
   }
 
+  @action
   gameStart() {
     this.generateSecretCode();
     this.isGameStarted = true;
     this.attempts = 6;
-
     // this.counter = 0;
   }
 }
-
-decorate(GameSDSHStore, {
-  attempts: observable,
-  generateSecretCode: action,
-  userCode: observable,
-  setCodeNumber: action,
-  setCodeComparisonState: action,
-  checkCodeValidity: action,
-  isGameStarted: observable,
-  isGameOver: observable,
-  counter: observable,
-});
 
 export default GameSDSHStore;
