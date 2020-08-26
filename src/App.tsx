@@ -40,28 +40,30 @@ const App: React.FC = observer(() => {
 
   return (
     <div className="App">
-      <Header currentUser={currentUser} />
-      <SignIn />
+      <div className="container">
+        {/* <Header currentUser={currentUser} /> */}
+        {/* <SignIn /> */}
 
-      {gameSDSHStore.isGameStarted === true ? (
-        <GameSDSH {...currentUser} />
-      ) : null}
+        {gameSDSHStore.isGameStarted === true ? (
+          <GameSDSH {...currentUser} />
+        ) : null}
 
-      {gameSDSHStore.isGameOver === true &&
-      gameSDSHStore.isGameStarted === false ? (
-        <GameOver />
-      ) : null}
+        {gameSDSHStore.isGameOver === true &&
+        gameSDSHStore.isGameStarted === false ? (
+          <GameOver />
+        ) : null}
 
-      {!gameSDSHStore.isGameStarted === true ? (
-        <button onClick={handleClick}>Start</button>
-      ) : null}
+        {!gameSDSHStore.isGameStarted === true ? (
+          <button onClick={handleClick}>Start</button>
+        ) : null}
 
-      <Scoreboard />
-      {/* <Router>
+        <Scoreboard />
+        {/* <Router>
         <Switch>
           <Route path="/signin" component={SignInAndSignUpPage} />
         </Switch>
       </Router> */}
+      </div>
     </div>
   );
 });

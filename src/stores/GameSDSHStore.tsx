@@ -21,14 +21,6 @@ class GameSDSHStore {
       return a;
     }
 
-    // const shuffledSecretCodeFull = shuffle(allowedDigits);
-
-    // this.code = [
-    //   shuffledSecretCodeFull[0],
-    //   shuffledSecretCodeFull[1],
-    //   shuffledSecretCodeFull[2],
-    //   shuffledSecretCodeFull[3],
-    // ];
     this.code = shuffle(allowedDigits).slice(0, 4);
   };
 
