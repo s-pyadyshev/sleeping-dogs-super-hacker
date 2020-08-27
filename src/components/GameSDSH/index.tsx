@@ -39,6 +39,7 @@ const GameSDSH = observer(() => {
 
   const handleCodeCheck = (event: any) => {
     event.preventDefault();
+
     gameSDSHStore.checkCodeValidity();
 
     // last try
