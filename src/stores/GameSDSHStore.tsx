@@ -1,4 +1,4 @@
-import { observable, action, decorate } from "mobx";
+import { observable, action } from "mobx";
 import { isEqual } from "lodash";
 
 class GameSDSHStore {
@@ -7,6 +7,9 @@ class GameSDSHStore {
   constructor(rootStore: any) {
     this.rootStore = rootStore;
   }
+
+  // settings
+  attemptsInitial = 6;
 
   @action
   generateSecretCode = () => {
@@ -21,14 +24,6 @@ class GameSDSHStore {
       return a;
     }
 
-    // const shuffledSecretCodeFull = shuffle(allowedDigits);
-
-    // this.code = [
-    //   shuffledSecretCodeFull[0],
-    //   shuffledSecretCodeFull[1],
-    //   shuffledSecretCodeFull[2],
-    //   shuffledSecretCodeFull[3],
-    // ];
     this.code = shuffle(allowedDigits).slice(0, 4);
   };
 
@@ -62,8 +57,11 @@ class GameSDSHStore {
   userCode: any = this.initialUserCodeState;
 
   @observable
-  attempts = 5;
+  attempts: number = this.attemptsInitial;
 
+  attemptsUsed: number = 0;
+
+  // counter for submit form
   @observable
   counter = 0;
 
@@ -72,10 +70,17 @@ class GameSDSHStore {
     this.attempts = this.attempts - 1;
   }
 
+  @action
+  calculateAttemptsUsed() {
+    this.attemptsUsed = this.attemptsInitial - this.attempts;
+  }
+
   @observable
   isUnlocked = false;
+
   @observable
   isGameOver = false;
+
   @observable
   isGameStarted = false;
 
@@ -122,8 +127,7 @@ class GameSDSHStore {
   gameStart() {
     this.generateSecretCode();
     this.isGameStarted = true;
-    this.attempts = 6;
-    // this.counter = 0;
+    this.attempts = this.attemptsInitial;
   }
 }
 

@@ -62,7 +62,10 @@ const SubmitForm = () => {
             required
           />
           {/* <h3>Username: {currentUser ? currentUser.displayName : null}</h3> */}
-          <h3>Score: {gameSDSHStore.counter}</h3>
+          <h3>Your lucky number: {gameSDSHStore.code}</h3>
+          <h3>Time spent: {gameSDSHStore.counter} s</h3>
+          <h3>Attempts used: {gameSDSHStore.attemptsUsed}</h3>
+
           {/* <h3>Date: {currentDate}</h3> */}
           <label>Leave a comment:</label>
           <textarea name="comment" onChange={handleInput} required></textarea>

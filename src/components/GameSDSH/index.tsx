@@ -4,10 +4,11 @@ import { useStores } from "../../hooks/use-stores";
 import cn from "classnames";
 import SubmitForm from "../SubmitForm";
 import Counter from "../Counter";
+import "./style.scss";
 
 const GameSDSH = observer(() => {
   const { gameSDSHStore, counterStore } = useStores();
-  const buttonsIds = [0, 1, 2, 3];
+  const inputsIds = [0, 1, 2, 3];
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleKeyboardActions = (event: any) => {
@@ -38,8 +39,10 @@ const GameSDSH = observer(() => {
 
   const handleCodeCheck = (event: any) => {
     event.preventDefault();
+    gameSDSHStore.checkCodeValidity();
 
-    if (gameSDSHStore.attempts === 1) {
+    // last try
+    if (!gameSDSHStore.isUnlocked && gameSDSHStore.attempts === 1) {
       gameSDSHStore.isGameOver = true;
       gameSDSHStore.isGameStarted = false;
       gameSDSHStore.userCode = gameSDSHStore.initialUserCodeState;
@@ -47,7 +50,7 @@ const GameSDSH = observer(() => {
 
     if (!gameSDSHStore.isUnlocked && gameSDSHStore.attempts > 1) {
       gameSDSHStore.decreaseAttempts();
-      gameSDSHStore.checkCodeValidity();
+      gameSDSHStore.calculateAttemptsUsed();
     }
   };
 
@@ -70,33 +73,38 @@ const GameSDSH = observer(() => {
 
   return (
     <div>
-      <form>
-        {buttonsIds.map((id) => (
-          <input
-            type="text"
-            min="0"
-            max="9"
-            maxLength={1}
-            key={id}
-            data-key={id}
-            ref={id === 0 ? inputRef : null}
-            onChange={handleKeyboardActions}
-            onFocus={handleFocus}
-            value={gameSDSHStore.userCode[id].value}
-            className={cn({
-              button: true,
-              "is-invalid":
-                !gameSDSHStore.userCode[id].isExist &&
-                !gameSDSHStore.userCode[id].isValid,
-              "is-exist":
-                gameSDSHStore.userCode[id].isExist &&
-                !gameSDSHStore.userCode[id].isValid,
-              "is-valid":
-                gameSDSHStore.userCode[id].isExist &&
-                gameSDSHStore.userCode[id].isValid,
-            })}
-          />
-        ))}
+      <form className={cn("form-code")}>
+        <div className={cn("form-code__input-group")}>
+          {inputsIds.map((id) => (
+            <div className={cn("form-code__input")} key={id}>
+              <input
+                type="text"
+                min="0"
+                max="9"
+                maxLength={1}
+                key={id}
+                data-key={id}
+                ref={id === 0 ? inputRef : null}
+                onChange={handleKeyboardActions}
+                onFocus={handleFocus}
+                value={gameSDSHStore.userCode[id].value}
+                className={cn({
+                  input: true,
+                  "full-width": true,
+                  "is-invalid":
+                    !gameSDSHStore.userCode[id].isExist &&
+                    !gameSDSHStore.userCode[id].isValid,
+                  "is-exist":
+                    gameSDSHStore.userCode[id].isExist &&
+                    !gameSDSHStore.userCode[id].isValid,
+                  "is-valid":
+                    gameSDSHStore.userCode[id].isExist &&
+                    gameSDSHStore.userCode[id].isValid,
+                })}
+              />
+            </div>
+          ))}
+        </div>
 
         <button onClick={handleCodeCheck}>TRY</button>
 

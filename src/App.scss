@@ -1,4 +1,4 @@
-.button {
+.input {
   background-color: #f6f6f6;
 
   &.is-invalid {
@@ -12,4 +12,8 @@
   &.is-valid {
     background-color: green;
   }
+}
+
+.full-width {
+  width: 100%;
 }

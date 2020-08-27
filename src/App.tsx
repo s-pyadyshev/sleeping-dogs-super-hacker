@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-// import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
-// import SignInAndSignUpPage from "./pages/sign-in-and-sign-up";
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import CounterPage from "./pages/CounterPage";
 import { observer } from "mobx-react";
 import SignIn from "./components/SignIn";
 import Header from "./components/Header";
@@ -42,7 +42,7 @@ const App: React.FC = observer(() => {
     <div className="App">
       <Header currentUser={currentUser} />
       <SignIn />
-
+      {/* TODO Refactor conditions */}
       {gameSDSHStore.isGameStarted === true ? (
         <GameSDSH {...currentUser} />
       ) : null}
@@ -57,11 +57,11 @@ const App: React.FC = observer(() => {
       ) : null}
 
       <Scoreboard />
-      {/* <Router>
+      <Router>
         <Switch>
-          <Route path="/signin" component={SignInAndSignUpPage} />
+          <Route path="/counter" component={CounterPage} />
         </Switch>
-      </Router> */}
+      </Router>
     </div>
   );
 });
