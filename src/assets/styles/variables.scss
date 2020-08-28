@@ -1,22 +1,11 @@
 /* stylelint-disable */
 $color-white: #fff;
 $color-black: #000;
-$color-red: #f00;
 
-$color-info: #17a2b8;
-$color-info-active: #007bff;
-
-$link-color-visited: #f0f;
-$link-color-hover: #0f0c;
-$link-color-active: #0f0c;
-$link-color-multigenre: #ff0;
-
-$h2-color: #f0f;
-
-$color-state-danger: $color-red;
-
-// fonts
-$font-family-button: "capture-it", serif;
+// Colors
+$color-invalid-placement: #bd9238;
+$color-invalid-digit: #990000;
+$color-valid-digit: #00fe00;
 
 // Container
 $container-width-lg: 1400px;

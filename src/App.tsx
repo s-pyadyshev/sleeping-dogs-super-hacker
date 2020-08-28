@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import CounterPage from "./pages/CounterPage";
 import { observer } from "mobx-react";
-import Header from "./components/Header";
 import GameSDSH from "./components/GameSDSH";
-import Scoreboard from "./components/Scoreboard";
 import GameOver from "./components/GameOver";
 import { auth } from "./firebase/firebase.util";
 import { useStores } from "./hooks/use-stores";
@@ -39,29 +37,25 @@ const App: React.FC = observer(() => {
 
   return (
     <div className="App">
-      <div className="container">
-        <Header currentUser={currentUser} />
-        {/* TODO Refactor conditions */}
-        {gameSDSHStore.isGameStarted === true ? (
-          <GameSDSH {...currentUser} />
-        ) : null}
+      {/* TODO Refactor conditions */}
+      {gameSDSHStore.isGameStarted === true ? (
+        <GameSDSH {...currentUser} />
+      ) : null}
 
-        {gameSDSHStore.isGameOver === true &&
-        gameSDSHStore.isGameStarted === false ? (
-          <GameOver />
-        ) : null}
+      {gameSDSHStore.isGameOver === true &&
+      gameSDSHStore.isGameStarted === false ? (
+        <GameOver />
+      ) : null}
 
-        {!gameSDSHStore.isGameStarted === true ? (
-          <button onClick={handleClick}>Start</button>
-        ) : null}
+      {!gameSDSHStore.isGameStarted === true ? (
+        <button onClick={handleClick}>Start</button>
+      ) : null}
 
-        <Scoreboard />
-        <Router>
-          <Switch>
-            <Route path="/counter" component={CounterPage} />
-          </Switch>
-        </Router>
-      </div>
+      <Router>
+        <Switch>
+          <Route path="/counter" component={CounterPage} />
+        </Switch>
+      </Router>
     </div>
   );
 });

@@ -9,24 +9,9 @@ class GameSDSHStore {
   }
 
   // settings
+  minValue = 0;
+  maxValue = 9;
   attemptsInitial = 6;
-
-  @action
-  generateSecretCode = () => {
-    // Generate full secret code and shuffle it (no repeated digits)
-    const allowedDigits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-    function shuffle(a: any) {
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
-    }
-
-    this.code = shuffle(allowedDigits).slice(0, 4);
-  };
-
   initialUserCodeState = [
     {
       value: 0,
@@ -50,6 +35,22 @@ class GameSDSHStore {
     },
   ];
 
+  @action
+  generateSecretCode = () => {
+    // Generate full secret code and shuffle it (no repeated digits)
+    const allowedDigits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+    function shuffle(a: any) {
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    this.code = shuffle(allowedDigits).slice(0, 4);
+  };
+
   @observable
   code: any = [];
 
@@ -65,6 +66,15 @@ class GameSDSHStore {
   @observable
   counter = 0;
 
+  @observable
+  isUnlocked = false;
+
+  @observable
+  isGameOver = false;
+
+  @observable
+  isGameStarted = false;
+
   @action
   decreaseAttempts() {
     this.attempts = this.attempts - 1;
@@ -74,15 +84,6 @@ class GameSDSHStore {
   calculateAttemptsUsed() {
     this.attemptsUsed = this.attemptsInitial - this.attempts;
   }
-
-  @observable
-  isUnlocked = false;
-
-  @observable
-  isGameOver = false;
-
-  @observable
-  isGameStarted = false;
 
   @action
   checkCodeValidity() {
@@ -121,6 +122,24 @@ class GameSDSHStore {
   @action
   setCodeNumber(id: any, value: number) {
     this.userCode[id].value = value;
+  }
+
+  @action
+  incrementCodeNumber(id: any) {
+    if (this.userCode[id].value === this.maxValue) {
+      this.userCode[id].value = 0;
+    } else {
+      this.userCode[id].value += 1;
+    }
+  }
+
+  @action
+  decrementCodeNumber(id: any) {
+    if (this.userCode[id].value === this.minValue) {
+      this.userCode[id].value = this.maxValue;
+    } else {
+      this.userCode[id].value -= 1;
+    }
   }
 
   @action

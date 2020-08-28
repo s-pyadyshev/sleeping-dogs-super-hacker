@@ -1,18 +1,29 @@
+@import "assets/styles//variables";
 @import "assets/styles/index";
+
+#root {
+  height: 100%;
+}
+
+.App {
+  height: 100%;
+  background-image: url("assets/images/main.jpg");
+  background-size: cover;
+}
 
 .input {
   background-color: #f6f6f6;
 
   &.is-invalid {
-    background-color: #f00;
+    background-color: $color-invalid-digit;
   }
 
   &.is-exist {
-    background-color: #ff0;
+    background-color: $color-invalid-placement;
   }
 
   &.is-valid {
-    background-color: green;
+    background-color: $color-valid-digit;
   }
 }
 

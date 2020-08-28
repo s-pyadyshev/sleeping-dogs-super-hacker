@@ -1,5 +1,6 @@
 @import "./variables";
 @import "./fonts";
+@import "./button";
 @import "./media";
 
 *,
@@ -10,9 +11,11 @@
 
 html {
   box-sizing: border-box;
+  height: 100%;
 }
 
 body {
+  height: 100%;
   margin: 0;
   color: $color-black;
   font-size: 16px;
@@ -29,27 +32,6 @@ ul {
   margin-bottom: 0;
   padding-left: 0;
   list-style-type: none;
-}
-
-a {
-  color: $color-white;
-  transition-duration: 0.2s;
-  transition-property: color;
-
-  &:visited {
-    color: $link-color-visited;
-  }
-
-  &:focus,
-  &:hover {
-    color: $link-color-hover;
-    transition-duration: 0.2s;
-    transition-property: color;
-  }
-
-  &:active {
-    color: $link-color-active;
-  }
 }
 
 h1,
@@ -77,8 +59,6 @@ select {
 }
 
 svg {
-  width: inherit;
-  height: inherit;
   fill: currentColor;
 }
 

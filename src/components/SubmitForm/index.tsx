@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useStores } from "../../hooks/use-stores";
 import { firestore } from "../../firebase/firebase.util";
+import "./style.scss";
 
 const SubmitForm = () => {
   const { gameSDSHStore } = useStores();
@@ -50,7 +51,7 @@ const SubmitForm = () => {
   }, [gameSDSHStore.counter]);
 
   return (
-    <div>
+    <div className="submit-form">
       {!formSubmitted ? (
         <form onSubmit={submitUserScore}>
           <label htmlFor="username">Your name:</label>
