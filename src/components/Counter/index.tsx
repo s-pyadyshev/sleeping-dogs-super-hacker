@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useStores } from "../../hooks/use-stores";
+import "./style.scss";
 
 const Counter = () => {
   const { counterStore, gameSDSHStore } = useStores();
@@ -13,7 +14,11 @@ const Counter = () => {
       }
     };
   }, []);
-  return <h1>Time: {counterStore.counter}</h1>;
+  return (
+    <span className="counter">
+      Time: <span className="counter__value">{counterStore.counter}</span>
+    </span>
+  );
 };
 
 export default Counter;

@@ -1,0 +1,18 @@
+.input-group-stacked {
+  .label {
+    display: block;
+  }
+}
+
+.input {
+  padding: 8px;
+  border-radius: 8px;
+
+  &--full-width {
+    width: 100%;
+  }
+}
+
+.label {
+  font-size: 24px;
+}

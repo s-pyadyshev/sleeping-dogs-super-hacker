@@ -1,3 +1,5 @@
+@import "../../assets/styles/variables";
+
 $input-amount: 4;
 
 .form-code {
@@ -7,24 +9,11 @@ $input-amount: 4;
   height: 676px;
   margin-right: auto;
   margin-left: auto;
+  padding: 12px;
   background-image: url("../../assets/images/phone.png");
   background-size: 100% 100%;
 
-  &__attempts {
-    position: absolute;
-    bottom: 228px;
-    text-align: center;
-    right: 0;
-    left: 0;
-    text-transform: uppercase;
-    color: #fff;
-  }
-
   &__button-enter {
-    position: absolute;
-    bottom: 80px;
-    right: 0;
-    left: 0;
     text-align: center;
   }
 
@@ -33,22 +22,46 @@ $input-amount: 4;
 
     input {
       height: 50px;
+      font-family: $font-family-primary;
+      font-size: 40px;
       text-align: center;
-      font-size: 30px;
       border: 1px solid #000;
+      pointer-events: none;
+      outline: none;
     }
   }
 
   &__input-group {
-    position: absolute;
-    right: 0;
-    bottom: 150px;
-    left: 0;
     display: flex;
     flex-wrap: wrap;
     max-width: 190px;
     margin-right: auto;
+    margin-bottom: 16px;
     margin-left: auto;
+  }
+
+  &__interface {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 250px;
+  }
+
+  &__stats {
+    display: flex;
+    justify-content: space-around;
+    font-family: $font-family-secondary;
+    margin-bottom: 16px;
+    padding-right: 12px;
+    padding-left: 12px;
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+  }
+
+  &__stats-attempts-value {
+    min-width: 16px;
   }
 }
 

@@ -1,0 +1,43 @@
+@import "../../assets/styles/variables";
+
+.game-menu {
+  text-transform: uppercase;
+  color: #fef2a4;
+
+  a,
+  button {
+    display: inline-block;
+    font-size: 32px;
+    font-weight: 700;
+    background: none;
+    text-decoration: none;
+    color: inherit;
+    padding: 8px 12px;
+    outline: none;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    transition-duration: $transition-duration;
+    transition-property: border, box-shadow;
+
+    &:focus,
+    &:hover,
+    &:active {
+      border: 1px solid #fff;
+      box-shadow: inset 0 0 8px 1px #fef2a4, 0 0 8px 1px #fef2a4;
+      transition-duration: $transition-duration;
+      transition-property: border, box-shadow;
+    }
+  }
+
+  button {
+    border: 0;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+  }
+
+  &__item {
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+  }
+}

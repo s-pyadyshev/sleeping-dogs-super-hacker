@@ -1,6 +1,7 @@
 @import "./variables";
 @import "./fonts";
 @import "./button";
+@import "./form";
 @import "./media";
 
 *,
@@ -17,11 +18,9 @@ html {
 body {
   height: 100%;
   margin: 0;
-  color: $color-black;
+  font-family: $font-family-primary;
   font-size: 16px;
-  font-family: "Ubuntu", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    "Oxygen", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  color: $color-black;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -49,6 +48,9 @@ img {
 }
 
 button {
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
   cursor: pointer;
 }
 
@@ -66,4 +68,6 @@ svg {
   max-width: 1200px;
   margin-right: auto;
   margin-left: auto;
+  padding-right: 32px;
+  padding-left: 32px;
 }

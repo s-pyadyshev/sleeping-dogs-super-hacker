@@ -92,58 +92,61 @@ const GameSDSH = observer(() => {
         <SubmitForm />
       ) : (
         <form className={cn("form-code")}>
-          <div className={cn("form-code__input-group")}>
-            {inputsIds.map((id) => (
-              <div className={cn("form-code__input")} key={id}>
-                <button
-                  className={cn("button-increment")}
-                  onClick={incrementDigit}
-                  data-key={id}
-                ></button>
-                <input
-                  type="text"
-                  min="0"
-                  max="9"
-                  maxLength={1}
-                  key={id}
-                  data-key={id}
-                  ref={id === 0 ? inputRef : null}
-                  onChange={handleKeyboardActions}
-                  onFocus={handleFocus}
-                  value={gameSDSHStore.userCode[id].value}
-                  className={cn({
-                    input: true,
-                    "full-width": true,
-                    "is-invalid":
-                      !gameSDSHStore.userCode[id].isExist &&
-                      !gameSDSHStore.userCode[id].isValid,
-                    "is-exist":
-                      gameSDSHStore.userCode[id].isExist &&
-                      !gameSDSHStore.userCode[id].isValid,
-                    "is-valid":
-                      gameSDSHStore.userCode[id].isExist &&
-                      gameSDSHStore.userCode[id].isValid,
-                  })}
-                />
-                <button
-                  className={cn("button-decrement")}
-                  onClick={decrementDigit}
-                  data-key={id}
-                ></button>
-              </div>
-            ))}
-          </div>
+          <div className="form-code__interface">
+            <div className="form-code__stats">
+              Attempts remaining: {gameSDSHStore.attempts}
+              <span className="form-code__stats-attempts-value">
+                {!gameSDSHStore.isUnlocked ? <Counter /> : null}
+              </span>
+            </div>
+            <div className={cn("form-code__input-group")}>
+              {inputsIds.map((id) => (
+                <div className={cn("form-code__input")} key={id}>
+                  <button
+                    className={cn("button-increment")}
+                    onClick={incrementDigit}
+                    data-key={id}
+                  ></button>
+                  <input
+                    type="text"
+                    min="0"
+                    max="9"
+                    maxLength={1}
+                    key={id}
+                    data-key={id}
+                    ref={id === 0 ? inputRef : null}
+                    onChange={handleKeyboardActions}
+                    onFocus={handleFocus}
+                    value={gameSDSHStore.userCode[id].value}
+                    className={cn({
+                      input: true,
+                      "full-width": true,
+                      "is-invalid":
+                        !gameSDSHStore.userCode[id].isExist &&
+                        !gameSDSHStore.userCode[id].isValid,
+                      "is-exist":
+                        gameSDSHStore.userCode[id].isExist &&
+                        !gameSDSHStore.userCode[id].isValid,
+                      "is-valid":
+                        gameSDSHStore.userCode[id].isExist &&
+                        gameSDSHStore.userCode[id].isValid,
+                    })}
+                  />
+                  <button
+                    className={cn("button-decrement")}
+                    onClick={decrementDigit}
+                    data-key={id}
+                  ></button>
+                </div>
+              ))}
+            </div>
 
-          <div className="form-code__button-enter">
-            <button
-              onClick={handleCodeCheck}
-              className={cn("button-enter")}
-            ></button>
-          </div>
-
-          {!gameSDSHStore.isUnlocked ? <Counter /> : null}
-          <div className="form-code__attempts">
-            Attempts remaining: {gameSDSHStore.attempts}
+            <div className="form-code__button-enter">
+              <button
+                onClick={handleCodeCheck}
+                className={cn("button-enter")}
+              ></button>
+            </div>
           </div>
         </form>
       )}

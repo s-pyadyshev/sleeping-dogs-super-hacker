@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
-import CounterPage from "./pages/CounterPage";
+import { Helmet } from "react-helmet";
 import { observer } from "mobx-react";
+import CounterPage from "./pages/CounterPage";
+import HighScorePage from "./pages/HighScorePage";
 import GameSDSH from "./components/GameSDSH";
 import GameOver from "./components/GameOver";
+import GameMenu from "./components/GameMenu";
 import { auth } from "./firebase/firebase.util";
 import { useStores } from "./hooks/use-stores";
 
@@ -31,31 +34,32 @@ const App: React.FC = observer(() => {
     };
   }, []);
 
-  const handleClick = () => {
-    gameSDSHStore.gameStart();
-  };
-
   return (
     <div className="App">
-      {/* TODO Refactor conditions */}
-      {gameSDSHStore.isGameStarted === true ? (
-        <GameSDSH {...currentUser} />
-      ) : null}
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Sleeping Dogs Super Hacker</title>
+      </Helmet>
+      <div className="container">
+        <Router>
+          <Switch>
+            <Route path="/" exact>
+              <GameMenu />
+              {/* TODO Refactor conditions */}
+              {gameSDSHStore.isGameStarted === true ? (
+                <GameSDSH {...currentUser} />
+              ) : null}
 
-      {gameSDSHStore.isGameOver === true &&
-      gameSDSHStore.isGameStarted === false ? (
-        <GameOver />
-      ) : null}
-
-      {!gameSDSHStore.isGameStarted === true ? (
-        <button onClick={handleClick}>Start</button>
-      ) : null}
-
-      <Router>
-        <Switch>
-          <Route path="/counter" component={CounterPage} />
-        </Switch>
-      </Router>
+              {gameSDSHStore.isGameOver === true &&
+              gameSDSHStore.isGameStarted === false ? (
+                <GameOver />
+              ) : null}
+            </Route>
+            <Route path="/counter" component={CounterPage} />
+            <Route path="/highscore" component={HighScorePage} />
+          </Switch>
+        </Router>
+      </div>
     </div>
   );
 });

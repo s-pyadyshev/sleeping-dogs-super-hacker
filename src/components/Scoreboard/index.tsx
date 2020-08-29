@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { firestore } from "../../firebase/firebase.util";
+import "./style.scss";
 
 const Scoreboard = () => {
   const [scoreboard, setScoreboard] = useState<any>([]);
@@ -21,17 +22,19 @@ const Scoreboard = () => {
   }, []);
 
   return (
-    <div>
+    <div className="scoreboard">
       <h2>High scores:</h2>
       <ul>
         {scoreboard
           .sort((a: any, b: any) => a.score - b.score)
           .map((score: any, index: number) => (
-            <li key={score.username + index}>
-              <div>{score.score}</div>
-              <div>{score.username}</div>
-              {/* <div>{score.date}</div> */}
-              <div>{score.comment}</div>
+            <li key={score.username + index} className="scoreboard__list-item">
+              <div className="scoreboard__item-index">{index + 1}</div>
+              <div className="scoreboard__item-username">{score.username}</div>
+              <div className="scoreboard__item-score">{score.score}</div>
+              <div className="scoreboard__item-score">{score.attemptsUsed}</div>
+              <div className="scoreboard__item-company">{score.company}</div>
+              <div className="scoreboard__item-comment">{score.comment}</div>
             </li>
           ))}
       </ul>

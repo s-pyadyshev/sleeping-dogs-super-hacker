@@ -14,5 +14,10 @@ code {
 }
 
 input {
+  font-family: inherit;
   font-size: inherit;
+}
+
+textarea {
+  resize: vertical;
 }
