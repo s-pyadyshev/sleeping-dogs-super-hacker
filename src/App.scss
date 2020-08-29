@@ -13,6 +13,7 @@
   .container {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     height: 100%;
 
     .aside {
@@ -21,6 +22,10 @@
 
     .main {
       flex-basis: 100%;
+
+      @media (min-width: 768px) {
+        flex-basis: 80%;
+      }
     }
   }
 }

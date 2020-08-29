@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
+import { observer } from "mobx-react";
 import GameSDSH from "../../components/GameSDSH";
 import GameOver from "../../components/GameOver";
 import { useStores } from "../../hooks/use-stores";
 
 export interface GameSDSHPageProps {}
 
-const GameSDSHPage: React.SFC<GameSDSHPageProps> = () => {
+const GameSDSHPage: React.SFC<GameSDSHPageProps> = observer(() => {
   const { gameSDSHStore } = useStores();
 
-  // useEffect(() => {
-  //   gameSDSHStore.gameStart();
-  // }, [gameSDSHStore]);
+  useEffect(() => {
+    gameSDSHStore.gameStart();
+  }, [gameSDSHStore]);
 
   return (
     <>
@@ -23,6 +24,6 @@ const GameSDSHPage: React.SFC<GameSDSHPageProps> = () => {
       ) : null}
     </>
   );
-};
+});
 
-export default GameSDSH;
+export default GameSDSHPage;

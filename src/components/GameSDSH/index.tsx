@@ -94,13 +94,11 @@ const GameSDSH = observer(() => {
     }
   }, [counterStore, counterStore.counter, gameSDSHStore]);
 
-  useEffect(() => {
-    gameSDSHStore.gameStart();
-
-    if (inputRef.current !== null) {
-      inputRef.current.focus();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (inputRef.current !== null) {
+  //     inputRef.current.focus();
+  //   }
+  // }, []);
 
   return (
     <div className="form-code-wrap">
@@ -114,10 +112,11 @@ const GameSDSH = observer(() => {
         <form className={cn("form-code")}>
           <div className="form-code__interface">
             <div className="form-code__stats">
-              Attempts remaining: {gameSDSHStore.attempts}
+              Attempts remaining:
               <span className="form-code__stats-attempts-value">
-                {!gameSDSHStore.isUnlocked ? <Counter /> : null}
+                {gameSDSHStore.attempts}
               </span>
+              {!gameSDSHStore.isUnlocked ? <Counter /> : null}
             </div>
             <div className={cn("form-code__input-group")}>
               {inputsIds.map((id) => (

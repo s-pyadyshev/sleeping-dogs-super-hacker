@@ -61,7 +61,8 @@ $input-amount: 4;
   }
 
   &__stats-attempts-value {
-    min-width: 16px;
+    display: inline-block;
+    min-width: 12px;
   }
 }
 
