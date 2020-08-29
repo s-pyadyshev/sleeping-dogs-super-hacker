@@ -6,6 +6,24 @@ import SubmitForm from "../SubmitForm";
 import Counter from "../Counter";
 import "./style.scss";
 
+// observer - from mobx-react.
+// The observer HoC / decorator subscribes React components automatically to any observables that are used during render.
+// As a result, components will automatically re - render when relevant observables change.
+// But it also makes sure that components don't re-render when there are no relevant changes.
+
+// observer automatically tracks observables used during render
+
+// Note that observer only subscribes to observables used during the own render of the component.
+// So if observables are passed to child components,
+// those have to be marked as observer as well.This also holds for any callback based components.
+
+// When using useLocalStore, all properties of the returned object will be made observable automatically,
+// getters will be turned into computed properties,
+// and methods will be bound to the store and apply mobx transactions automatically.
+// If new class instances are returned from the initializer, they will be kept as is.
+
+// When to apply observer? The simple rule of thumb is: all components that render observable data.
+
 const GameSDSH = observer(() => {
   const { gameSDSHStore, counterStore } = useStores();
   const inputsIds = [0, 1, 2, 3];
@@ -74,9 +92,11 @@ const GameSDSH = observer(() => {
     if (gameSDSHStore.isUnlocked) {
       counterStore.endCounter();
     }
-  }, [counterStore.counter, gameSDSHStore]);
+  }, [counterStore, counterStore.counter, gameSDSHStore]);
 
   useEffect(() => {
+    gameSDSHStore.gameStart();
+
     if (inputRef.current !== null) {
       inputRef.current.focus();
     }

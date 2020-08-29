@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useStores } from "../../hooks/use-stores";
+import { SubmitFormInterface } from "../../interfaces/submit-form";
 import { firestore } from "../../firebase/firebase.util";
 import "./style.scss";
 
 const SubmitForm = () => {
   const { gameSDSHStore } = useStores();
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [userForm, setUserForm] = useState<any>({
-    score: "-",
-    attemptsUsed: "-",
+  const [userForm, setUserForm] = useState<SubmitFormInterface>({
+    score: 1000,
+    attemptsUsed: 6,
     username: "anonym",
     company: "unknown",
     comment: "no comments",
@@ -42,16 +43,12 @@ const SubmitForm = () => {
     setUserForm({
       ...userForm,
       [event.target.getAttribute("name")]: event.target.value,
-    });
-  };
-
-  useEffect(() => {
-    setUserForm({
-      ...userForm,
       score: gameSDSHStore.counter,
       attemptsUsed: gameSDSHStore.attemptsUsed,
     });
-  }, [gameSDSHStore.counter]);
+  };
+
+  useEffect(() => {}, [gameSDSHStore.counter, gameSDSHStore.attemptsUsed]);
 
   return (
     <div className="submit-form">

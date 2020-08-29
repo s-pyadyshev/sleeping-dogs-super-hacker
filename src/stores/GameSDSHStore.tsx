@@ -104,6 +104,7 @@ class GameSDSHStore {
         this.userCode.map((code: any) => {
           code.isExist = true;
           code.isValid = true;
+          return null; // array-callback-return
         });
         this.isUnlocked = true;
       } else if (isUserValueExist && !isUserValueValid) {
@@ -116,6 +117,8 @@ class GameSDSHStore {
         this.userCode[id].isValid = false;
         this.userCode[id].isExist = false;
       }
+
+      return null; // array-callback-return
     });
   }
 

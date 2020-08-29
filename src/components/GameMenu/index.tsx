@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useStores } from "../../hooks/use-stores";
 import "./style.scss";
 
@@ -21,6 +21,11 @@ const GameMenu: React.SFC<GameMenuProps> = () => {
               <button onClick={handleClick}>Start</button>
             ) : null}
           </li>
+          {/* <li className="game-menu__item">
+            <NavLink to="/game" exact activeClassName="is-active">
+              Start
+            </NavLink>
+          </li> */}
           <li className="game-menu__item">
             <NavLink to="/about" exact activeClassName="is-active">
               About

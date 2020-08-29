@@ -13,7 +13,8 @@ const Counter = () => {
         counterStore.endCounter();
       }
     };
-  }, []);
+  }, [counterStore, gameSDSHStore]);
+
   return (
     <span className="counter">
       Time: <span className="counter__value">{counterStore.counter}</span>

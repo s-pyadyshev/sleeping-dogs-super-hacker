@@ -6,6 +6,7 @@ export interface CounterPageProps {}
 const CounterPage: React.SFC<CounterPageProps> = () => {
   return (
     <div>
+      This page is just to test Counter component separately
       <Counter />
     </div>
   );

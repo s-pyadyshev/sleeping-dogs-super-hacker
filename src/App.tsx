@@ -42,22 +42,24 @@ const App: React.FC = observer(() => {
       </Helmet>
       <div className="container">
         <Router>
-          <Switch>
-            <Route path="/" exact>
-              <GameMenu />
-              {/* TODO Refactor conditions */}
-              {gameSDSHStore.isGameStarted === true ? (
-                <GameSDSH {...currentUser} />
-              ) : null}
+          <aside className="aside">
+            <GameMenu />
+          </aside>
+          <main className="main">
+            <Switch>
+              <Route path="/" exact>
+                {/* TODO Refactor conditions */}
+                {gameSDSHStore.isGameStarted === true ? <GameSDSH /> : null}
 
-              {gameSDSHStore.isGameOver === true &&
-              gameSDSHStore.isGameStarted === false ? (
-                <GameOver />
-              ) : null}
-            </Route>
-            <Route path="/counter" component={CounterPage} />
-            <Route path="/highscore" component={HighScorePage} />
-          </Switch>
+                {gameSDSHStore.isGameOver === true &&
+                gameSDSHStore.isGameStarted === false ? (
+                  <GameOver />
+                ) : null}
+              </Route>
+              <Route path="/counter" component={CounterPage} />
+              <Route path="/highscore" component={HighScorePage} />
+            </Switch>
+          </main>
         </Router>
       </div>
     </div>
