@@ -17,33 +17,26 @@
     height: 100%;
 
     .aside {
-      flex-basis: 20%;
+      flex-basis: 100%;
+      text-align: center;
+
+      @media (min-width: 768px) {
+        flex-basis: 20%;
+        text-align: left;
+      }
     }
 
     .main {
       flex-basis: 100%;
 
+      &:only-child {
+        flex-basis: 100%;
+      }
+
       @media (min-width: 768px) {
         flex-basis: 80%;
       }
     }
-  }
-}
-
-.input {
-  background-color: #f6f6f6;
-
-  &.is-invalid {
-    background-color: $color-invalid-digit;
-  }
-
-  &.is-exist {
-    border-radius: 50%;
-    background-color: $color-invalid-placement;
-  }
-
-  &.is-valid {
-    background-color: $color-valid-digit;
   }
 }
 

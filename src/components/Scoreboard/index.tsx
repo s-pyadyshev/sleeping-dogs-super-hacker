@@ -22,8 +22,8 @@ const Scoreboard = () => {
   }, []);
 
   return (
-    <div className="scoreboard">
-      <h2>High scores:</h2>
+    <div className="scoreboard card-primary">
+      <h2 className="scoreboard__title">High scores:</h2>
       <ul>
         {scoreboard
           .sort((a: any, b: any) => a.score - b.score)

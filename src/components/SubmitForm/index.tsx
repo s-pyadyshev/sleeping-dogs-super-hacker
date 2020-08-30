@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useStores } from "../../hooks/use-stores";
 import { SubmitFormInterface } from "../../interfaces/submit-form";
 import { firestore } from "../../firebase/firebase.util";
@@ -18,14 +19,6 @@ const SubmitForm = () => {
   const submitUserScore = (event: any) => {
     event.preventDefault();
 
-    // const userId = currentUser.displayName.replace(/\s+/g, "");
-
-    // const userScore = {
-    //   username: currentUser.displayName,
-    //   score: counterStore.counter,
-    //   date: "17.08.2020",
-    //   comment: "comment",
-    // };
     // TODO refactor form logic
     firestore
       .collection("scores")
@@ -103,6 +96,8 @@ const SubmitForm = () => {
       {formSubmitted ? (
         <div>
           <h3>Form was submitted</h3>
+
+          <Link to="/">Go back</Link>
         </div>
       ) : null}
     </div>

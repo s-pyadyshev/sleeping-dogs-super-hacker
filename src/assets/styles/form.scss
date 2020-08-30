@@ -7,6 +7,24 @@
 .input {
   padding: 8px;
   border-radius: 8px;
+  background-color: #f6f6f6;
+
+  &.is-focus {
+    box-shadow: inset 0 0 0 3px #7bc1d9;
+  }
+
+  &.is-invalid {
+    background-color: $color-invalid-digit;
+  }
+
+  &.is-exist {
+    border-radius: 50%;
+    background-color: $color-invalid-placement;
+  }
+
+  &.is-valid {
+    background-color: $color-valid-digit;
+  }
 
   &--full-width {
     width: 100%;

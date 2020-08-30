@@ -1,10 +1,12 @@
 import React, { useEffect, useRef } from "react";
-import { observer } from "mobx-react";
+import { observer, useLocalStore } from "mobx-react";
 import { useStores } from "../../hooks/use-stores";
 import cn from "classnames";
 import SubmitForm from "../SubmitForm";
 import Counter from "../Counter";
+import { useKeyPress } from "../../hooks/useKeyPress";
 import "./style.scss";
+// import GameSDSHStore from "../../stores/GameSDSHStore";
 
 // observer - from mobx-react.
 // The observer HoC / decorator subscribes React components automatically to any observables that are used during render.
@@ -26,38 +28,63 @@ import "./style.scss";
 
 const GameSDSH = observer(() => {
   const { gameSDSHStore, counterStore } = useStores();
+  const activeDigitState = useLocalStore(() => ({
+    currentDigitId: 0,
+    increment() {
+      activeDigitState.currentDigitId += 1;
+    },
+    decrement() {
+      activeDigitState.currentDigitId -= 1;
+    },
+    resetToFirst() {
+      activeDigitState.currentDigitId = 0;
+    },
+    resetToLast() {
+      activeDigitState.currentDigitId = 3;
+    },
+  }));
   const inputsIds = [0, 1, 2, 3];
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleKeyboardActions = (event: any) => {
-    gameSDSHStore.setCodeNumber(
-      event.target.getAttribute("data-key"),
-      +event.target.value
-    );
-    event.target.select();
-    // switch (event.target.value) {
-    //   case "37": {
-    //     // left
-    //   }
-    //   case "38": {
-    //     // up
-    //   }
-    //   case "39": {
-    //     // right
-    //   }
-    //   case "40": {
-    //     // down
-    //   }
-    // }
+  const pressUpCallback = () => {
+    gameSDSHStore.incrementCodeNumber(activeDigitState.currentDigitId);
   };
+
+  const pressDownCallback = () => {
+    gameSDSHStore.decrementCodeNumber(activeDigitState.currentDigitId);
+  };
+
+  const pressLeftCallback = () => {
+    if (activeDigitState.currentDigitId === 0) {
+      activeDigitState.resetToLast();
+    } else {
+      activeDigitState.decrement();
+    }
+  };
+
+  const pressRighttCallback = () => {
+    if (activeDigitState.currentDigitId === 3) {
+      activeDigitState.resetToFirst();
+    } else {
+      activeDigitState.increment();
+    }
+  };
+
+  const pressEnterCallback = () => {
+    checkCode();
+  };
+
+  useKeyPress("w", pressUpCallback);
+  useKeyPress("a", pressLeftCallback);
+  useKeyPress("s", pressDownCallback);
+  useKeyPress("d", pressRighttCallback);
+  useKeyPress("Enter", pressEnterCallback);
 
   const handleFocus = (event: any) => {
     event.target.select();
   };
 
-  const handleCodeCheck = (event: any) => {
-    event.preventDefault();
-
+  const checkCode = () => {
     gameSDSHStore.checkCodeValidity();
 
     // last try
@@ -71,6 +98,11 @@ const GameSDSH = observer(() => {
       gameSDSHStore.decreaseAttempts();
       gameSDSHStore.calculateAttemptsUsed();
     }
+  };
+
+  const handleCodeCheck = (event: any) => {
+    event.preventDefault();
+    checkCode();
   };
 
   const incrementDigit = (event: any) => {
@@ -109,13 +141,15 @@ const GameSDSH = observer(() => {
       {gameSDSHStore.isUnlocked ? (
         <SubmitForm />
       ) : (
-        <form className={cn("form-code")}>
+        <form className={cn("form-code")} onSubmit={handleCodeCheck}>
           <div className="form-code__interface">
             <div className="form-code__stats">
-              Attempts remaining:
-              <span className="form-code__stats-attempts-value">
-                {gameSDSHStore.attempts}
-              </span>
+              <div>
+                Attempts remaining:&nbsp;
+                <span className="form-code__stats-attempts-value">
+                  {gameSDSHStore.attempts}
+                </span>
+              </div>
               {!gameSDSHStore.isUnlocked ? <Counter /> : null}
             </div>
             <div className={cn("form-code__input-group")}>
@@ -134,12 +168,13 @@ const GameSDSH = observer(() => {
                     key={id}
                     data-key={id}
                     ref={id === 0 ? inputRef : null}
-                    onChange={handleKeyboardActions}
                     onFocus={handleFocus}
                     value={gameSDSHStore.userCode[id].value}
+                    onChange={() => {}}
                     className={cn({
                       input: true,
                       "full-width": true,
+                      "is-focus": activeDigitState.currentDigitId === id,
                       "is-invalid":
                         !gameSDSHStore.userCode[id].isExist &&
                         !gameSDSHStore.userCode[id].isValid,
@@ -162,6 +197,7 @@ const GameSDSH = observer(() => {
 
             <div className="form-code__button-enter">
               <button
+                type="submit"
                 onClick={handleCodeCheck}
                 className={cn("button-enter")}
               ></button>

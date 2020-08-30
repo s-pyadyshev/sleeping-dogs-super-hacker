@@ -11,6 +11,11 @@ const GameMenu: React.SFC<GameMenuProps> = () => {
       <nav className="game-menu">
         <ul>
           <li className="game-menu__item">
+            <NavLink to="/" exact activeClassName="is-active">
+              How to play
+            </NavLink>
+          </li>
+          <li className="game-menu__item">
             <NavLink to="/game" exact activeClassName="is-active">
               Start
             </NavLink>
