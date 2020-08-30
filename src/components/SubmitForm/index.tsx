@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useStores } from "../../hooks/use-stores";
 import { SubmitFormInterface } from "../../interfaces/submit-form";
 import { firestore } from "../../firebase/firebase.util";
@@ -26,6 +25,10 @@ const SubmitForm = () => {
       .set(userForm)
       .then(function () {
         setFormSubmitted(true);
+        // TODO refactor route logic
+        setTimeout(() => {
+          document.location.href = "/";
+        }, 2000);
       })
       .catch(function (error) {
         console.error("Error writing document: ", error);
@@ -44,7 +47,7 @@ const SubmitForm = () => {
   useEffect(() => {}, [gameSDSHStore.counter, gameSDSHStore.attemptsUsed]);
 
   return (
-    <div className="submit-form">
+    <div className="submit-form card-primary">
       {!formSubmitted ? (
         <form onSubmit={submitUserScore}>
           <div className="input-group-stacked">
@@ -96,8 +99,6 @@ const SubmitForm = () => {
       {formSubmitted ? (
         <div>
           <h3>Form was submitted</h3>
-
-          <Link to="/">Go back</Link>
         </div>
       ) : null}
     </div>
