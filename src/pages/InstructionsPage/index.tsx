@@ -5,7 +5,7 @@ export interface InstructionsPageProps {}
 
 const InstructionsPage: React.SFC<InstructionsPageProps> = () => {
   return (
-    <div className="instructions card-primary">
+    <div className="instructions card">
       <p>
         Enter 4 UNIQUE digits. You have 6 attempts only. And the clock is
         ticking!

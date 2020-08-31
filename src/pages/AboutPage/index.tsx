@@ -5,9 +5,10 @@ export interface AboutPageProps {}
 
 const AboutPage: React.SFC<AboutPageProps> = () => {
   return (
-    <div className="about card-primary">
+    <div className="about card">
       It is recreation of&nbsp;
       <a
+        className="link"
         href="https://en.wikipedia.org/wiki/Sleeping_Dogs_(video_game)"
         target="_blank"
         rel="noopener noreferrer"
@@ -15,10 +16,21 @@ const AboutPage: React.SFC<AboutPageProps> = () => {
         Sleeping Dogs
       </a>
       &nbsp;camera hacking mini-game which is also a variation of&nbsp;
-      <a href="https://en.wikipedia.org/wiki/Bulls_and_Cows">Bull and Cows</a>.
+      <a className="link" href="https://en.wikipedia.org/wiki/Bulls_and_Cows">
+        Bull and Cows
+      </a>
+      . Buy the game on&nbsp;
+      <a
+        href="https://store.steampowered.com/app/202170/Sleeping_Dogs/"
+        className="link"
+      >
+        Steam
+      </a>
+      .
       <p>
-        Tech stack:{" "}
+        Tech stack:&nbsp;
         <a
+          className="link"
           href="https://github.com/facebook/react"
           target="_blank"
           rel="noopener noreferrer"
@@ -27,6 +39,7 @@ const AboutPage: React.SFC<AboutPageProps> = () => {
         </a>
         ,&nbsp;
         <a
+          className="link"
           href="https://mobx.js.org/"
           target="_blank"
           rel="noopener noreferrer"
@@ -35,6 +48,7 @@ const AboutPage: React.SFC<AboutPageProps> = () => {
         </a>
         ,&nbsp;
         <a
+          className="link"
           href="https://firebase.google.com/"
           target="_blank"
           rel="noopener noreferrer"
@@ -51,6 +65,7 @@ const AboutPage: React.SFC<AboutPageProps> = () => {
         Idea and images are properties of Square Enix Ltd. Background image
         by&nbsp;
         <a
+          className="link"
           href="https://www.deviantart.com/lonefirewarrior/art/KISS-MY-ASS-GOD-KING-479293593"
           target="_blank"
           rel="noopener noreferrer"
@@ -61,9 +76,13 @@ const AboutPage: React.SFC<AboutPageProps> = () => {
       </p>
       <p>
         Source code:&nbsp;
-        <a href="https://github.com/s-pyadyshev/sleeping-dogs-super-hacker">
+        <a
+          className="link"
+          href="https://github.com/s-pyadyshev/sleeping-dogs-super-hacker"
+        >
           Github
         </a>
+        .
       </p>
     </div>
   );

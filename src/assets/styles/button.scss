@@ -1,6 +1,12 @@
 .button {
   border-radius: 8px;
   padding: 8px 12px;
+
+  &:disabled {
+    opacity: 0.5;
+    color: #ccc;
+    pointer-events: none;
+  }
 }
 
 .button-decrement {

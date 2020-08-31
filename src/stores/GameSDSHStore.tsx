@@ -1,5 +1,7 @@
 import { observable, action } from "mobx";
-import { isEqual } from "lodash";
+import { isEqual, initial } from "lodash";
+import { shuffle } from "../utils";
+import { UserCodeInterface } from "../interfaces/user-code";
 
 class GameSDSHStore {
   rootStore: any;
@@ -9,10 +11,11 @@ class GameSDSHStore {
   }
 
   // settings
-  minValue = 0;
-  maxValue = 9;
-  attemptsInitial = 6;
-  initialUserCodeState = [
+  allowedDigits: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  minValue: number = 0;
+  maxValue: number = 9;
+  attemptsInitial: number = 6;
+  initialUserCodeState: UserCodeInterface[] = [
     {
       value: 0,
       isExist: false,
@@ -34,25 +37,10 @@ class GameSDSHStore {
       isValid: false,
     },
   ];
-
-  @action
-  generateSecretCode = () => {
-    // Generate full secret code and shuffle it (no repeated digits)
-    const allowedDigits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-    function shuffle(a: any) {
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
-    }
-
-    this.code = shuffle(allowedDigits).slice(0, 4);
-  };
+  codeLength = initial.length;
 
   @observable
-  code: any = [];
+  code: number[] = [];
 
   @observable
   userCode: any = this.initialUserCodeState;
@@ -75,6 +63,15 @@ class GameSDSHStore {
   @observable
   isGameStarted = false;
 
+  // Generate full secret code, shuffle it (no repeated digits) and cut first 4 digits
+  @action
+  generateSecretCode = () => {
+    this.code = shuffle(this.allowedDigits).slice(
+      0,
+      this.initialUserCodeState.length
+    );
+  };
+
   @action
   decreaseAttempts() {
     this.attempts = this.attempts - 1;
@@ -87,7 +84,7 @@ class GameSDSHStore {
 
   @action
   checkCodeValidity() {
-    const buttonsIds = [0, 1, 2, 3];
+    const buttonsIds = [0, 1, 2, 3]; // TODO constant
 
     const userCodeArray = this.userCode.map((item: any) => item.value);
     const isEqualCodes = isEqual(this.code, userCodeArray) ? true : false;
@@ -107,24 +104,22 @@ class GameSDSHStore {
           return null; // array-callback-return
         });
         this.isUnlocked = true;
+        this.isGameStarted = false;
       } else if (isUserValueExist && !isUserValueValid) {
+        // yellow
         this.userCode[id].isExist = true;
         this.userCode[id].isValid = false;
       } else if (isUserValueExist && isUserValueValid) {
+        // green
         this.userCode[id].isExist = true;
         this.userCode[id].isValid = true;
       } else {
-        this.userCode[id].isValid = false;
+        this.userCode[id].isValid = false; // red
         this.userCode[id].isExist = false;
       }
 
       return null; // array-callback-return
     });
-  }
-
-  @action
-  setCodeNumber(id: any, value: number) {
-    this.userCode[id].value = value;
   }
 
   @action
@@ -145,12 +140,21 @@ class GameSDSHStore {
     }
   }
 
+  // state - gameStarted
   @action
   gameStart() {
     this.generateSecretCode();
     this.isGameStarted = true;
     this.attempts = this.attemptsInitial;
   }
+
+  // @action
+  // gameReset() {
+  //   this.isGameStarted = false;
+  //   this.isGameOver = false;
+  //   this.isUnlocked = false;
+  //   this.attempts = this.attemptsInitial;
+  // }
 }
 
 export default GameSDSHStore;

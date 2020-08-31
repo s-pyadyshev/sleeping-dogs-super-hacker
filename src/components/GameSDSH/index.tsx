@@ -126,85 +126,75 @@ const GameSDSH = observer(() => {
     }
   }, [counterStore, counterStore.counter, gameSDSHStore]);
 
-  // useEffect(() => {
-  //   if (inputRef.current !== null) {
-  //     inputRef.current.focus();
-  //   }
-  // }, []);
-
   return (
     <div className="form-code-wrap">
       {/* <button onClick={() => clearTimeout(counterStore.counterTimeout)}>
         stop it
       </button> */}
 
-      {gameSDSHStore.isUnlocked ? (
-        <SubmitForm />
-      ) : (
-        <form className={cn("form-code")} onSubmit={handleCodeCheck}>
-          <div className="form-code__interface">
-            <div className="form-code__stats">
-              <div>
-                Attempts remaining:&nbsp;
-                <span className="form-code__stats-attempts-value">
-                  {gameSDSHStore.attempts}
-                </span>
-              </div>
-              {!gameSDSHStore.isUnlocked ? <Counter /> : null}
+      <form className={cn("form-code")} onSubmit={handleCodeCheck}>
+        <div className="form-code__interface">
+          <div className="form-code__stats">
+            <div>
+              Attempts remaining:&nbsp;
+              <span className="form-code__stats-attempts-value">
+                {gameSDSHStore.attempts}
+              </span>
             </div>
-            <div className={cn("form-code__input-group")}>
-              {inputsIds.map((id) => (
-                <div className={cn("form-code__input")} key={id}>
-                  <button
-                    className={cn("button-increment")}
-                    onClick={incrementDigit}
-                    data-key={id}
-                  ></button>
-                  <input
-                    type="text"
-                    min="0"
-                    max="9"
-                    maxLength={1}
-                    key={id}
-                    data-key={id}
-                    ref={id === 0 ? inputRef : null}
-                    onFocus={handleFocus}
-                    value={gameSDSHStore.userCode[id].value}
-                    onChange={() => {}}
-                    className={cn({
-                      input: true,
-                      "full-width": true,
-                      "is-focus": activeDigitState.currentDigitId === id,
-                      "is-invalid":
-                        !gameSDSHStore.userCode[id].isExist &&
-                        !gameSDSHStore.userCode[id].isValid,
-                      "is-exist":
-                        gameSDSHStore.userCode[id].isExist &&
-                        !gameSDSHStore.userCode[id].isValid,
-                      "is-valid":
-                        gameSDSHStore.userCode[id].isExist &&
-                        gameSDSHStore.userCode[id].isValid,
-                    })}
-                  />
-                  <button
-                    className={cn("button-decrement")}
-                    onClick={decrementDigit}
-                    data-key={id}
-                  ></button>
-                </div>
-              ))}
-            </div>
-
-            <div className="form-code__button-enter">
-              <button
-                type="submit"
-                onClick={handleCodeCheck}
-                className={cn("button-enter")}
-              ></button>
-            </div>
+            {!gameSDSHStore.isUnlocked ? <Counter /> : null}
           </div>
-        </form>
-      )}
+          <div className={cn("form-code__input-group")}>
+            {inputsIds.map((id) => (
+              <div className={cn("form-code__input")} key={id}>
+                <button
+                  className={cn("button-increment")}
+                  onClick={incrementDigit}
+                  data-key={id}
+                ></button>
+                <input
+                  type="text"
+                  min="0"
+                  max="9"
+                  maxLength={1}
+                  key={id}
+                  data-key={id}
+                  ref={id === 0 ? inputRef : null}
+                  onFocus={handleFocus}
+                  value={gameSDSHStore.userCode[id].value}
+                  onChange={() => {}}
+                  className={cn({
+                    input: true,
+                    "full-width": true,
+                    "is-focus": activeDigitState.currentDigitId === id,
+                    "is-invalid":
+                      !gameSDSHStore.userCode[id].isExist &&
+                      !gameSDSHStore.userCode[id].isValid,
+                    "is-exist":
+                      gameSDSHStore.userCode[id].isExist &&
+                      !gameSDSHStore.userCode[id].isValid,
+                    "is-valid":
+                      gameSDSHStore.userCode[id].isExist &&
+                      gameSDSHStore.userCode[id].isValid,
+                  })}
+                />
+                <button
+                  className={cn("button-decrement")}
+                  onClick={decrementDigit}
+                  data-key={id}
+                ></button>
+              </div>
+            ))}
+          </div>
+
+          <div className="form-code__button-enter">
+            <button
+              type="submit"
+              onClick={handleCodeCheck}
+              className={cn("button-enter")}
+            ></button>
+          </div>
+        </div>
+      </form>
     </div>
   );
 });

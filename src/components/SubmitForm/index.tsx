@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useStores } from "../../hooks/use-stores";
 import { SubmitFormInterface } from "../../interfaces/submit-form";
 import { firestore } from "../../firebase/firebase.util";
@@ -14,6 +14,7 @@ const SubmitForm = () => {
     company: "unknown",
     comment: "no comments",
   });
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const submitUserScore = (event: any) => {
     event.preventDefault();
@@ -44,10 +45,14 @@ const SubmitForm = () => {
     });
   };
 
-  useEffect(() => {}, [gameSDSHStore.counter, gameSDSHStore.attemptsUsed]);
+  useEffect(() => {
+    if (inputRef.current !== null) {
+      inputRef.current.focus();
+    }
+  }, [gameSDSHStore.counter, gameSDSHStore.attemptsUsed]);
 
   return (
-    <div className="submit-form card-primary">
+    <div className="submit-form card">
       {!formSubmitted ? (
         <form onSubmit={submitUserScore}>
           <div className="input-group-stacked">
@@ -55,6 +60,7 @@ const SubmitForm = () => {
               Your name:
             </label>
             <input
+              ref={inputRef}
               className="input input--full-width"
               type="text"
               id="username"

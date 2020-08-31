@@ -8,13 +8,10 @@ import GameSDSHPage from "./pages/GameSDSHPage";
 import HighScorePage from "./pages/HighScorePage";
 import InstructionsPage from "./pages/InstructionsPage";
 import GameMenu from "./components/GameMenu";
-import { useStores } from "./hooks/use-stores";
-// import { auth } from "./firebase/firebase.util";
-
+import SubmitForm from "./components/SubmitForm";
 import "./App.scss";
 
 const App: React.FC = observer(() => {
-  const { gameSDSHStore } = useStores();
   // useEffect(() => {
   // The method onAuthStateChanged sets up a subscription by adding an observer for the user's sign-in state.
   // You only need to subscribe once when the component mounts and call unsubscribe when the component unmounts
@@ -41,12 +38,9 @@ const App: React.FC = observer(() => {
       </Helmet>
       <div className="container">
         <Router>
-          {gameSDSHStore.isGameStarted === false ||
-          gameSDSHStore.isUnlocked === true ? (
-            <aside className="aside">
-              <GameMenu />
-            </aside>
-          ) : null}
+          <aside className="aside">
+            <GameMenu />
+          </aside>
 
           <main className="main">
             <Switch>

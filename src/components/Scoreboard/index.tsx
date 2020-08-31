@@ -22,7 +22,7 @@ const Scoreboard = () => {
   }, []);
 
   return (
-    <div className="scoreboard card-primary">
+    <div className="scoreboard card">
       <h2 className="scoreboard__title">High scores:</h2>
       <ul>
         {scoreboard
@@ -31,7 +31,7 @@ const Scoreboard = () => {
             <li key={score.username + index} className="scoreboard__list-item">
               <div className="scoreboard__item-index">{index + 1}</div>
               <div className="scoreboard__item-username">{score.username}</div>
-              <div className="scoreboard__item-score">{score.score}</div>
+              <div className="scoreboard__item-score">{score.score}s</div>
               <div className="scoreboard__item-attempts">
                 {score.attemptsUsed}
               </div>

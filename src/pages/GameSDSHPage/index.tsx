@@ -3,6 +3,7 @@ import { observer } from "mobx-react";
 import GameSDSH from "../../components/GameSDSH";
 import GameOver from "../../components/GameOver";
 import { useStores } from "../../hooks/use-stores";
+import SubmitForm from "../../components/SubmitForm";
 
 export interface GameSDSHPageProps {}
 
@@ -16,8 +17,10 @@ const GameSDSHPage: React.SFC<GameSDSHPageProps> = observer(() => {
   return (
     <>
       {/* TODO Refactor conditions */}
-      {gameSDSHStore.isGameStarted === true ? <GameSDSH /> : null}
-
+      {gameSDSHStore.isGameStarted === true && !gameSDSHStore.isUnlocked ? (
+        <GameSDSH />
+      ) : null}
+      {gameSDSHStore.isUnlocked === true ? <SubmitForm /> : null}
       {gameSDSHStore.isGameOver === true &&
       gameSDSHStore.isGameStarted === false ? (
         <GameOver />

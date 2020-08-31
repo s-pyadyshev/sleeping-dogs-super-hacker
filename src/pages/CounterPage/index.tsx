@@ -5,7 +5,7 @@ export interface CounterPageProps {}
 
 const CounterPage: React.SFC<CounterPageProps> = () => {
   return (
-    <div>
+    <div className="card">
       This page is just to test Counter component separately
       <Counter />
     </div>
