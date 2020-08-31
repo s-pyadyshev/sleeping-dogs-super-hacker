@@ -5,7 +5,7 @@ import { firestore } from "../../firebase/firebase.util";
 import "./style.scss";
 
 const SubmitForm = () => {
-  const { gameSDSHStore } = useStores();
+  const { gameSDSHStore, counterStore } = useStores();
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [userForm, setUserForm] = useState<SubmitFormInterface>({
     score: 1000,
@@ -41,7 +41,7 @@ const SubmitForm = () => {
     setUserForm({
       ...userForm,
       [event.target.getAttribute("name")]: event.target.value,
-      score: gameSDSHStore.counter,
+      score: counterStore.counter,
       attemptsUsed: gameSDSHStore.attemptsUsed,
       code: gameSDSHStore.code,
     });
@@ -51,7 +51,7 @@ const SubmitForm = () => {
     if (inputRef.current !== null) {
       inputRef.current.focus();
     }
-  }, [gameSDSHStore.counter, gameSDSHStore.attemptsUsed]);
+  }, [counterStore.counter, gameSDSHStore.attemptsUsed]);
 
   return (
     <div className="submit-form card">
@@ -85,7 +85,7 @@ const SubmitForm = () => {
             />
           </div>
           <h3>Your lucky number: {gameSDSHStore.code}</h3>
-          <h3>Time spent: {gameSDSHStore.counter}s</h3>
+          <h3>Time spent: {counterStore.counter}s</h3>
           <h3>Attempts used: {gameSDSHStore.attemptsUsed}</h3>
 
           {/* <h3>Date: {currentDate}</h3> */}

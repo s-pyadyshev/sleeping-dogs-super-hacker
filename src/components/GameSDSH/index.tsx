@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import { observer, useLocalStore } from "mobx-react";
 import { useStores } from "../../hooks/use-stores";
 import cn from "classnames";
-import SubmitForm from "../SubmitForm";
 import Counter from "../Counter";
 import { useKeyPress } from "../../hooks/useKeyPress";
 import "./style.scss";

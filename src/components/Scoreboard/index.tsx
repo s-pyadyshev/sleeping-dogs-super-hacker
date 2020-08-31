@@ -37,12 +37,12 @@ const Scoreboard = () => {
             <li key={score.username + index} className="scoreboard__list-item">
               <div className="scoreboard__item-index">{index + 1}</div>
               <div className="scoreboard__item-username">{score.username}</div>
+              <div className="scoreboard__item-company">{score.company}</div>
               <div className="scoreboard__item-code">{score.code}</div>
               <div className="scoreboard__item-score">{score.score}s</div>
               <div className="scoreboard__item-attempts">
                 {score.attemptsUsed}
               </div>
-              <div className="scoreboard__item-company">{score.company}</div>
               <div className="scoreboard__item-comment">{score.comment}</div>
             </li>
           ))}

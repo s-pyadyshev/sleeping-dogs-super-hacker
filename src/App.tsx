@@ -8,7 +8,6 @@ import GameSDSHPage from "./pages/GameSDSHPage";
 import HighScorePage from "./pages/HighScorePage";
 import InstructionsPage from "./pages/InstructionsPage";
 import GameMenu from "./components/GameMenu";
-import SubmitForm from "./components/SubmitForm";
 import "./App.scss";
 
 const App: React.FC = observer(() => {
