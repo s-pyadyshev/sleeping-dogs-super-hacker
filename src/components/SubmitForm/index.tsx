@@ -10,6 +10,7 @@ const SubmitForm = () => {
   const [userForm, setUserForm] = useState<SubmitFormInterface>({
     score: 1000,
     attemptsUsed: 6,
+    code: "0000",
     username: "anonym",
     company: "unknown",
     comment: "no comments",
@@ -42,6 +43,7 @@ const SubmitForm = () => {
       [event.target.getAttribute("name")]: event.target.value,
       score: gameSDSHStore.counter,
       attemptsUsed: gameSDSHStore.attemptsUsed,
+      code: gameSDSHStore.code,
     });
   };
 

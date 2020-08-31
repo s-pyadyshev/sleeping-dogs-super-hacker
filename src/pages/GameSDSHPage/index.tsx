@@ -17,14 +17,9 @@ const GameSDSHPage: React.SFC<GameSDSHPageProps> = observer(() => {
   return (
     <>
       {/* TODO Refactor conditions */}
-      {gameSDSHStore.isGameStarted === true && !gameSDSHStore.isUnlocked ? (
-        <GameSDSH />
-      ) : null}
+      {gameSDSHStore.isGameStarted === true ? <GameSDSH /> : null}
       {gameSDSHStore.isUnlocked === true ? <SubmitForm /> : null}
-      {gameSDSHStore.isGameOver === true &&
-      gameSDSHStore.isGameStarted === false ? (
-        <GameOver />
-      ) : null}
+      {gameSDSHStore.isGameOver === true ? <GameOver /> : null}
     </>
   );
 });

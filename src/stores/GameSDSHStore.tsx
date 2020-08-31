@@ -98,13 +98,13 @@ class GameSDSHStore {
         this.code[id] === this.userCode[id].value ? true : false;
 
       if (isEqualCodes) {
+        this.isGameStarted = false;
+        this.isUnlocked = true;
         this.userCode.map((code: any) => {
           code.isExist = true;
           code.isValid = true;
           return null; // array-callback-return
         });
-        this.isUnlocked = true;
-        this.isGameStarted = false;
       } else if (isUserValueExist && !isUserValueValid) {
         // yellow
         this.userCode[id].isExist = true;
@@ -144,7 +144,10 @@ class GameSDSHStore {
   @action
   gameStart() {
     this.generateSecretCode();
+    this.isGameOver = false;
+    this.isUnlocked = false;
     this.isGameStarted = true;
+    this.userCode = this.initialUserCodeState;
     this.attempts = this.attemptsInitial;
   }
 

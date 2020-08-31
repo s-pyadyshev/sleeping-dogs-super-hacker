@@ -1,13 +1,19 @@
 @import "../../assets/styles/variables";
+@import "../../assets/styles/media";
 
 .game-menu {
+  padding: 0 8px;
   text-transform: uppercase;
   color: #fef2a4;
+
+  @include tablet {
+    padding: 0;
+  }
 
   a,
   button {
     display: inline-block;
-    font-size: 32px;
+    font-size: 20px;
     font-weight: 700;
     line-height: 1.5;
     background: none;
@@ -19,6 +25,10 @@
     border-radius: 8px;
     transition-duration: $transition-duration;
     transition-property: border, box-shadow;
+
+    @include tablet {
+      font-size: 32px;
+    }
 
     &:focus,
     &:hover,
@@ -40,6 +50,15 @@
   &__item {
     &:not(:last-child) {
       margin-bottom: 16px;
+    }
+  }
+
+  &__list {
+    display: flex;
+    justify-content: space-between;
+
+    @include tablet {
+      display: block;
     }
   }
 }

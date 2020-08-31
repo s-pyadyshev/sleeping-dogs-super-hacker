@@ -8,17 +8,18 @@ import "./style.scss";
 export interface GameMenuProps {}
 
 const GameMenu: React.SFC<GameMenuProps> = observer(() => {
-  const { gameSDSHStore } = useStores();
+  const { gameSDSHStore, counterStore } = useStores();
   let history = useHistory();
 
   const handleClick = () => {
     history.push("/game");
+    counterStore.counter = 0;
     gameSDSHStore.gameStart();
   };
 
   return (
     <nav className="game-menu">
-      <ul>
+      <ul className="game-menu__list">
         <li className="game-menu__item">
           <NavLink to="/" exact activeClassName="is-active">
             How to play

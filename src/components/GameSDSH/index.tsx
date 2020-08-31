@@ -85,18 +85,16 @@ const GameSDSH = observer(() => {
   };
 
   const checkCode = () => {
+    gameSDSHStore.decreaseAttempts();
+    gameSDSHStore.calculateAttemptsUsed();
     gameSDSHStore.checkCodeValidity();
 
     // last try
-    if (!gameSDSHStore.isUnlocked && gameSDSHStore.attempts === 1) {
+    if (!gameSDSHStore.isUnlocked && gameSDSHStore.attempts === 0) {
+      // TODO refactor - gameReset
       gameSDSHStore.isGameOver = true;
       gameSDSHStore.isGameStarted = false;
       gameSDSHStore.userCode = gameSDSHStore.initialUserCodeState;
-    }
-
-    if (!gameSDSHStore.isUnlocked && gameSDSHStore.attempts > 1) {
-      gameSDSHStore.decreaseAttempts();
-      gameSDSHStore.calculateAttemptsUsed();
     }
   };
 
