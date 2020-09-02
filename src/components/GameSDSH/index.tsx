@@ -73,10 +73,10 @@ const GameSDSH = observer(() => {
     checkCode();
   };
 
-  useKeyPress("w", pressUpCallback);
-  useKeyPress("a", pressLeftCallback);
-  useKeyPress("s", pressDownCallback);
-  useKeyPress("d", pressRighttCallback);
+  useKeyPress(["Up", "ArrowUp", "W", "w", "Ц", "ц"], pressUpCallback);
+  useKeyPress(["Left", "ArrowLeft", "A", "a", "Ф", "ф"], pressLeftCallback);
+  useKeyPress(["Down", "ArrowDown", "S", "s", "Ы", "ы"], pressDownCallback);
+  useKeyPress(["Right", "ArrowRight", "D", "d", "В", "в"], pressRighttCallback);
   useKeyPress("Enter", pressEnterCallback);
 
   const handleFocus = (event: any) => {

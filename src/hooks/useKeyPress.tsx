@@ -6,7 +6,7 @@ export function useKeyPress(targetKey: any, cb: any) {
 
   // If pressed key is our target key then set to true
   function downHandler({ key }: any) {
-    if (key === targetKey) {
+    if (targetKey.includes(key)) {
       setKeyPressed(true);
       cb();
     }
@@ -14,7 +14,7 @@ export function useKeyPress(targetKey: any, cb: any) {
 
   // If released key is our target key then set to false
   const upHandler = ({ key }: any) => {
-    if (key === targetKey) {
+    if (targetKey.includes(key)) {
       setKeyPressed(false);
     }
   };
