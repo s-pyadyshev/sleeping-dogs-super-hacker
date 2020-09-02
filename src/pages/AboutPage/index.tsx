@@ -84,6 +84,12 @@ const AboutPage: React.SFC<AboutPageProps> = () => {
         </a>
         .
       </p>
+      <p>
+        Code by:&nbsp;
+        <a className="link" href="https://github.com/s-pyadyshev">
+          Sergei Piadyshev
+        </a>
+      </p>
     </div>
   );
 };

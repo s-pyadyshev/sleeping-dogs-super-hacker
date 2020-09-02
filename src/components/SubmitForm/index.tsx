@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useStores } from "../../hooks/use-stores";
 import { SubmitFormInterface } from "../../interfaces/submit-form";
 import { firestore } from "../../firebase/firebase.util";
+import { format } from "date-fns";
 import "./style.scss";
 
 const SubmitForm = () => {
@@ -13,6 +14,7 @@ const SubmitForm = () => {
     code: "0000",
     username: "anonym",
     company: "unknown",
+    date: "new Date()",
     comment: "no comments",
   });
   const inputRef = useRef<HTMLInputElement>(null);
@@ -38,12 +40,15 @@ const SubmitForm = () => {
   };
 
   const handleInput = (event: any) => {
+    const currentDate = format(new Date(), "MM.dd.yyyy kk:mm");
+
     setUserForm({
       ...userForm,
       [event.target.getAttribute("name")]: event.target.value,
       score: counterStore.counter,
       attemptsUsed: gameSDSHStore.attemptsUsed,
       code: gameSDSHStore.code,
+      date: currentDate,
     });
   };
 
@@ -90,12 +95,16 @@ const SubmitForm = () => {
 
           {/* <h3>Date: {currentDate}</h3> */}
           <div className="input-group-stacked">
-            <label className="label">Leave a comment:</label>
+            <label className="label" htmlFor="comment">
+              Leave a comment:
+            </label>
             <textarea
               className="input input--full-width textarea"
               name="comment"
               onChange={handleInput}
+              rows={4}
               required
+              id="comment"
             ></textarea>
           </div>
           <button type="submit" className="button">

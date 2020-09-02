@@ -7,7 +7,7 @@ $input-amount: 4;
   position: relative;
   width: 100%;
   max-width: 361px;
-  height: 100vh;
+  height: 676px;
   margin-right: auto;
   margin-left: auto;
   padding: 12px;
@@ -15,10 +15,6 @@ $input-amount: 4;
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: contain;
-
-  @include tablet {
-    height: 676px;
-  }
 
   &__button-enter {
     text-align: center;
@@ -28,6 +24,7 @@ $input-amount: 4;
     width: calc(100% / #{$input-amount});
 
     input {
+      width: 50px;
       height: 50px;
       font-size: 40px;
       font-family: $font-family-primary;
@@ -41,7 +38,7 @@ $input-amount: 4;
   &__input-group {
     display: flex;
     flex-wrap: wrap;
-    max-width: 190px;
+    max-width: 200px;
     margin-right: auto;
     margin-bottom: 16px;
     margin-left: auto;
@@ -52,11 +49,7 @@ $input-amount: 4;
     right: 0;
     bottom: 0;
     left: 0;
-    height: 210px;
-
-    @include tablet {
-      height: 250px;
-    }
+    height: 250px;
   }
 
   &__stats {

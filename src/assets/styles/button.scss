@@ -11,18 +11,24 @@
 
 .button-decrement {
   display: block;
-  width: 45px;
+  width: 50px;
   height: 9px;
-  background-image: url("../../assets/images/chevron-down.png");
+  background: none;
   border: 0;
+  border-color: $card-text-color transparent transparent transparent;
+  border-style: solid;
+  border-width: 9px 25px 0 25px;
 }
 
 .button-increment {
   display: block;
-  width: 45px;
+  width: 50px;
   height: 9px;
-  background-image: url("../../assets/images/chevron-up.png");
+  background: none;
   border: 0;
+  border-color: transparent transparent $card-text-color transparent;
+  border-style: solid;
+  border-width: 0 25px 9px 25px;
 }
 
 .button-enter {
