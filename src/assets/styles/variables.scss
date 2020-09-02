@@ -10,13 +10,24 @@ $font-family-secondary: "Magistral", sans-serif;
 
 // Colors
 $link-color: #fef2a4;
-$card-text-color: #fef2a4;
 $color-invalid-placement: #bd9238;
 $color-invalid-digit: #990000;
 $color-valid-digit: #00fe00;
 
+// States
+$state-disabled: #ccc;
+
 // Container
 $container-width-lg: 1400px;
+
+// Input
+$input-background-color: #f6f6f6;
+
+// Card
+$card-background-color: #0d2135;
+$card-border-color: #1e2224;
+$card-text-color: #6cb9f6;
+$card-shadow-color: #0a0e13;
 
 // Transition
 $transition-duration: 0.3s;

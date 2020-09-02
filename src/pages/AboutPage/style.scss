@@ -1,8 +1,10 @@
+@import "../../assets/styles/variables";
+
 .about {
+  color: $color-white;
   font-size: 24px;
-  color: #fff;
 
   a {
-    color: #fef2a4;
+    color: $link-color;
   }
 }

@@ -11,7 +11,7 @@
 
   &__item-index {
     flex-basis: 10%;
-    color: $card-text-color;
+    color: $link-color;
 
     @include tablet {
       flex-basis: 5%;
@@ -61,7 +61,7 @@
 
   &__item-comment {
     flex-basis: 100%;
-    color: $card-text-color;
+    color: $link-color;
 
     @include tablet {
       flex-basis: 25%;

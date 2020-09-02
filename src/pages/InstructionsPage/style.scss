@@ -4,34 +4,34 @@
   font-size: 24px;
 
   a {
-    color: #fef2a4;
+    color: $link-color;
   }
 }
 
 .icon-invalid-placement {
   display: inline-block;
-  vertical-align: middle;
   width: 32px;
   height: 32px;
   margin-right: 8px;
-  border-radius: 50%;
+  vertical-align: middle;
   background-color: $color-invalid-placement;
+  border-radius: 50%;
 }
 
 .icon-invalid-digit {
   display: inline-block;
-  vertical-align: middle;
   width: 32px;
   height: 32px;
   margin-right: 8px;
+  vertical-align: middle;
   background-color: $color-invalid-digit;
 }
 
 .icon-valid-digit {
   display: inline-block;
-  vertical-align: middle;
   width: 32px;
   height: 32px;
   margin-right: 8px;
+  vertical-align: middle;
   background-color: $color-valid-digit;
 }

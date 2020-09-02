@@ -1,8 +1,10 @@
+@import "../../assets/styles/variables";
+
 .form-code__game-over {
   position: absolute;
   right: 0;
   bottom: 110px;
   left: 0;
+  color: $color-white;
   text-align: center;
-  color: #fff;
 }

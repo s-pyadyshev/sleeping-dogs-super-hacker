@@ -5,16 +5,16 @@ $input-amount: 4;
 
 .form-code {
   position: relative;
-  max-width: 361px;
   width: 100%;
+  max-width: 361px;
   height: 100vh;
   margin-right: auto;
   margin-left: auto;
   padding: 12px;
   background-image: url("../../assets/images/phone.png");
+  background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: contain;
-  background-repeat: no-repeat;
 
   @include tablet {
     height: 676px;
@@ -29,12 +29,12 @@ $input-amount: 4;
 
     input {
       height: 50px;
-      font-family: $font-family-primary;
       font-size: 40px;
+      font-family: $font-family-primary;
       text-align: center;
-      border: 1px solid #000;
-      pointer-events: none;
+      border: 1px solid $color-black;
       outline: none;
+      pointer-events: none;
     }
   }
 
@@ -62,14 +62,14 @@ $input-amount: 4;
   &__stats {
     display: flex;
     justify-content: space-around;
-    font-family: $font-family-secondary;
-    font-size: 14px;
     margin-bottom: 16px;
     padding-right: 24px;
     padding-left: 24px;
-    text-transform: uppercase;
+    color: $color-white;
+    font-size: 14px;
+    font-family: $font-family-secondary;
     text-align: center;
-    color: #fff;
+    text-transform: uppercase;
 
     @include tablet {
       font-size: 16px;
@@ -84,7 +84,7 @@ $input-amount: 4;
 
 .form-code-wrap {
   display: flex;
-  align-items: center;
   flex-wrap: wrap;
+  align-items: center;
   height: 100%;
 }
