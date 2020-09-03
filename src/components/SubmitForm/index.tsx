@@ -34,8 +34,8 @@ const SubmitForm = () => {
           document.location.href = "/";
         }, 2000);
       })
-      .catch(function (error) {
-        console.error("Error writing document: ", error);
+      .catch(function () {
+        // console.error("Error writing document: ", error);
       });
   };
 

@@ -1,9 +1,7 @@
 import * as React from "react";
 import "./style.scss";
 
-export interface AboutPageProps {}
-
-const AboutPage: React.SFC<AboutPageProps> = () => {
+const AboutPage: React.SFC = () => {
   return (
     <div className="about card">
       It is recreation of&nbsp;

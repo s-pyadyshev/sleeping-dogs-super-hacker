@@ -5,11 +5,9 @@ import { useStores } from "../../hooks/use-stores";
 
 import "./style.scss";
 
-export interface GameMenuProps {}
-
-const GameMenu: React.SFC<GameMenuProps> = observer(() => {
+const GameMenu: React.SFC = observer(() => {
   const { gameSDSHStore, counterStore } = useStores();
-  let history = useHistory();
+  const history = useHistory();
 
   const handleClick = () => {
     history.push("/game");

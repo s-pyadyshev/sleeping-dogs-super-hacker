@@ -45,6 +45,20 @@ const GameSDSH = observer(() => {
   const inputsIds = [0, 1, 2, 3];
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const checkCode = () => {
+    gameSDSHStore.decreaseAttempts();
+    gameSDSHStore.calculateAttemptsUsed();
+    gameSDSHStore.checkCodeValidity();
+
+    // last try
+    if (!gameSDSHStore.isUnlocked && gameSDSHStore.attempts === 0) {
+      // TODO refactor - gameReset
+      gameSDSHStore.isGameOver = true;
+      gameSDSHStore.isGameStarted = false;
+      gameSDSHStore.userCode = gameSDSHStore.initialUserCodeState;
+    }
+  };
+
   const pressUpCallback = () => {
     gameSDSHStore.incrementCodeNumber(activeDigitState.currentDigitId);
   };
@@ -81,20 +95,6 @@ const GameSDSH = observer(() => {
 
   const handleFocus = (event: any) => {
     event.target.select();
-  };
-
-  const checkCode = () => {
-    gameSDSHStore.decreaseAttempts();
-    gameSDSHStore.calculateAttemptsUsed();
-    gameSDSHStore.checkCodeValidity();
-
-    // last try
-    if (!gameSDSHStore.isUnlocked && gameSDSHStore.attempts === 0) {
-      // TODO refactor - gameReset
-      gameSDSHStore.isGameOver = true;
-      gameSDSHStore.isGameStarted = false;
-      gameSDSHStore.userCode = gameSDSHStore.initialUserCodeState;
-    }
   };
 
   const handleCodeCheck = (event: any) => {

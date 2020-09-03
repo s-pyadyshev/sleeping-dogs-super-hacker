@@ -1,9 +1,7 @@
 import * as React from "react";
 import Counter from "../../components/Counter";
 
-export interface CounterPageProps {}
-
-const CounterPage: React.SFC<CounterPageProps> = () => {
+const CounterPage: React.SFC = () => {
   return (
     <div className="card">
       This page is just to test Counter component separately

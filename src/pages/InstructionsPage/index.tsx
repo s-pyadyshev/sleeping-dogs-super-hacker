@@ -1,9 +1,7 @@
 import * as React from "react";
 import "./style.scss";
 
-export interface InstructionsPageProps {}
-
-const InstructionsPage: React.SFC<InstructionsPageProps> = () => {
+const InstructionsPage: React.SFC = () => {
   return (
     <div className="instructions card">
       <p>

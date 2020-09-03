@@ -25,15 +25,15 @@ const Scoreboard = () => {
           setIsLoading(false);
         });
       })
-      .catch(function (error) {
-        console.log("Error getting document:", error);
+      .catch(function () {
+        // console.log("Error getting document:", error);
       });
   }, []);
 
   const scoreboardList = scoreboard
     .sort((a: any, b: any) => a.score - b.score)
     .map((score: any, index: number) => (
-      <li key={score.username + index} className="scoreboard__list-item">
+      <li key={score.username + score.code} className="scoreboard__list-item">
         <div className="scoreboard__item-index">{index + 1}</div>
         <div className="scoreboard__item-username">{score.username}</div>
         <div className="scoreboard__item-company">{score.company}</div>

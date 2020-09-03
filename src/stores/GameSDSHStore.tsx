@@ -87,15 +87,12 @@ class GameSDSHStore {
     const buttonsIds = [0, 1, 2, 3]; // TODO constant
 
     const userCodeArray = this.userCode.map((item: any) => item.value);
-    const isEqualCodes = isEqual(this.code, userCodeArray) ? true : false;
+    const isEqualCodes = !!isEqual(this.code, userCodeArray);
 
     buttonsIds.map((id: number) => {
-      const isUserValueExist = this.code.includes(this.userCode[id].value)
-        ? true
-        : false;
+      const isUserValueExist = !!this.code.includes(this.userCode[id].value);
 
-      const isUserValueValid =
-        this.code[id] === this.userCode[id].value ? true : false;
+      const isUserValueValid = this.code[id] === this.userCode[id].value;
 
       if (isEqualCodes) {
         this.isGameStarted = false;
