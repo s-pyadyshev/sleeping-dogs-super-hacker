@@ -87,6 +87,7 @@ const AboutPage: React.SFC = () => {
         <a className="link" href="https://github.com/s-pyadyshev">
           Sergei Piadyshev
         </a>
+        .
       </p>
     </div>
   );
