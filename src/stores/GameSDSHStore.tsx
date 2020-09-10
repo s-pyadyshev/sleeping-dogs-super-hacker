@@ -86,7 +86,9 @@ class GameSDSHStore {
   checkCodeValidity() {
     const buttonsIds = [0, 1, 2, 3]; // TODO constant
 
-    const userCodeArray = this.userCode.map((item: any) => item.value);
+    const userCodeArray = this.userCode.map(
+      (item: { value: number }) => item.value
+    );
     const isEqualCodes = !!isEqual(this.code, userCodeArray);
 
     buttonsIds.map((id: number) => {
@@ -97,7 +99,7 @@ class GameSDSHStore {
       if (isEqualCodes) {
         this.isGameStarted = false;
         this.isUnlocked = true;
-        this.userCode.map((code: any) => {
+        this.userCode.map((code: UserCodeInterface) => {
           code.isExist = true;
           code.isValid = true;
           return null; // array-callback-return
@@ -120,7 +122,7 @@ class GameSDSHStore {
   }
 
   @action
-  incrementCodeNumber(id: any) {
+  incrementCodeNumber(id: number) {
     if (this.userCode[id].value === this.maxValue) {
       this.userCode[id].value = 0;
     } else {
@@ -129,7 +131,7 @@ class GameSDSHStore {
   }
 
   @action
-  decrementCodeNumber(id: any) {
+  decrementCodeNumber(id: number) {
     if (this.userCode[id].value === this.minValue) {
       this.userCode[id].value = this.maxValue;
     } else {

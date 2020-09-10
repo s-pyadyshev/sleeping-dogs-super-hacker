@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { useStores } from "../../hooks/use-stores";
 import { SubmitFormInterface } from "../../interfaces/submit-form";
 import { firestore } from "../../firebase/firebase.util";
-import { format } from "date-fns";
 import "./style.scss";
 
 const SubmitForm = () => {
@@ -14,12 +13,12 @@ const SubmitForm = () => {
     code: "0000",
     username: "anonym",
     company: "unknown",
-    date: "new Date()",
+    date: "",
     comment: "no comments",
   });
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const submitUserScore = (event: any) => {
+  const submitUserScore = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     // TODO refactor form logic
@@ -27,32 +26,47 @@ const SubmitForm = () => {
       .collection("scores")
       .doc(userForm.username)
       .set(userForm)
-      .then(function () {
+      .then(() => {
         setFormSubmitted(true);
         // TODO refactor route logic
         setTimeout(() => {
           document.location.href = "/";
         }, 2000);
       })
-      .catch(function () {
+      .catch(() => {
         // console.error("Error writing document: ", error);
       });
   };
 
   const handleInput = (event: any) => {
-    const currentDate = format(new Date(), "MM.dd.yyyy kk:mm");
-
     setUserForm({
       ...userForm,
       [event.target.getAttribute("name")]: event.target.value,
       score: counterStore.counter,
       attemptsUsed: gameSDSHStore.attemptsUsed,
       code: gameSDSHStore.code,
-      date: currentDate,
     });
   };
 
   useEffect(() => {
+    const today = new Date();
+    const currentDate =
+      today.getFullYear() +
+      "." +
+      (today.getMonth() + 1) +
+      "." +
+      today.getDate() +
+      " " +
+      "(" +
+      today.getHours() +
+      ":" +
+      today.getMinutes() +
+      ")";
+    setUserForm({
+      ...userForm,
+      date: currentDate,
+    });
+
     if (inputRef.current !== null) {
       inputRef.current.focus();
     }
@@ -93,7 +107,7 @@ const SubmitForm = () => {
           <h3>Time spent: {counterStore.counter}s</h3>
           <h3>Attempts used: {gameSDSHStore.attemptsUsed}</h3>
 
-          {/* <h3>Date: {currentDate}</h3> */}
+          <h3>Date: {userForm.date}</h3>
           <div className="input-group-stacked">
             <label className="label" htmlFor="comment">
               Leave a comment:

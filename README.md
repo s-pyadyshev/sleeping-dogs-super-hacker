@@ -5,6 +5,8 @@ TODO
 
 <ul>
   <li>Refactoring</li>
+  <li>Add average time/attempts stats</li>
+  <li>Add default button state</li>
   <li>Make timer in ms?</li>
   <li>Scoreboard infinite scrolling</li>
   <li>Add easter eggs in Scoreboard for unique numbers</li>

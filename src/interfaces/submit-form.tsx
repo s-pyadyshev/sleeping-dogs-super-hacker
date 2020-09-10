@@ -4,6 +4,6 @@ export interface SubmitFormInterface {
   code: any;
   username: string;
   company: string;
-  date: any;
+  date: string;
   comment: string;
 }
