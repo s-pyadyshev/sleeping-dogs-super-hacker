@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { firestore } from "../../firebase/firebase.util";
-import { SubmitFormInterface } from "../../interfaces/submit-form";
+// import { SubmitFormInterface } from "../../interfaces/submit-form";
 import "./style.scss";
 
 // interface ScoreboardInterface {
@@ -41,12 +41,14 @@ const Scoreboard = () => {
           userScores.push(doc.data().score);
           userAttempts.push(doc.data().attemptsUsed);
 
+          const averageScores =
+            userScores.reduce((acc, item) => acc + item) / userScores.length;
+          const averageAttempts =
+            userAttempts.reduce((acc, item) => acc + item) /
+            userAttempts.length;
           setStats({
-            averageScores:
-              userScores.reduce((acc, item) => acc + item) / userScores.length,
-            averageAttempts:
-              userAttempts.reduce((acc, item) => acc + item) /
-              userAttempts.length,
+            averageScores,
+            averageAttempts,
           });
           setIsLoading(false);
         });
@@ -75,8 +77,9 @@ const Scoreboard = () => {
     <div className="scoreboard card">
       <h2 className="scoreboard__title">High scores:</h2>
       <p>
-        <span>Average time: {stats.averageScores}s</span>&nbsp;&nbsp;&nbsp;
-        <span>Average attempts: {stats.averageAttempts}</span>
+        <span>Average time: {stats.averageScores.toFixed(2)}s</span>
+        &nbsp;&nbsp;&nbsp;
+        <span>Average attempts: {stats.averageAttempts.toFixed(2)}</span>
       </p>
       {isLoading ? <div>Loading...</div> : <ul>{scoreboardList}</ul>}
     </div>

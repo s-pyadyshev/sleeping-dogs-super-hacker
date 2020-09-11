@@ -42,9 +42,6 @@ const SubmitForm = () => {
     setUserForm({
       ...userForm,
       [event.target.getAttribute("name")]: event.target.value,
-      score: counterStore.counter,
-      attemptsUsed: gameSDSHStore.attemptsUsed,
-      code: gameSDSHStore.code,
     });
   };
 
@@ -65,12 +62,15 @@ const SubmitForm = () => {
     setUserForm({
       ...userForm,
       date: currentDate,
+      score: gameSDSHStore.counter,
+      attemptsUsed: gameSDSHStore.attemptsUsed,
+      code: gameSDSHStore.code,
     });
 
     if (inputRef.current !== null) {
       inputRef.current.focus();
     }
-  }, [counterStore.counter, gameSDSHStore.attemptsUsed]);
+  }, [counterStore, gameSDSHStore]);
 
   return (
     <div className="submit-form card">
@@ -104,7 +104,7 @@ const SubmitForm = () => {
             />
           </div>
           <h3>Your lucky number: {gameSDSHStore.code}</h3>
-          <h3>Time spent: {counterStore.counter}s</h3>
+          <h3>Time spent: {gameSDSHStore.counter}s</h3>
           <h3>Attempts used: {gameSDSHStore.attemptsUsed}</h3>
 
           <h3>Date: {userForm.date}</h3>

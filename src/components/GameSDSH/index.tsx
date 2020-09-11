@@ -118,9 +118,9 @@ const GameSDSH = observer(() => {
       counterStore.counterInProgress = !counterStore.counterInProgress;
     }
 
-    if (gameSDSHStore.isUnlocked) {
-      counterStore.endCounter();
-    }
+    return () => {
+      gameSDSHStore.counter = counterStore.counter;
+    };
   }, [counterStore, counterStore.counter, gameSDSHStore]);
 
   return (
