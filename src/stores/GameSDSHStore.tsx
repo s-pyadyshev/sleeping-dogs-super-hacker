@@ -1,7 +1,11 @@
 import { observable, action } from "mobx";
-import { isEqual, initial } from "lodash";
+import { isEqual } from "lodash";
 import { shuffle } from "../utils";
 import { UserCodeInterface } from "../interfaces/user-code";
+import { ALLOWED_DIGITS } from "../constants";
+
+const minValue: number = 0;
+const maxValue: number = 9;
 
 class GameSDSHStore {
   rootStore: any;
@@ -11,9 +15,6 @@ class GameSDSHStore {
   }
 
   // settings
-  allowedDigits: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-  minValue: number = 0;
-  maxValue: number = 9;
   attemptsInitial: number = 6;
   initialUserCodeState: UserCodeInterface[] = [
     {
@@ -37,7 +38,6 @@ class GameSDSHStore {
       isValid: false,
     },
   ];
-  codeLength = initial.length;
 
   @observable
   code: number[] = [];
@@ -52,7 +52,7 @@ class GameSDSHStore {
 
   // counter for submit form
   @observable
-  counter = 0;
+  counter: number = 0;
 
   @observable
   isUnlocked = false;
@@ -66,7 +66,7 @@ class GameSDSHStore {
   // Generate full secret code, shuffle it (no repeated digits) and cut first 4 digits
   @action
   generateSecretCode = () => {
-    this.code = shuffle(this.allowedDigits).slice(
+    this.code = shuffle(ALLOWED_DIGITS).slice(
       0,
       this.initialUserCodeState.length
     );
@@ -113,7 +113,8 @@ class GameSDSHStore {
         this.userCode[id].isExist = true;
         this.userCode[id].isValid = true;
       } else {
-        this.userCode[id].isValid = false; // red
+        // red
+        this.userCode[id].isValid = false;
         this.userCode[id].isExist = false;
       }
 
@@ -123,7 +124,7 @@ class GameSDSHStore {
 
   @action
   incrementCodeNumber(id: number) {
-    if (this.userCode[id].value === this.maxValue) {
+    if (this.userCode[id].value === maxValue) {
       this.userCode[id].value = 0;
     } else {
       this.userCode[id].value += 1;
@@ -132,8 +133,8 @@ class GameSDSHStore {
 
   @action
   decrementCodeNumber(id: number) {
-    if (this.userCode[id].value === this.minValue) {
-      this.userCode[id].value = this.maxValue;
+    if (this.userCode[id].value === minValue) {
+      this.userCode[id].value = maxValue;
     } else {
       this.userCode[id].value -= 1;
     }
