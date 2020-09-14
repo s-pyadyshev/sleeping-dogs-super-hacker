@@ -1,7 +1,7 @@
 import * as React from "react";
 import "./style.scss";
 
-const InstructionsPage: React.SFC = () => {
+const InstructionsPage: React.FC = () => {
   return (
     <div className="instructions card">
       <p>
