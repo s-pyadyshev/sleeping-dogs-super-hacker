@@ -5,7 +5,6 @@ import cn from "classnames";
 import Counter from "../Counter";
 import { useKeyPress } from "../../hooks/useKeyPress";
 import "./style.scss";
-// import GameSDSHStore from "../../stores/GameSDSHStore";
 
 // observer - from mobx-react.
 // The observer HoC / decorator subscribes React components automatically to any observables that are used during render.

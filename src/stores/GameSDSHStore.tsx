@@ -1,8 +1,8 @@
 import { observable, action } from "mobx";
-import { isEqual } from "lodash";
 import { shuffle } from "../utils";
 import { UserCodeInterface } from "../interfaces/user-code";
 import { ALLOWED_DIGITS } from "../constants";
+import { dec, equals } from "ramda";
 
 const minValue: number = 0;
 const maxValue: number = 9;
@@ -55,26 +55,26 @@ class GameSDSHStore {
   counter: number = 0;
 
   @observable
-  isUnlocked = false;
+  isUnlocked: boolean = false;
 
   @observable
-  isGameOver = false;
+  isGameOver: boolean = false;
 
   @observable
-  isGameStarted = false;
+  isGameStarted: boolean = false;
 
   // Generate full secret code, shuffle it (no repeated digits) and cut first 4 digits
   @action
-  generateSecretCode = () => {
+  generateSecretCode() {
     this.code = shuffle(ALLOWED_DIGITS).slice(
       0,
       this.initialUserCodeState.length
     );
-  };
+  }
 
   @action
   decreaseAttempts() {
-    this.attempts = this.attempts - 1;
+    this.attempts = dec(this.attempts);
   }
 
   @action
@@ -85,16 +85,15 @@ class GameSDSHStore {
   @action
   checkCodeValidity() {
     const buttonsIds = [0, 1, 2, 3]; // TODO constant
-
     const userCodeArray = this.userCode.map(
       (item: { value: number }) => item.value
     );
-    const isEqualCodes = !!isEqual(this.code, userCodeArray);
+    const isEqualCodes = equals(this.code, userCodeArray);
 
     buttonsIds.map((id: number) => {
-      const isUserValueExist = !!this.code.includes(this.userCode[id].value);
+      const isUserValueExist = this.code.includes(this.userCode[id].value);
 
-      const isUserValueValid = this.code[id] === this.userCode[id].value;
+      const isUserValueValid = equals(this.code[id], this.userCode[id].value);
 
       if (isEqualCodes) {
         this.isGameStarted = false;
