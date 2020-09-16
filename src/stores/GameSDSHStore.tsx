@@ -3,6 +3,7 @@ import { shuffle } from "../utils";
 import { UserCodeInterface } from "../interfaces/user-code";
 import { ALLOWED_DIGITS } from "../constants";
 import { dec, equals } from "ramda";
+import { cond, T } from "ramda";
 
 const minValue: number = 0;
 const maxValue: number = 9;
@@ -92,10 +93,9 @@ class GameSDSHStore {
 
     buttonsIds.map((id: number) => {
       const isUserValueExist = this.code.includes(this.userCode[id].value);
+      const isUserValueValid = this.code[id] === this.userCode[id].value;
 
-      const isUserValueValid = equals(this.code[id], this.userCode[id].value);
-
-      if (isEqualCodes) {
+      const setGameUnlocked = () => {
         this.isGameStarted = false;
         this.isUnlocked = true;
         this.userCode.map((code: UserCodeInterface) => {
@@ -103,19 +103,41 @@ class GameSDSHStore {
           code.isValid = true;
           return null; // array-callback-return
         });
-      } else if (isUserValueExist && !isUserValueValid) {
-        // yellow
+      };
+
+      const setPartialValidPlacement = () => {
         this.userCode[id].isExist = true;
         this.userCode[id].isValid = false;
-      } else if (isUserValueExist && isUserValueValid) {
-        // green
+      };
+
+      const setValidPlacement = () => {
         this.userCode[id].isExist = true;
         this.userCode[id].isValid = true;
-      } else {
-        // red
+      };
+
+      const setInvalidPlacement = () => {
         this.userCode[id].isValid = false;
         this.userCode[id].isExist = false;
-      }
+      };
+
+      const setDigitStates = cond([
+        [() => isEqualCodes, setGameUnlocked],
+        [() => isUserValueExist && !isUserValueValid, setPartialValidPlacement],
+        [() => isUserValueExist && isUserValueValid, setValidPlacement],
+        [T, setInvalidPlacement],
+      ]);
+
+      setDigitStates();
+
+      // if (isEqualCodes) {
+      //   setGameUnlocked();
+      // } else if (isUserValueExist && !isUserValueValid) {
+      //   setPartialValidPlacement();
+      // } else if (isUserValueExist && isUserValueValid) {
+      //   setValidPlacement();
+      // } else {
+      //   setInvalidPlacement();
+      // }
 
       return null; // array-callback-return
     });

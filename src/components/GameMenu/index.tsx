@@ -5,7 +5,7 @@ import { useStores } from "../../hooks/use-stores";
 
 import "./style.scss";
 
-const GameMenu: React.SFC = observer(() => {
+const GameMenu: React.FC = observer(() => {
   const { gameSDSHStore, counterStore } = useStores();
   const history = useHistory();
 
