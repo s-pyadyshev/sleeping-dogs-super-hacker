@@ -6,7 +6,7 @@
   color: $link-color;
   text-transform: uppercase;
 
-  @include tablet {
+  @include desktop {
     padding: 0;
   }
 
@@ -57,7 +57,7 @@
     display: flex;
     justify-content: space-between;
 
-    @include tablet {
+    @include desktop {
       display: block;
     }
   }
