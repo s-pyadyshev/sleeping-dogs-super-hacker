@@ -5,17 +5,15 @@ React 16.3, TypeScript, MobX, SCSS, Firebase to save Highscores (submit form). A
 
 <ul>
   <li>REFACTORING</li>
-  <li>Save wins/loses stats</li>
   <li>Improve 1st place calculcation based on time + attempts (it's time only now)</li>
   <li>Make timer in ms?</li>
-  <li>Scoreboard infinite scrolling?</li>
+  <li>Scoreboard pagination?</li>
   <li>Add easter eggs in Scoreboard for unique numbers</li>
   <li>Add difficulty setting to play with limited time (like in the game)</li>
-  <li>Adjust design</li>
-  <li>Add default (indeterminate) digit input state</li>
   <li>Form validation?</li>
-  <li>Sound on/off?</li>
   <li>Two player mode?</li>
+  <li>Add default (indeterminate) digit input state</li>
+  <li>Adjust design</li>
 </ul>
 
 ## :hammer_and_wrench: Installation
