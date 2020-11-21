@@ -1,7 +1,7 @@
 import * as React from "react";
 import "./style.scss";
 
-const AboutPage: React.SFC = () => {
+const AboutPage: React.FC = () => {
   return (
     <div className="about card">
       It is recreation of&nbsp;

@@ -5,7 +5,7 @@ import GameOver from "../../components/GameOver";
 import { useStores } from "../../hooks/use-stores";
 import SubmitForm from "../../components/SubmitForm";
 
-const GameSDSHPage: React.SFC = observer(() => {
+const GameSDSHPage: React.FC = observer(() => {
   const { gameSDSHStore } = useStores();
 
   useEffect(() => {

@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useStores } from "../../hooks/use-stores";
 import { SubmitFormInterface } from "../../interfaces/submit-form";
-import { firestore } from "../../firebase/firebase.util";
+import { firestore, updateStats } from "../../firebase/firebase.util";
 import "./style.scss";
 
 const SubmitForm = () => {
   const { gameSDSHStore, counterStore } = useStores();
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [userForm, setUserForm] = useState<SubmitFormInterface>({
-    score: 1000,
+    score: 9999,
     attemptsUsed: 6,
     code: "0000",
     username: "anonym",
@@ -31,7 +31,7 @@ const SubmitForm = () => {
         // TODO refactor route logic
         setTimeout(() => {
           document.location.href = "/";
-        }, 2000);
+        }, 3000);
       })
       .catch(() => {
         // console.error("Error writing document: ", error);
@@ -70,6 +70,8 @@ const SubmitForm = () => {
     if (inputRef.current !== null) {
       inputRef.current.focus();
     }
+
+    updateStats("wins");
   }, [counterStore, gameSDSHStore]);
 
   return (
@@ -103,11 +105,24 @@ const SubmitForm = () => {
               required
             />
           </div>
-          <h3>Your lucky number: {gameSDSHStore.code}</h3>
-          <h3>Time spent: {gameSDSHStore.counter}s</h3>
-          <h3>Attempts used: {gameSDSHStore.attemptsUsed}</h3>
+          <div className="input-group-stacked">
+            <h3>
+              Your lucky number:&nbsp;
+              <span className="label-value">{gameSDSHStore.code}</span>
+            </h3>
+            <h3>
+              Time spent:&nbsp;
+              <span className="label-value">{gameSDSHStore.counter}s</span>
+            </h3>
+            <h3>
+              Attempts used:&nbsp;
+              <span className="label-value">{gameSDSHStore.attemptsUsed}</span>
+            </h3>
 
-          <h3>Date: {userForm.date}</h3>
+            <h3>
+              Date:&nbsp;<span className="label-value">{userForm.date}</span>
+            </h3>
+          </div>
           <div className="input-group-stacked">
             <label className="label" htmlFor="comment">
               Leave a comment:
@@ -121,7 +136,7 @@ const SubmitForm = () => {
               id="comment"
             ></textarea>
           </div>
-          <button type="submit" className="button">
+          <button type="submit" className="button button-primary">
             Submit your score
           </button>
         </form>

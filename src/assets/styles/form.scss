@@ -5,6 +5,8 @@
 }
 
 .input-group-stacked {
+  margin-bottom: 16px;
+
   .label {
     display: block;
   }
@@ -13,7 +15,19 @@
 .input {
   padding: 8px;
   background-color: $input-background-color;
+  border: 4px solid transparent;
   border-radius: 8px;
+  transition-duration: $transition-duration;
+  transition-property: border-color;
+
+  &:focus,
+  &:hover,
+  &:active {
+    border: 4px solid $input-border-active;
+    outline: none;
+    transition-duration: $transition-duration;
+    transition-property: border-color;
+  }
 
   &.is-focus {
     box-shadow: inset 0 0 0 3px $card-text-color;

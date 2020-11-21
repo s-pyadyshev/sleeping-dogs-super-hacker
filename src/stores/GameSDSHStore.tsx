@@ -1,8 +1,9 @@
 import { observable, action } from "mobx";
-import { isEqual } from "lodash";
 import { shuffle } from "../utils";
 import { UserCodeInterface } from "../interfaces/user-code";
 import { ALLOWED_DIGITS } from "../constants";
+import { dec, equals } from "ramda";
+import { cond, T } from "ramda";
 
 const minValue: number = 0;
 const maxValue: number = 9;
@@ -55,26 +56,33 @@ class GameSDSHStore {
   counter: number = 0;
 
   @observable
-  isUnlocked = false;
+  isUnlocked: boolean = false;
 
   @observable
-  isGameOver = false;
+  isGameOver: boolean = false;
 
   @observable
-  isGameStarted = false;
+  isGameStarted: boolean = false;
+
+  @observable
+  wins: number = 0;
+
+  @observable
+  lost: number = 0;
 
   // Generate full secret code, shuffle it (no repeated digits) and cut first 4 digits
   @action
-  generateSecretCode = () => {
+  generateSecretCode() {
     this.code = shuffle(ALLOWED_DIGITS).slice(
       0,
       this.initialUserCodeState.length
     );
-  };
+    // this.code = [0, 1, 2, 3];
+  }
 
   @action
   decreaseAttempts() {
-    this.attempts = this.attempts - 1;
+    this.attempts = dec(this.attempts);
   }
 
   @action
@@ -85,38 +93,48 @@ class GameSDSHStore {
   @action
   checkCodeValidity() {
     const buttonsIds = [0, 1, 2, 3]; // TODO constant
-
     const userCodeArray = this.userCode.map(
       (item: { value: number }) => item.value
     );
-    const isEqualCodes = !!isEqual(this.code, userCodeArray);
+    const isEqualCodes = equals(this.code, userCodeArray);
+
+    const setGameUnlocked = () => {
+      this.isGameStarted = false;
+      this.isUnlocked = true;
+      this.userCode.map((code: UserCodeInterface) => {
+        code.isExist = true;
+        code.isValid = true;
+        return null; // array-callback-return
+      });
+    };
 
     buttonsIds.map((id: number) => {
-      const isUserValueExist = !!this.code.includes(this.userCode[id].value);
-
+      const isUserValueExist = this.code.includes(this.userCode[id].value);
       const isUserValueValid = this.code[id] === this.userCode[id].value;
 
-      if (isEqualCodes) {
-        this.isGameStarted = false;
-        this.isUnlocked = true;
-        this.userCode.map((code: UserCodeInterface) => {
-          code.isExist = true;
-          code.isValid = true;
-          return null; // array-callback-return
-        });
-      } else if (isUserValueExist && !isUserValueValid) {
-        // yellow
+      const setPartialValidPlacement = () => {
         this.userCode[id].isExist = true;
         this.userCode[id].isValid = false;
-      } else if (isUserValueExist && isUserValueValid) {
-        // green
+      };
+
+      const setValidPlacement = () => {
         this.userCode[id].isExist = true;
         this.userCode[id].isValid = true;
-      } else {
-        // red
+      };
+
+      const setInvalidPlacement = () => {
         this.userCode[id].isValid = false;
         this.userCode[id].isExist = false;
-      }
+      };
+
+      const setDigitStates = cond([
+        [() => isEqualCodes, setGameUnlocked],
+        [() => isUserValueExist && !isUserValueValid, setPartialValidPlacement],
+        [() => isUserValueExist && isUserValueValid, setValidPlacement],
+        [T, setInvalidPlacement],
+      ]);
+
+      setDigitStates();
 
       return null; // array-callback-return
     });
@@ -150,14 +168,6 @@ class GameSDSHStore {
     this.userCode = this.initialUserCodeState;
     this.attempts = this.attemptsInitial;
   }
-
-  // @action
-  // gameReset() {
-  //   this.isGameStarted = false;
-  //   this.isGameOver = false;
-  //   this.isUnlocked = false;
-  //   this.attempts = this.attemptsInitial;
-  // }
 }
 
 export default GameSDSHStore;

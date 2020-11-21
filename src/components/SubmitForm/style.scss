@@ -1,5 +1,19 @@
+@import "../../assets/styles/media";
+@import "../../assets/styles/variables";
+
+.label-value {
+  color: $link-color;
+}
+
 .submit-form {
   max-width: 640px;
+  margin-right: auto;
+  margin-left: auto;
+
+  @include desktop {
+    margin-right: 0;
+    margin-left: 0;
+  }
 
   .button,
   h3,

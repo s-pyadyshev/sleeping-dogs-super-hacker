@@ -22,4 +22,13 @@ provider.setCustomParameters({ prompt: "select_account" });
 
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
+export const updateStats = (name: string) => {
+  firestore
+    .collection("stats")
+    .doc("statsDoc")
+    .update({
+      [name]: firebase.firestore.FieldValue.increment(1),
+    });
+};
+
 export default firebase;

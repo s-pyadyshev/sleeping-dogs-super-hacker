@@ -7,8 +7,8 @@ class CounterStore {
     this.rootStore = rootStore;
   }
 
-  counter = 0;
-  counterInProgress = false;
+  counter: number = 0;
+  counterInProgress: boolean = false;
   counterTimeout: any;
 
   startCounter() {

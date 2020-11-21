@@ -10,6 +10,8 @@ import "./style.scss";
 interface ScoreboardStatsInterface {
   averageScores: number;
   averageAttempts: number;
+  wins: number;
+  lost: number;
 }
 
 const Scoreboard = () => {
@@ -17,6 +19,8 @@ const Scoreboard = () => {
   const [stats, setStats] = useState<ScoreboardStatsInterface>({
     averageScores: 0,
     averageAttempts: 0,
+    wins: 0,
+    lost: 0,
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   // const easterEggs = [
@@ -29,6 +33,7 @@ const Scoreboard = () => {
   useEffect(() => {
     setIsLoading(true);
     const scoresDB = firestore.collection("scores");
+    const statsDB = firestore.collection("stats").doc("statsDoc");
     const userScores: number[] = [];
     const userAttempts: number[] = [];
 
@@ -46,16 +51,37 @@ const Scoreboard = () => {
           const averageAttempts =
             userAttempts.reduce((acc, item) => acc + item) /
             userAttempts.length;
-          setStats({
-            averageScores,
-            averageAttempts,
+          setStats((stats) => {
+            return {
+              ...stats,
+              averageScores,
+              averageAttempts,
+            };
           });
-          setIsLoading(false);
         });
       })
       .catch(function () {
         // console.log("Error getting document:", error);
       });
+
+    statsDB
+      .get()
+      .then(function (doc: any) {
+        const wins = doc.data().wins;
+        const lost = doc.data().lost;
+
+        setStats((stats) => {
+          return {
+            ...stats,
+            wins,
+            lost,
+          };
+        });
+      })
+      .catch(function () {
+        // console.log("Error getting document:", error);
+      });
+    setIsLoading(false);
   }, []);
 
   const scoreboardList = scoreboard
@@ -77,9 +103,27 @@ const Scoreboard = () => {
     <div className="scoreboard card">
       <h2 className="scoreboard__title">High scores:</h2>
       <p>
-        <span>Average time: {stats.averageScores.toFixed(2)}s</span>
+        <span>
+          Average time:&nbsp;
+          <span className="scoreboard__value">
+            {stats.averageScores.toFixed(2)}s
+          </span>
+        </span>
         &nbsp;&nbsp;&nbsp;
-        <span>Average attempts: {stats.averageAttempts.toFixed(2)}</span>
+        <span>
+          Average attempts:&nbsp;
+          <span className="scoreboard__value">
+            {stats.averageAttempts.toFixed(2)}
+          </span>
+        </span>
+        &nbsp;&nbsp;&nbsp;
+        <span>
+          Wins: <span className="scoreboard__value">{stats.wins}</span>
+        </span>
+        &nbsp;&nbsp;&nbsp;
+        <span>
+          Lost: <span className="scoreboard__value">{stats.lost}</span>
+        </span>
       </p>
       {isLoading ? <div>Loading...</div> : <ul>{scoreboardList}</ul>}
     </div>
