@@ -1,9 +1,10 @@
-Sleeping Dogs Camera Hacking mini-game (<a href="https://en.wikipedia.org/wiki/Bulls_and_Cows" target="_blank" rel="noopener noreferrer">Bulls and Cows</a> variation).<br>
-React 16.3, TypeScript, MobX, SCSS, Firebase to save Highscores (submit form). Average time/attempts stats.
+<a href="https://en.wikipedia.org/wiki/Sleeping_Dogs_(video_game)" target="_blank" rel="noopener noreferrer">Sleeping Dogs</a> Camera Hacking mini-game (<a href="https://en.wikipedia.org/wiki/Bulls_and_Cows" target="_blank" rel="noopener noreferrer">Bulls and Cows</a> variation).
+<br>
+<b>Tech stack</b>: React 16.3, TypeScript, MobX, SCSS, Firebase to save user info (name, company, code, time, attempts, date, comment), average time/attempts, wins/lost stats.
 
 ![example](example.jpg)
 <br/>
-<b>TODO</b> (by priority)
+<b>TODO</b>
 
 <ul>
   <li>REFACTORING</li>
@@ -18,6 +19,13 @@ React 16.3, TypeScript, MobX, SCSS, Firebase to save Highscores (submit form). A
   <li>Adjust design</li>
 </ul>
 
+<b>Bugs</b>
+
+<ul>
+  <li>DIN Condensed font has wrong line height on MacOS</li>
+</ul>
+
+<br/>
 ## :hammer_and_wrench: Installation
 
 - \$ yarn
