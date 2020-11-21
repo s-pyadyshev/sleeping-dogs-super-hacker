@@ -1,3 +1,4 @@
+<img src="https://github.com/s-pyadyshev/sleeping-dogs-super-hacker/workflows/CI/badge.svg"/>
 <a href="https://en.wikipedia.org/wiki/Sleeping_Dogs_(video_game)" target="_blank" rel="noopener noreferrer">Sleeping Dogs</a> Camera Hacking mini-game (<a href="https://en.wikipedia.org/wiki/Bulls_and_Cows" target="_blank" rel="noopener noreferrer">Bulls and Cows</a> variation).
 <br>
 <b>Tech stack</b>: React 16.3, TypeScript, MobX, SCSS, Firebase to save user info (name, company, code, time, attempts, date, comment), average time/attempts, wins/lost stats.
