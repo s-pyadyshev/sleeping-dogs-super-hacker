@@ -4,7 +4,8 @@
 
 ![example](example.jpg)
 <br/>
-<b>TODO</b>
+
+## :construction_worker: To Do
 
 <ul>
   <li>REFACTORING</li>
@@ -19,13 +20,12 @@
   <li>Adjust design</li>
 </ul>
 
-<b>Bugs</b>
+## :bug: Bugs
 
 <ul>
   <li>DIN Condensed font has wrong line height on MacOS</li>
 </ul>
 
-<br/>
 ## :hammer_and_wrench: Installation
 
 - \$ yarn
