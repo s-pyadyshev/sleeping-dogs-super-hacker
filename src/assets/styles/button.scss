@@ -12,13 +12,14 @@
 }
 
 .button-primary {
+  background-color: $card-text-color;
   transition-duration: $transition-duration;
   transition-property: background-color;
 
   &:focus,
   &:hover,
   &:active {
-    background-color: $input-border-active;
+    background-color: $link-color;
     transition-duration: $transition-duration;
     transition-property: background-color;
   }
