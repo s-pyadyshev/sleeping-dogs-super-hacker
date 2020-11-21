@@ -4,6 +4,7 @@
 <br/>
 <b>Tech stack</b>: React 16.3, TypeScript, MobX, SCSS, Firebase to save user info (name, company, code, time, attempts, date, comment), average time/attempts, wins/lost stats.
 <br/>
+
 ![example](example.jpg)
 <br/>
 
