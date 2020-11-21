@@ -1,3 +1,5 @@
+@import "../../assets/styles/variables";
+
 .button {
   padding: 8px 12px;
   border-radius: 8px;
@@ -6,6 +8,19 @@
     color: $state-disabled;
     opacity: 0.5;
     pointer-events: none;
+  }
+}
+
+.button-primary {
+  transition-duration: $transition-duration;
+  transition-property: background-color;
+
+  &:focus,
+  &:hover,
+  &:active {
+    background-color: $input-border-active;
+    transition-duration: $transition-duration;
+    transition-property: background-color;
   }
 }
 

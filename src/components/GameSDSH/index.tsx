@@ -4,6 +4,7 @@ import { useStores } from "../../hooks/use-stores";
 import cn from "classnames";
 import Counter from "../Counter";
 import { useKeyPress } from "../../hooks/useKeyPress";
+import { updateStats } from "../../firebase/firebase.util";
 import "./style.scss";
 
 // observer - from mobx-react.
@@ -55,6 +56,7 @@ const GameSDSH = observer(() => {
       gameSDSHStore.isGameOver = true;
       gameSDSHStore.isGameStarted = false;
       gameSDSHStore.userCode = gameSDSHStore.initialUserCodeState;
+      updateStats("lost");
     }
   };
 
@@ -86,6 +88,7 @@ const GameSDSH = observer(() => {
     checkCode();
   };
 
+  // TODO Refactor
   useKeyPress(["Up", "ArrowUp", "W", "w", "Ц", "ц"], pressUpCallback);
   useKeyPress(["Left", "ArrowLeft", "A", "a", "Ф", "ф"], pressLeftCallback);
   useKeyPress(["Down", "ArrowDown", "S", "s", "Ы", "ы"], pressDownCallback);

@@ -19,10 +19,10 @@
   a,
   button {
     display: inline-block;
-    padding: 8px 12px;
+    padding: 8px;
     color: inherit;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 1.5;
     text-decoration: none;
     background: none;
@@ -33,6 +33,7 @@
     transition-property: border, box-shadow;
 
     @include tablet {
+      padding: 8px 12px;
       font-size: 32px;
     }
 
@@ -49,7 +50,9 @@
 
   &__item {
     &:not(:last-child) {
-      margin-bottom: 16px;
+      @include tablet {
+        margin-bottom: 16px;
+      }
     }
   }
 

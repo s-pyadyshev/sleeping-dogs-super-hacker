@@ -64,6 +64,12 @@ class GameSDSHStore {
   @observable
   isGameStarted: boolean = false;
 
+  @observable
+  wins: number = 0;
+
+  @observable
+  lost: number = 0;
+
   // Generate full secret code, shuffle it (no repeated digits) and cut first 4 digits
   @action
   generateSecretCode() {
@@ -71,6 +77,7 @@ class GameSDSHStore {
       0,
       this.initialUserCodeState.length
     );
+    // this.code = [0, 1, 2, 3];
   }
 
   @action
@@ -91,19 +98,19 @@ class GameSDSHStore {
     );
     const isEqualCodes = equals(this.code, userCodeArray);
 
+    const setGameUnlocked = () => {
+      this.isGameStarted = false;
+      this.isUnlocked = true;
+      this.userCode.map((code: UserCodeInterface) => {
+        code.isExist = true;
+        code.isValid = true;
+        return null; // array-callback-return
+      });
+    };
+
     buttonsIds.map((id: number) => {
       const isUserValueExist = this.code.includes(this.userCode[id].value);
       const isUserValueValid = this.code[id] === this.userCode[id].value;
-
-      const setGameUnlocked = () => {
-        this.isGameStarted = false;
-        this.isUnlocked = true;
-        this.userCode.map((code: UserCodeInterface) => {
-          code.isExist = true;
-          code.isValid = true;
-          return null; // array-callback-return
-        });
-      };
 
       const setPartialValidPlacement = () => {
         this.userCode[id].isExist = true;
@@ -128,16 +135,6 @@ class GameSDSHStore {
       ]);
 
       setDigitStates();
-
-      // if (isEqualCodes) {
-      //   setGameUnlocked();
-      // } else if (isUserValueExist && !isUserValueValid) {
-      //   setPartialValidPlacement();
-      // } else if (isUserValueExist && isUserValueValid) {
-      //   setValidPlacement();
-      // } else {
-      //   setInvalidPlacement();
-      // }
 
       return null; // array-callback-return
     });
@@ -171,14 +168,6 @@ class GameSDSHStore {
     this.userCode = this.initialUserCodeState;
     this.attempts = this.attemptsInitial;
   }
-
-  // @action
-  // gameReset() {
-  //   this.isGameStarted = false;
-  //   this.isGameOver = false;
-  //   this.isUnlocked = false;
-  //   this.attempts = this.attemptsInitial;
-  // }
 }
 
 export default GameSDSHStore;
