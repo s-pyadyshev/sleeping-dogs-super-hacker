@@ -1,6 +1,8 @@
 Sleeping Dogs Camera Hacking mini-game (<a href="https://en.wikipedia.org/wiki/Bulls_and_Cows" target="_blank" rel="noopener noreferrer">Bulls and Cows</a> variation).<br>
 React 16.3, TypeScript, MobX, SCSS, Firebase to save Highscores (submit form). Average time/attempts stats.
 
+![example](example.jpg)
+<br/>
 <b>TODO</b> (by priority)
 
 <ul>
