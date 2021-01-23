@@ -1,5 +1,7 @@
-import { always } from "ramda";
+import * as React from "react";
 
-const Loading = always("Loading...");
+export const Loading = () => {
+  return <div>Loading...</div>;
+};
 
 export default Loading;
