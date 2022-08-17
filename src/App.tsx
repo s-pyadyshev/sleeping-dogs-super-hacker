@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { observer } from "mobx-react";
 import AboutPage from "./pages/AboutPage";
@@ -42,13 +42,13 @@ const App: React.FC = observer(() => {
           </aside>
 
           <main className="main">
-            <Switch>
-              <Route path="/" exact component={InstructionsPage} />
-              <Route path="/about" exact component={AboutPage} />
-              <Route path="/game" exact component={GameSDSHPage} />
-              <Route path="/highscore" exact component={HighScorePage} />
-              <Route path="/counter" exact component={CounterPage} />
-            </Switch>
+            <Routes>
+              <Route path="/" element={<InstructionsPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/game" element={<GameSDSHPage />} />
+              <Route path="/highscore" element={<HighScorePage />} />
+              <Route path="/counter" element={<CounterPage />} />
+            </Routes>
           </main>
         </Router>
       </div>

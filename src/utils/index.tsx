@@ -1,7 +1,10 @@
-export function shuffle(a: number[]) {
+export const shuffle = (a: number[]) => {
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
-}
+};
+
+export const shuffleCutCode = (code: number[], length: number) =>
+  shuffle(code).slice(0, length);

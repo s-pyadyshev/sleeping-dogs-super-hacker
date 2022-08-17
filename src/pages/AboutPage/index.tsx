@@ -59,19 +59,7 @@ const AboutPage: React.FC = () => {
         I had to practice MobX and the world needs anything but another ToDo
         list - that's why you are here.
       </p>
-      <p>
-        Idea and images are properties of Square Enix Ltd. Background image
-        by&nbsp;
-        <a
-          className="link"
-          href="https://www.deviantart.com/lonefirewarrior/art/KISS-MY-ASS-GOD-KING-479293593"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          lonefirewarrior
-        </a>
-        .
-      </p>
+      <p>Idea and images are properties of Square Enix Ltd.</p>
       <p>
         Source code:&nbsp;
         <a

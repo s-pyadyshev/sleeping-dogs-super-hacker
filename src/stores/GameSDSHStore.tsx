@@ -1,5 +1,5 @@
-import { observable, action } from "mobx";
-import { shuffle } from "../utils";
+import { observable, action, makeObservable } from "mobx";
+import { shuffleCutCode } from "../utils";
 import { UserCodeInterface } from "../interfaces/user-code";
 import { ALLOWED_DIGITS } from "../constants";
 import { dec, equals } from "ramda";
@@ -12,6 +12,25 @@ class GameSDSHStore {
   rootStore: any;
 
   constructor(rootStore: any) {
+    makeObservable(this, {
+      code: observable,
+      userCode: observable,
+      attempts: observable,
+      counter: observable,
+      isUnlocked: observable,
+      isGameOver: observable,
+      isGameStarted: observable,
+      wins: observable,
+      lost: observable,
+      generateSecretCode: action,
+      decreaseAttempts: action,
+      calculateAttemptsUsed: action,
+      checkCodeValidity: action,
+      incrementCodeNumber: action,
+      decrementCodeNumber: action,
+      gameStart: action,
+    });
+
     this.rootStore = rootStore;
   }
 
@@ -40,57 +59,43 @@ class GameSDSHStore {
     },
   ];
 
-  @observable
   code: number[] = [];
 
-  @observable
   userCode: any = this.initialUserCodeState;
 
-  @observable
   attempts: number = this.attemptsInitial;
 
   attemptsUsed: number = 0;
 
   // counter for submit form
-  @observable
   counter: number = 0;
 
-  @observable
   isUnlocked: boolean = false;
 
-  @observable
   isGameOver: boolean = false;
 
-  @observable
   isGameStarted: boolean = false;
 
-  @observable
   wins: number = 0;
 
-  @observable
   lost: number = 0;
 
   // Generate full secret code, shuffle it (no repeated digits) and cut first 4 digits
-  @action
   generateSecretCode() {
-    this.code = shuffle(ALLOWED_DIGITS).slice(
-      0,
+    this.code = shuffleCutCode(
+      ALLOWED_DIGITS,
       this.initialUserCodeState.length
     );
-    // this.code = [0, 1, 2, 3];
   }
 
-  @action
   decreaseAttempts() {
     this.attempts = dec(this.attempts);
   }
 
-  @action
   calculateAttemptsUsed() {
     this.attemptsUsed = this.attemptsInitial - this.attempts;
   }
 
-  @action
   checkCodeValidity() {
     const buttonsIds = [0, 1, 2, 3]; // TODO constant
     const userCodeArray = this.userCode.map(
@@ -140,7 +145,6 @@ class GameSDSHStore {
     });
   }
 
-  @action
   incrementCodeNumber(id: number) {
     if (this.userCode[id].value === maxValue) {
       this.userCode[id].value = 0;
@@ -149,7 +153,6 @@ class GameSDSHStore {
     }
   }
 
-  @action
   decrementCodeNumber(id: number) {
     if (this.userCode[id].value === minValue) {
       this.userCode[id].value = maxValue;
@@ -159,7 +162,6 @@ class GameSDSHStore {
   }
 
   // state - gameStarted
-  @action
   gameStart() {
     this.generateSecretCode();
     this.isGameOver = false;

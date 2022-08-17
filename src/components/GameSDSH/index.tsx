@@ -95,7 +95,7 @@ const GameSDSH = observer(() => {
   useKeyPress(["Right", "ArrowRight", "D", "d", "В", "в"], pressRighttCallback);
   useKeyPress("Enter", pressEnterCallback);
 
-  const handleFocus = (event: any) => {
+  const handleFocus = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.target.select();
   };
 
@@ -127,10 +127,6 @@ const GameSDSH = observer(() => {
 
   return (
     <div className="form-code-wrap">
-      {/* <button onClick={() => clearTimeout(counterStore.counterTimeout)}>
-        stop it
-      </button> */}
-
       <form className={cn("form-code")} onSubmit={handleCodeCheck}>
         <div className="form-code__interface">
           <div className="form-code__stats">
