@@ -1,21 +1,29 @@
+# file: .github/workflows/main.yml
 name: CI
+# on – определяет события, которые запускают воркфлоу
 on:
   push:
     branches: [master]
-env:
-  CI: false
+# build – произвольно выбранное имя задания
+# их может быть больше одного
 jobs:
   build:
     name: Test
+    # операционная система для работы воркфлоу
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
-    steps:
+    steps: # список шагов, которые надо выполнить
+      # экшен, выполняет какую-то задачу
+      # checkout – клонирует репозиторий
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+          cache: 'npm'
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install # will run `yarn install` command
+      - name: run tests
+        run: yarn test
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: build # will run `yarn build` command
