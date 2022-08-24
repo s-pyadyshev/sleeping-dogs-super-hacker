@@ -9,15 +9,15 @@ const InstructionsPage: React.FC = () => {
         ticking!
       </p>
       <p>
-        <span className="icon-invalid-placement"></span>
+        <span className="icon icon-invalid-place"></span>
         <span>Invalid placement</span>
       </p>
       <p>
-        <span className="icon-invalid-digit"></span>
+        <span className="icon icon-invalid-digit"></span>
         <span>Invalid digit</span>
       </p>
       <p>
-        <span className="icon-valid-digit"></span>
+        <span className="icon icon-valid-digit"></span>
         <span>Valid digit</span>
       </p>
       <p>

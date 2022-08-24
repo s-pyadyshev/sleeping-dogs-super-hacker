@@ -8,30 +8,23 @@
   }
 }
 
-.icon-invalid-placement {
+.icon {
   display: inline-block;
   width: 32px;
   height: 32px;
-  margin-right: 8px;
+  margin-right: 16px;
   vertical-align: middle;
-  background-color: $color-invalid-placement;
+}
+
+.icon-invalid-place {
+  background-color: $color-invalid-place;
   border-radius: 50%;
 }
 
 .icon-invalid-digit {
-  display: inline-block;
-  width: 32px;
-  height: 32px;
-  margin-right: 8px;
-  vertical-align: middle;
   background-color: $color-invalid-digit;
 }
 
 .icon-valid-digit {
-  display: inline-block;
-  width: 32px;
-  height: 32px;
-  margin-right: 8px;
-  vertical-align: middle;
   background-color: $color-valid-digit;
 }

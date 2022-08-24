@@ -41,11 +41,11 @@ $input-amount: 4;
     flex-wrap: wrap;
     max-width: 200px;
     margin-right: auto;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
     margin-left: auto;
 
     @include desktop {
-      margin-bottom: 16px;
+      margin-bottom: 30px;
     }
   }
 
@@ -60,7 +60,6 @@ $input-amount: 4;
   &__stats {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 16px;
     padding-right: 24px;
     padding-left: 24px;
     color: $color-white;
