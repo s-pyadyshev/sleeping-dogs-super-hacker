@@ -7,6 +7,7 @@ import CounterPage from "./pages/CounterPage";
 import GameSDSHPage from "./pages/GameSDSHPage";
 import HighScorePage from "./pages/HighScorePage";
 import InstructionsPage from "./pages/InstructionsPage";
+import SecretPage from "./pages/SecretPage";
 import GameMenu from "./components/GameMenu";
 import "./App.scss";
 
@@ -48,6 +49,7 @@ const App: React.FC = observer(() => {
               <Route path="/game" element={<GameSDSHPage />} />
               <Route path="/highscore" element={<HighScorePage />} />
               <Route path="/counter" element={<CounterPage />} />
+              <Route path="/secret" element={<SecretPage />} />
             </Routes>
           </main>
         </Router>

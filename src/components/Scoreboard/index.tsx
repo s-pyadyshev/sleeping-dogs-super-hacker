@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { firestore } from "../../firebase/firebase.util";
 // import { SubmitFormInterface } from "../../interfaces/submit-form";
 import "./style.scss";
@@ -6,6 +6,16 @@ import "./style.scss";
 // interface ScoreboardInterface {
 //   [index: number]: SubmitFormInterface;
 // }
+
+interface ScoreboardInterface {
+  username: string;
+  code: string;
+  company: string;
+  date: string;
+  score: number;
+  attemptsUsed: number;
+  comment: string;
+}
 
 interface ScoreboardStatsInterface {
   averageScores: number;
@@ -23,52 +33,28 @@ const Scoreboard = () => {
     lost: 0,
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  // const easterEggs = [
-  //   {
-  //     code: "6502",
-  //     link: "https://en.wikipedia.org/wiki/MOS_Technology_6502",
-  //   },
-  // ];
 
   useEffect(() => {
     setIsLoading(true);
     const scoresDB = firestore.collection("scores");
     const statsDB = firestore.collection("stats").doc("statsDoc");
-    const userScores: number[] = [];
-    const userAttempts: number[] = [];
 
-    // TODO make request logic outside
     scoresDB
       .get()
-      .then(function (querySnapshot: any) {
-        querySnapshot.forEach(function (doc: any) {
-          setScoreboard((scoreboard: any) => [...scoreboard, doc.data()]);
-          userScores.push(doc.data().score);
-          userAttempts.push(doc.data().attemptsUsed);
-
-          const averageScores =
-            userScores.reduce((acc, item) => acc + item) / userScores.length;
-          const averageAttempts =
-            userAttempts.reduce((acc, item) => acc + item) /
-            userAttempts.length;
-          setStats((stats) => {
-            return {
-              ...stats,
-              averageScores,
-              averageAttempts,
-            };
-          });
+      .then((querySnapshot: any) => {
+        let scoresData = querySnapshot.docs.map((doc: any) => {
+          return { ...doc.data() };
         });
+        setScoreboard([...scoreboard, ...scoresData]);
       })
-      .catch(function () {
-        // console.log("Error getting document:", error);
+      .catch((error) => {
+        console.log("Error getting document:", error);
       });
 
     statsDB
       .get()
-      .then(function (doc: any) {
-        const wins = doc.data().wins;
-        const lost = doc.data().lost;
+      .then((doc: any) => {
+        const { wins, lost } = doc.data();
 
         setStats((stats) => {
           return {
@@ -78,16 +64,41 @@ const Scoreboard = () => {
           };
         });
       })
-      .catch(function () {
-        // console.log("Error getting document:", error);
+      .catch((error) => {
+        console.log("Error getting document:", error);
       });
     setIsLoading(false);
   }, []);
 
+  useEffect(() => {
+    if (scoreboard.length === 0) {
+      return;
+    }
+    const userAttempts: number[] = scoreboard.reduce(
+      (acc: number[], item: any) => [...acc, item.attemptsUsed],
+      []
+    );
+    const userScores: number[] = scoreboard.reduce(
+      (acc: number[], item: any) => [...acc, item.score],
+      []
+    );
+    const averageScores =
+      userScores.reduce((acc, item) => acc + item) / userScores.length;
+    const averageAttempts =
+      userAttempts.reduce((acc, item) => acc + item) / userAttempts.length;
+    setStats((stats) => {
+      return {
+        ...stats,
+        averageScores,
+        averageAttempts,
+      };
+    });
+  }, [scoreboard]);
+
   const scoreboardList = scoreboard
     .sort((a: { score: number }, b: { score: number }) => a.score - b.score)
-    .map((score: any, index: number) => (
-      <li key={score.username + score.code} className="scoreboard__list-item">
+    .map((score: ScoreboardInterface, index: number) => (
+      <li key={index} className="scoreboard__list-item">
         <div className="scoreboard__item-index">{index + 1}</div>
         <div className="scoreboard__item-username">{score.username}</div>
         <div className="scoreboard__item-company">{score.company}</div>
@@ -125,7 +136,11 @@ const Scoreboard = () => {
           Lost: <span className="scoreboard__value">{stats.lost}</span>
         </span>
       </p>
-      {isLoading ? <div>Loading...</div> : <ul>{scoreboardList}</ul>}
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <ul className="scoreboard__list">{scoreboardList}</ul>
+      )}
     </div>
   );
 };

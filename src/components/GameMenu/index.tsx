@@ -38,6 +38,7 @@ const GameMenu: React.FC = observer(() => {
         <li className="game-menu__item">
           <NavLink
             to="/"
+            end
             className={({ isActive }) => (isActive ? "is-active" : undefined)}
           >
             How to play
@@ -50,7 +51,7 @@ const GameMenu: React.FC = observer(() => {
         </li>
         <li className="game-menu__item">
           <NavLink
-            to="/about"
+            to="about"
             className={({ isActive }) => (isActive ? "is-active" : undefined)}
           >
             About
@@ -58,7 +59,7 @@ const GameMenu: React.FC = observer(() => {
         </li>
         <li className="game-menu__item">
           <NavLink
-            to="/highscore"
+            to="highscore"
             className={({ isActive }) => (isActive ? "is-active" : undefined)}
           >
             Highscore

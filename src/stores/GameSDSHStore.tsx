@@ -97,7 +97,7 @@ class GameSDSHStore {
   }
 
   checkCodeValidity() {
-    const buttonsIds = [0, 1, 2, 3]; // TODO constant
+    const buttonsIds = [0, 1, 2, 3];
     const userCodeArray = this.userCode.map(
       (item: { value: number }) => item.value
     );

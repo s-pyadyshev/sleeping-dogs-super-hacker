@@ -16,7 +16,6 @@
   <li>REFACTORING</li>
   <li>Improve 1st place calculcation based on time + attempts (it's time only now)</li>
   <li>Make timer in ms?</li>
-  <li>Add overflow for scroll to scoreboard. Add pagination?</li>
   <li>Add easter eggs in Scoreboard for unique numbers</li>
   <li>Add difficulty setting to play with limited time (like in the game)</li>
   <li>Form validation?</li>

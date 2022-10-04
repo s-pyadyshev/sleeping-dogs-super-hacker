@@ -76,6 +76,15 @@
     }
   }
 
+  &__list {
+    height: 75vh;
+    overflow-y: auto;
+
+    @include tablet {
+      padding-right: 16px;
+    }
+  }
+
   &__list-item {
     display: flex;
     flex-wrap: wrap;
