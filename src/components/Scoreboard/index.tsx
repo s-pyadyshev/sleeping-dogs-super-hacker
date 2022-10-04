@@ -68,6 +68,7 @@ const Scoreboard = () => {
         console.log("Error getting document:", error);
       });
     setIsLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

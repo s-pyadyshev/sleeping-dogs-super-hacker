@@ -72,6 +72,7 @@ const SubmitForm = () => {
     }
 
     updateStats("wins");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [counterStore, gameSDSHStore]);
 
   return (
