@@ -15,11 +15,11 @@
 <ul>
   <li>Improve 1st place calculcation based on time + attempts (it's time only now)</li>
   <li>Add easter eggs in Scoreboard for unique numbers</li>
-  <li>Add difficulty setting to play with limited time (like in the game)</li>
   <li>Form validation?</li>
-  <li>Two player mode?</li>
   <li>Add default (indeterminate) digit input state</li>
   <li>Improve UI/UX</li>
+  <li>Add difficulty setting to play with limited time (like in the game)</li>
+  <li>Two player mode?</li>
 </ul>
 
 ## :bug: Bugs
@@ -30,6 +30,5 @@
 
 ## :hammer_and_wrench: Installation
 
-- \$ yarn
-- \$ yarn start - dev
-- \$ yarn build - prod
+- \$ make install<br>
+- \$ make start
