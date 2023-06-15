@@ -14,7 +14,6 @@ const GameSDSHPage: React.FC = observer(() => {
 
   return (
     <>
-      {/* TODO Refactor conditions */}
       {gameSDSHStore.isGameStarted ? <GameSDSH /> : null}
       {gameSDSHStore.isUnlocked ? <SubmitForm /> : null}
       {gameSDSHStore.isGameOver ? <GameOver /> : null}

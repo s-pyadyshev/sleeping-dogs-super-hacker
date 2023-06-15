@@ -4,10 +4,20 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
 import { useStores } from "../../hooks/use-stores";
 import "./style.scss";
+import { useTranslation } from "react-i18next";
+
+type LanguagesType = {
+  [key: string]: { name: string };
+};
+const languages: LanguagesType = {
+  en: { name: "En" },
+  ru: { name: "Ru" },
+};
 
 const GameMenu: React.FC = observer(() => {
   const { gameSDSHStore, counterStore } = useStores();
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
 
   const removeInputBlur = (event: any) => {
     event.target.blur();
@@ -22,7 +32,7 @@ const GameMenu: React.FC = observer(() => {
 
   const debouncedStartGame = debounce(startGame, 1000);
 
-  const handleStartClick = (event: any) => {
+  const handleStartClick = (event: React.FormEvent<HTMLButtonElement>) => {
     removeInputBlur(event); // to avoid React event pooling:
     // the event object (a wrapper created by React over the actual event object) that is passed to an event callback is reused
     // and hence it will be nullified or cleared once the event callback finishes.
@@ -41,12 +51,12 @@ const GameMenu: React.FC = observer(() => {
             end
             className={({ isActive }) => (isActive ? "is-active" : undefined)}
           >
-            How to play
+            {t("menu.howtoplay")}
           </NavLink>
         </li>
         <li className="game-menu__item">
           <button className="button" onClick={handleStartClick}>
-            {gameSDSHStore.isGameStarted ? "Restart" : "Start"}
+            {gameSDSHStore.isGameStarted ? t("menu.restart") : t("menu.start")}
           </button>
         </li>
         <li className="game-menu__item">
@@ -54,7 +64,7 @@ const GameMenu: React.FC = observer(() => {
             to="about"
             className={({ isActive }) => (isActive ? "is-active" : undefined)}
           >
-            About
+            {t("menu.about")}
           </NavLink>
         </li>
         <li className="game-menu__item">
@@ -62,8 +72,20 @@ const GameMenu: React.FC = observer(() => {
             to="highscore"
             className={({ isActive }) => (isActive ? "is-active" : undefined)}
           >
-            Highscore
+            {t("menu.highscore")}
           </NavLink>
+        </li>
+        <li>
+          {Object.keys(languages).map((lang: string) => (
+            <button
+              key={lang}
+              className={i18n.resolvedLanguage === lang ? "is-active" : ""}
+              type="button"
+              onClick={() => i18n.changeLanguage(lang)}
+            >
+              {languages[lang].name}
+            </button>
+          ))}
         </li>
       </ul>
     </nav>

@@ -6,6 +6,7 @@ import Counter from "../Counter";
 import { useKeyPress } from "../../hooks/useKeyPress";
 import { updateStats } from "../../firebase/firebase.util";
 import "./style.scss";
+import { useTranslation } from "react-i18next";
 
 // observer - from mobx-react.
 // The observer HoC / decorator subscribes React components automatically to any observables that are used during render.
@@ -26,6 +27,7 @@ import "./style.scss";
 // When to apply observer? The simple rule of thumb is: all components that render observable data.
 
 const GameSDSH = observer(() => {
+  const { t } = useTranslation();
   const { gameSDSHStore, counterStore } = useStores();
   const activeDigitState = useLocalStore(() => ({
     currentDigitId: 0,
@@ -99,7 +101,7 @@ const GameSDSH = observer(() => {
     event.target.select();
   };
 
-  const handleCodeCheck = (event: any) => {
+  const handleCodeCheck = (event: React.FormEvent) => {
     event.preventDefault();
     checkCode();
   };
@@ -131,7 +133,7 @@ const GameSDSH = observer(() => {
         <div className="form-code__interface">
           <div className="form-code__stats">
             <div>
-              Attempts remaining:&nbsp;
+              {t("gameScreen.attempts")}:&nbsp;
               <span className="form-code__stats-attempts-value">
                 {gameSDSHStore.attempts}
               </span>

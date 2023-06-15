@@ -1,30 +1,27 @@
 import * as React from "react";
 import "./style.scss";
+import { useTranslation } from "react-i18next";
 
 const InstructionsPage: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
-    <div className="instructions card">
-      <p>
-        Guess 4 UNIQUE digits. You have 6 attempts only. And the clock is
-        ticking!
-      </p>
+    <article className="instructions card">
+      <p>{t("howtoplay.start")}&nbsp;</p>
       <p>
         <span className="icon icon-invalid-place"></span>
-        <span>Invalid placement</span>
+        <span>{t("howtoplay.yellow")}</span>
       </p>
       <p>
         <span className="icon icon-invalid-digit"></span>
-        <span>Invalid digit</span>
+        <span>{t("howtoplay.red")}</span>
       </p>
       <p>
         <span className="icon icon-valid-digit"></span>
-        <span>Valid digit</span>
+        <span>{t("howtoplay.green")}</span>
       </p>
-      <p>
-        Use WASD (arrows on mobile) to navigate and increase/decrease digits.
-        Press Enter to check validity.
-      </p>
-    </div>
+      <p>{t("howtoplay.controls")}</p>
+    </article>
   );
 };
 

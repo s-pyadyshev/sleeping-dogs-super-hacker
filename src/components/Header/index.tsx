@@ -1,4 +1,3 @@
-import React from "react";
 import { auth } from "../../firebase/firebase.util";
 
 const Header = ({ currentUser }: any) => {

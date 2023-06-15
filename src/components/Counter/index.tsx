@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useStores } from "../../hooks/use-stores";
 import "./style.scss";
+import { useTranslation } from "react-i18next";
 
 const Counter = () => {
   const { counterStore, gameSDSHStore } = useStores();
+  const { t } = useTranslation();
 
   useEffect(() => {
     return () => {
@@ -17,7 +19,8 @@ const Counter = () => {
 
   return (
     <span className="counter">
-      Time: <span className="counter__value">{counterStore.counter}</span>
+      {t("gameScreen.time")}:
+      <span className="counter__value">{counterStore.counter}</span>
     </span>
   );
 };

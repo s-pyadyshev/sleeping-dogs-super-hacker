@@ -3,8 +3,10 @@ import { useStores } from "../../hooks/use-stores";
 import { SubmitFormInterface } from "../../interfaces/submit-form";
 import { firestore, updateStats } from "../../firebase/firebase.util";
 import "./style.scss";
+import { useTranslation } from "react-i18next";
 
 const SubmitForm = () => {
+  const { t } = useTranslation();
   const { gameSDSHStore, counterStore } = useStores();
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [userForm, setUserForm] = useState<SubmitFormInterface>({
@@ -81,7 +83,7 @@ const SubmitForm = () => {
         <form onSubmit={submitUserScore}>
           <div className="input-group-stacked">
             <label htmlFor="username" className="label">
-              Your name:
+              {t("scoreForm.name")}:
             </label>
             <input
               ref={inputRef}
@@ -94,39 +96,27 @@ const SubmitForm = () => {
             />
           </div>
           <div className="input-group-stacked">
-            <label htmlFor="company" className="label">
-              Your company:
-            </label>
-            <input
-              className="input input--full-width"
-              type="text"
-              id="company"
-              name="company"
-              onChange={handleInput}
-              required
-            />
-          </div>
-          <div className="input-group-stacked">
             <h3>
-              Your lucky number:&nbsp;
+              {t("scoreForm.number")}:&nbsp;
               <span className="label-value">{gameSDSHStore.code}</span>
             </h3>
             <h3>
-              Time spent:&nbsp;
+              {t("scoreForm.time")}:&nbsp;
               <span className="label-value">{gameSDSHStore.counter}s</span>
             </h3>
             <h3>
-              Attempts used:&nbsp;
+              {t("scoreForm.attempts")}:&nbsp;
               <span className="label-value">{gameSDSHStore.attemptsUsed}</span>
             </h3>
 
             <h3>
-              Date:&nbsp;<span className="label-value">{userForm.date}</span>
+              {t("scoreForm.date")}:&nbsp;
+              <span className="label-value">{userForm.date}</span>
             </h3>
           </div>
           <div className="input-group-stacked">
             <label className="label" htmlFor="comment">
-              Leave a comment:
+              {t("scoreForm.comment")}:
             </label>
             <textarea
               className="input input--full-width textarea"
@@ -138,14 +128,14 @@ const SubmitForm = () => {
             ></textarea>
           </div>
           <button type="submit" className="button button-primary">
-            Submit your score
+            {t("scoreForm.submit")}
           </button>
         </form>
       ) : null}
 
       {formSubmitted ? (
         <div>
-          <h3>Form was submitted</h3>
+          <h3>{t("scoreForm.submitted")}</h3>
         </div>
       ) : null}
     </div>

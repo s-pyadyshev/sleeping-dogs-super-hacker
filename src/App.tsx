@@ -10,6 +10,7 @@ import InstructionsPage from "./pages/InstructionsPage";
 import SecretPage from "./pages/SecretPage";
 import GameMenu from "./components/GameMenu";
 import "./App.scss";
+import "./i18n";
 
 const App: React.FC = observer(() => {
   // useEffect(() => {

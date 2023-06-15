@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { firestore } from "../../firebase/firebase.util";
 // import { SubmitFormInterface } from "../../interfaces/submit-form";
 import "./style.scss";
+import { useTranslation } from "react-i18next";
 
 // interface ScoreboardInterface {
 //   [index: number]: SubmitFormInterface;
@@ -33,6 +34,7 @@ const Scoreboard = () => {
     lost: 0,
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setIsLoading(true);
@@ -63,11 +65,12 @@ const Scoreboard = () => {
             lost,
           };
         });
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-    setIsLoading(false);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -102,7 +105,6 @@ const Scoreboard = () => {
       <li key={index} className="scoreboard__list-item">
         <div className="scoreboard__item-index">{index + 1}</div>
         <div className="scoreboard__item-username">{score.username}</div>
-        <div className="scoreboard__item-company">{score.company}</div>
         <div className="scoreboard__item-code">{score.code}</div>
         <div className="scoreboard__item-score">{score.score}s</div>
         <div className="scoreboard__item-attempts">{score.attemptsUsed}</div>
@@ -113,32 +115,34 @@ const Scoreboard = () => {
 
   return (
     <div className="scoreboard card">
-      <h2 className="scoreboard__title">High scores:</h2>
+      <h2 className="scoreboard__title">{t("highscore.title")}:</h2>
       <p>
         <span>
-          Average time:&nbsp;
+          {t("highscore.averageTime")}:&nbsp;
           <span className="scoreboard__value">
             {stats.averageScores.toFixed(2)}s
           </span>
         </span>
         &nbsp;&nbsp;&nbsp;
         <span>
-          Average attempts:&nbsp;
+          {t("highscore.averageAttempts")}:&nbsp;
           <span className="scoreboard__value">
             {stats.averageAttempts.toFixed(2)}
           </span>
         </span>
         &nbsp;&nbsp;&nbsp;
         <span>
-          Wins: <span className="scoreboard__value">{stats.wins}</span>
+          {t("highscore.wins")}:{" "}
+          <span className="scoreboard__value">{stats.wins}</span>
         </span>
         &nbsp;&nbsp;&nbsp;
         <span>
-          Lost: <span className="scoreboard__value">{stats.lost}</span>
+          {t("highscore.lost")}:{" "}
+          <span className="scoreboard__value">{stats.lost}</span>
         </span>
       </p>
       {isLoading ? (
-        <div>Loading...</div>
+        <div>{t("state.loading")}</div>
       ) : (
         <ul className="scoreboard__list">{scoreboardList}</ul>
       )}

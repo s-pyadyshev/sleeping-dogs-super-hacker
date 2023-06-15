@@ -1,10 +1,13 @@
 import * as React from "react";
 import "./style.scss";
+import { useTranslation } from "react-i18next";
 
 const AboutPage: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="about card">
-      It is recreation of&nbsp;
+      {t("about.text1")}&nbsp;
       <a
         className="link"
         href="https://en.wikipedia.org/wiki/Sleeping_Dogs_(video_game)"
@@ -13,11 +16,11 @@ const AboutPage: React.FC = () => {
       >
         Sleeping Dogs
       </a>
-      &nbsp;camera hacking mini-game which is also a variation of&nbsp;
+      &nbsp;{t("about.text2")}&nbsp;
       <a className="link" href="https://en.wikipedia.org/wiki/Bulls_and_Cows">
         Bull and Cows
       </a>
-      . Buy the game on&nbsp;
+      . {t("about.text3")}&nbsp;
       <a
         href="https://store.steampowered.com/app/202170/Sleeping_Dogs/"
         className="link"
@@ -26,7 +29,7 @@ const AboutPage: React.FC = () => {
       </a>
       .
       <p>
-        Tech stack:&nbsp;
+        {t("about.text4")}:&nbsp;
         <a
           className="link"
           href="https://github.com/facebook/react"
@@ -55,25 +58,15 @@ const AboutPage: React.FC = () => {
         </a>
         .
       </p>
+      <p>{t("about.text5")}</p>
+      <p>{t("about.text6")}</p>
       <p>
-        I had to practice MobX and the world needs anything but another ToDo
-        list - that's why you are here.
-      </p>
-      <p>Idea and images are properties of Square Enix Ltd.</p>
-      <p>
-        Source code:&nbsp;
+        {t("about.text7")}:&nbsp;
         <a
           className="link"
           href="https://github.com/s-pyadyshev/sleeping-dogs-super-hacker"
         >
           Github
-        </a>
-        .
-      </p>
-      <p>
-        Code by:&nbsp;
-        <a className="link" href="https://github.com/s-pyadyshev">
-          Sergei Piadyshev
         </a>
         .
       </p>
