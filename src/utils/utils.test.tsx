@@ -1,7 +1,7 @@
 import { shuffle, shuffleCutCode } from "./index";
 
 describe("Test shuffle", () => {
-  test("shuffle has the same length", () => {
+  test("shuffle array has the same length", () => {
     const array = [1, 2, 3, 4];
     const arrayLength = array.length;
     const shuffledArrayLength = shuffle(array).length;

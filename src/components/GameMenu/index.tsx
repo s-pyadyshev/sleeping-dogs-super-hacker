@@ -33,6 +33,7 @@ const GameMenu: React.FC = observer(() => {
   const debouncedStartGame = debounce(startGame, 1000);
 
   const handleStartClick = (event: React.FormEvent<HTMLButtonElement>) => {
+    // TODO refactor for new React, events are no more null
     removeInputBlur(event); // to avoid React event pooling:
     // the event object (a wrapper created by React over the actual event object) that is passed to an event callback is reused
     // and hence it will be nullified or cleared once the event callback finishes.
