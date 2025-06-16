@@ -1,9 +1,17 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
 import "./style.scss";
 import { useTranslation } from "react-i18next";
+import { getGithubStats } from "../../api";
+import githubStarsLogoColor from "../../assets/images/github-stars-logo-color.png";
 
 const AboutPage: React.FC = () => {
   const { t } = useTranslation();
+  const [stargazersCount, setStargazersCount] = useState(0);
+
+  useEffect(() => {
+    getGithubStats().then((data) => setStargazersCount(data.stargazers_count));
+  }, []);
 
   return (
     <div className="about card">
@@ -68,7 +76,8 @@ const AboutPage: React.FC = () => {
         >
           Github
         </a>
-        .
+        <img src={githubStarsLogoColor} alt="github stars logo." className="about__github" />
+        <span>{ stargazersCount }</span>
       </p>
     </div>
   );

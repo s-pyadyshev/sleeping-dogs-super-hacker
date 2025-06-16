@@ -1,4 +1,4 @@
-import { observable, action, makeObservable } from "mobx";
+import { makeAutoObservable } from "mobx";
 import { shuffleCutCode } from "../utils";
 import { UserCodeInterface } from "../interfaces/user-code";
 import { ALLOWED_DIGITS } from "../constants";
@@ -9,29 +9,8 @@ const minValue: number = 0;
 const maxValue: number = 9;
 
 class GameSDSHStore {
-  rootStore: any;
-
-  constructor(rootStore: any) {
-    makeObservable(this, {
-      code: observable,
-      userCode: observable,
-      attempts: observable,
-      counter: observable,
-      isUnlocked: observable,
-      isGameOver: observable,
-      isGameStarted: observable,
-      wins: observable,
-      lost: observable,
-      generateSecretCode: action,
-      decreaseAttempts: action,
-      calculateAttemptsUsed: action,
-      checkCodeValidity: action,
-      incrementCodeNumber: action,
-      decrementCodeNumber: action,
-      gameStart: action,
-    });
-
-    this.rootStore = rootStore;
+  constructor() {
+    makeAutoObservable(this);
   }
 
   // settings
@@ -60,24 +39,15 @@ class GameSDSHStore {
   ];
 
   code: number[] = [];
-
   userCode: any = this.initialUserCodeState;
-
   attempts: number = this.attemptsInitial;
-
   attemptsUsed: number = 0;
-
   // counter for submit form
   counter: number = 0;
-
   isUnlocked: boolean = false;
-
   isGameOver: boolean = false;
-
   isGameStarted: boolean = false;
-
   wins: number = 0;
-
   lost: number = 0;
 
   // Generate full secret code, shuffle it (no repeated digits) and cut first 4 digits

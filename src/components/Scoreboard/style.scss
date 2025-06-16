@@ -82,6 +82,18 @@
       flex-wrap: nowrap;
     }
 
+    &:first-child {
+      display: none;
+
+      @include tablet {
+        display: flex;
+      }
+
+      button {
+        color: $link-color;
+      }
+    }
+
     &:not(:last-child) {
       margin-bottom: 16px;
     }

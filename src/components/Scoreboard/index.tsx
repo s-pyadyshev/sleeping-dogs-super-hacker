@@ -3,6 +3,7 @@ import { firestore } from "../../firebase/firebase.util";
 // import { SubmitFormInterface } from "../../interfaces/submit-form";
 import "./style.scss";
 import { useTranslation } from "react-i18next";
+import { attempt } from "lodash";
 
 // interface ScoreboardInterface {
 //   [index: number]: SubmitFormInterface;
@@ -25,8 +26,19 @@ interface ScoreboardStatsInterface {
   lost: number;
 }
 
+const sortingMap = {
+  index: "default",
+  username: "default",
+  code: "descend",
+  score: "default",
+  attempts: "default",
+  date: "default"
+}
+
 const Scoreboard = () => {
   const [scoreboard, setScoreboard] = useState<any>([]);
+  const [scoreboardSorted, setScoreboardSorted] = useState<any>(scoreboard);
+  const [sorting, setSorting] = useState({});
   const [stats, setStats] = useState<ScoreboardStatsInterface>({
     averageScores: 0,
     averageAttempts: 0,
@@ -48,6 +60,10 @@ const Scoreboard = () => {
           return { ...doc.data() };
         });
         setScoreboard([...scoreboard, ...scoresData]);
+        setScoreboardSorted([...scoreboard, ...scoresData]);
+        setSorting({
+          score: "descend"
+        })
       })
       .catch((error) => {
         console.log("Error getting document:", error);
@@ -70,8 +86,6 @@ const Scoreboard = () => {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -99,8 +113,8 @@ const Scoreboard = () => {
     });
   }, [scoreboard]);
 
-  const scoreboardList = scoreboard
-    .sort((a: { score: number }, b: { score: number }) => a.score - b.score)
+  const scoreboardList = scoreboardSorted
+    .sort((a: { score: number }, b: { score: number }) => a.score - b.score) // default sorting
     .map((score: ScoreboardInterface, index: number) => (
       <li key={index} className="scoreboard__list-item">
         <div className="scoreboard__item-index">{index + 1}</div>
@@ -112,6 +126,12 @@ const Scoreboard = () => {
         <div className="scoreboard__item-comment">{score.comment}</div>
       </li>
     ));
+  
+  const sortScoreboard = () => {
+    // const sortedScoreboard = scoreboard.sort((a: { score: number }, b: { score: number }) => a.score - b.score);
+    const sortedScoreboard = scoreboard;
+    setScoreboardSorted(sortedScoreboard);
+  }
 
   return (
     <div className="scoreboard card">
@@ -141,10 +161,35 @@ const Scoreboard = () => {
           <span className="scoreboard__value">{stats.lost}</span>
         </span>
       </p>
+
       {isLoading ? (
         <div>{t("state.loading")}</div>
       ) : (
-        <ul className="scoreboard__list">{scoreboardList}</ul>
+          <ul className="scoreboard__list">
+            <li className="scoreboard__list-item">
+              <div className="scoreboard__item-index">
+                <button>No</button>
+              </div>
+              <div className="scoreboard__item-username">
+                <button>Nickname</button>
+              </div>
+              <div className="scoreboard__item-code">
+                <button>Code</button>
+              </div>
+              <div className="scoreboard__item-score">
+                <button>Score</button>
+              </div>
+              <div className="scoreboard__item-attempts">
+                <button>Attempts</button>
+              </div>
+              <div className="scoreboard__item-date">
+                <button>Date</button>
+              </div>
+              <div className="scoreboard__item-comment">
+                <span>Comment</span>
+              </div>
+            </li>
+            {scoreboardList}</ul>
       )}
     </div>
   );
