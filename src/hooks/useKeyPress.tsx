@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 
-export function useKeyPress(targetKey: any, cb: any) {
+export function useKeyPress(targetKey: string[], cb: () => void) {
   // State for keeping track of whether key is pressed
   const [keyPressed, setKeyPressed] = useState(false);
 
   // If pressed key is our target key then set to true
-  function downHandler({ key }: any) {
+  function downHandler({ key }: KeyboardEvent) {
     if (targetKey.includes(key)) {
       setKeyPressed(true);
       cb();
@@ -13,7 +13,7 @@ export function useKeyPress(targetKey: any, cb: any) {
   }
 
   // If released key is our target key then set to false
-  const upHandler = ({ key }: any) => {
+  const upHandler = ({ key }: KeyboardEvent) => {
     if (targetKey.includes(key)) {
       setKeyPressed(false);
     }

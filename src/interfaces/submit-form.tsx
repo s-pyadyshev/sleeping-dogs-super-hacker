@@ -1,7 +1,7 @@
 export interface SubmitFormInterface {
   score: number;
   attemptsUsed: number;
-  code: any;
+  code: number[];
   username: string;
   company: string;
   date: string;

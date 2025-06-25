@@ -19,8 +19,8 @@ const GameMenu: React.FC = observer(() => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
 
-  const removeInputBlur = (event: any) => {
-    event.target.blur();
+  const removeInputBlur = (event: React.FormEvent<HTMLButtonElement>) => {
+    (event.target as HTMLButtonElement).blur();
   };
 
   const startGame = () => {

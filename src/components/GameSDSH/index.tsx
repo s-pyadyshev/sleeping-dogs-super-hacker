@@ -95,7 +95,7 @@ const GameSDSH = observer(() => {
   useKeyPress(["Left", "ArrowLeft", "A", "a", "Ф", "ф"], pressLeftCallback);
   useKeyPress(["Down", "ArrowDown", "S", "s", "Ы", "ы"], pressDownCallback);
   useKeyPress(["Right", "ArrowRight", "D", "d", "В", "в"], pressRighttCallback);
-  useKeyPress("Enter", pressEnterCallback);
+  useKeyPress(["Enter"], pressEnterCallback);
 
   const handleFocus = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.target.select();

@@ -36,8 +36,8 @@ const sortingMap = {
 }
 
 const Scoreboard = () => {
-  const [scoreboard, setScoreboard] = useState<any>([]);
-  const [scoreboardSorted, setScoreboardSorted] = useState<any>(scoreboard);
+  const [scoreboard, setScoreboard] = useState<ScoreboardInterface[]>([]);
+  const [scoreboardSorted, setScoreboardSorted] = useState<ScoreboardInterface[]>(scoreboard);
   const [sorting, setSorting] = useState({});
   const [stats, setStats] = useState<ScoreboardStatsInterface>({
     averageScores: 0,
@@ -93,11 +93,11 @@ const Scoreboard = () => {
       return;
     }
     const userAttempts: number[] = scoreboard.reduce(
-      (acc: number[], item: any) => [...acc, item.attemptsUsed],
+      (acc: number[], item: ScoreboardInterface) => [...acc, item.attemptsUsed],
       []
     );
     const userScores: number[] = scoreboard.reduce(
-      (acc: number[], item: any) => [...acc, item.score],
+      (acc: number[], item: ScoreboardInterface) => [...acc, item.score],
       []
     );
     const averageScores =

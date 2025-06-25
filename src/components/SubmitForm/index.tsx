@@ -12,7 +12,7 @@ const SubmitForm = () => {
   const [userForm, setUserForm] = useState<SubmitFormInterface>({
     score: 9999,
     attemptsUsed: 6,
-    code: "0000",
+    code: [0, 0, 0, 0],
     username: "anonym",
     company: "unknown",
     date: "",
@@ -40,11 +40,14 @@ const SubmitForm = () => {
       });
   };
 
-  const handleInput = (event: any) => {
-    setUserForm({
-      ...userForm,
-      [event.target.getAttribute("name")]: event.target.value,
-    });
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const name = event.target.getAttribute("name");
+    if (name) {
+      setUserForm({
+        ...userForm,
+        [name]: event.target.value,
+      });
+    }
   };
 
   useEffect(() => {

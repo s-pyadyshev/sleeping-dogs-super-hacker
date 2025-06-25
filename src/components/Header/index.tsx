@@ -1,7 +1,7 @@
 import { auth } from "../../firebase/firebase.util";
 
-const Header = ({ currentUser }: any) => {
-  const { displayName } = currentUser;
+const Header = ({ currentUser }: { currentUser: { displayName: string } | null }) => {
+  const { displayName } = currentUser || { displayName: '' };
 
   const handleSignOut = () => {
     auth.signOut();
