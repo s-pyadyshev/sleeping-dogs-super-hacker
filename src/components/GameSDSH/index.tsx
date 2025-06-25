@@ -106,14 +106,22 @@ const GameSDSH = observer(() => {
     checkCode();
   };
 
-  const incrementDigit = (event: any) => {
+  const incrementDigit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    gameSDSHStore.incrementCodeNumber(event.target.getAttribute("data-key"));
+    const target = event.target as HTMLButtonElement;
+    const key = target.getAttribute("data-key");
+    if (key !== null) {
+      gameSDSHStore.incrementCodeNumber(parseInt(key, 10));
+    }
   };
 
-  const decrementDigit = (event: any) => {
+  const decrementDigit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    gameSDSHStore.decrementCodeNumber(event.target.getAttribute("data-key"));
+    const target = event.target as HTMLButtonElement;
+    const key = target.getAttribute("data-key");
+    if (key !== null) {
+      gameSDSHStore.decrementCodeNumber(parseInt(key, 10));
+    }
   };
 
   useEffect(() => {

@@ -6,12 +6,12 @@ import GameSDSHStore from "./GameSDSHStore";
 configure({ enforceActions: "always" });
 
 class RootStore {
-  counterStore: any;
-  gameSDSHStore: any;
+  counterStore: CounterStore;
+  gameSDSHStore: GameSDSHStore;
 
   constructor() {
-    this.counterStore = new CounterStore(this);
-    this.gameSDSHStore = new GameSDSHStore(this);
+    this.counterStore = new CounterStore();
+    this.gameSDSHStore = new GameSDSHStore();
   }
 }
 

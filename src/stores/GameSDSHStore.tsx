@@ -39,7 +39,7 @@ class GameSDSHStore {
   ];
 
   code: number[] = [];
-  userCode: any = this.initialUserCodeState;
+  userCode: UserCodeInterface[] = this.initialUserCodeState;
   attempts: number = this.attemptsInitial;
   attemptsUsed: number = 0;
   // counter for submit form

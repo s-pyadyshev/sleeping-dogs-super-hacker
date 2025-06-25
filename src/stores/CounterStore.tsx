@@ -7,7 +7,7 @@ class CounterStore {
 
   counter: number = 0;
   counterInProgress: boolean = false;
-  counterTimeout: number | ReturnType<typeof setTimeout> = 0;
+  counterTimeout: ReturnType<typeof setTimeout> | null = null;
 
   startCounter() {
     this.counterInProgress = true;
@@ -18,7 +18,9 @@ class CounterStore {
   }
 
   endCounter() {
-    clearTimeout(this.counterTimeout);
+    if (this.counterTimeout !== null) {
+      clearTimeout(this.counterTimeout);
+    }
     this.counterInProgress = false;
     this.counter = 0;
   }
