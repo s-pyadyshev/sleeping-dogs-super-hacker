@@ -1,0 +1,32 @@
+@mixin link-hover {
+  text-decoration: none;
+  border-bottom: 2px solid var(--link-color);
+  transition-duration: var(--transition-duration);
+  transition-property: border-bottom-color;
+
+  &:focus,
+  &:hover,
+  &:active {
+    border-bottom-color: transparent;
+    transition-duration: var(--transition-duration);
+    transition-property: border-bottom-color;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: 767px) {
+    @content;
+  }
+}

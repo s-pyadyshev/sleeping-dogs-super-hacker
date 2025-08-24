@@ -1,0 +1,35 @@
+/* stylelint-disable */
+:root {
+  // Colors
+  --color-white: #fff;
+  --color-black: #000;
+  
+  // Theme colors
+  --link-color: #fef2a4;
+  --color-invalid-place: #bd9238;
+  --color-invalid-digit: #990000;
+  --color-valid-digit: #00fe00;
+  
+  // States
+  --state-disabled: #ccc;
+  
+  // Input
+  --input-background-color: #f6f6f6;
+  --input-border-active: #6cb9f6;
+  
+  // Card
+  --card-background-color: #0d2135;
+  --card-border-color: #1e2224;
+  --card-text-color: #6cb9f6;
+  --card-shadow-color: #0a0e13;
+  
+  // Transition
+  --transition-duration: 0.3s;
+}
+
+// Fonts
+$font-family-primary: "Barlow Condensed", "Ubuntu", "Helvetica Neue", sans-serif;
+$font-family-secondary: "DIN Condensed", "Ubuntu", "Helvetica Neue", sans-serif;
+
+// Container
+$container-width-lg: 1400px;

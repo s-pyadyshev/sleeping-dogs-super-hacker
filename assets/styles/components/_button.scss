@@ -1,0 +1,53 @@
+.button {
+  padding: 8px 12px;
+  border-radius: 8px;
+
+  &:disabled {
+    color: var(--state-disabled);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.button-primary {
+  background-color: var(--card-text-color);
+  transition-duration: var(--transition-duration);
+  transition-property: background-color;
+
+  &:focus,
+  &:hover,
+  &:active {
+    background-color: var(--link-color);
+    transition-duration: var(--transition-duration);
+    transition-property: background-color;
+  }
+}
+
+.button-decrement {
+  display: block;
+  width: 50px;
+  height: 35px;
+  background: none;
+  border: 0;
+  border-color: var(--card-text-color) transparent transparent transparent;
+  border-style: solid;
+  border-width: 9px 25px 0 25px;
+}
+
+.button-increment {
+  display: block;
+  width: 50px;
+  height: 35px;
+  background: none;
+  border: 0;
+  border-color: transparent transparent var(--card-text-color) transparent;
+  border-style: solid;
+  border-width: 0 25px 9px 25px;
+}
+
+.button-enter {
+  width: 105px;
+  height: 44px;
+  background-image: url('~/assets/images/button-enter.png');
+  border: 0;
+}

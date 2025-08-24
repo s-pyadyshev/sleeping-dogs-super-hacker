@@ -1,0 +1,50 @@
+.label {
+  font-size: 24px;
+}
+
+.input-group-stacked {
+  margin-bottom: 16px;
+
+  .label {
+    display: block;
+  }
+}
+
+.input {
+  padding: 8px;
+  background-color: var(--input-background-color);
+  border: 4px solid transparent;
+  border-radius: 8px;
+  transition-duration: var(--transition-duration);
+  transition-property: border-color;
+
+  &:focus,
+  &:hover,
+  &:active {
+    border: 4px solid var(--input-border-active);
+    outline: none;
+    transition-duration: var(--transition-duration);
+    transition-property: border-color;
+  }
+
+  &.is-focus {
+    box-shadow: inset 0 0 0 3px var(--card-text-color);
+  }
+
+  &.is-invalid {
+    background-color: var(--color-invalid-digit);
+  }
+
+  &.is-exist {
+    background-color: var(--color-invalid-place);
+    border-radius: 50%;
+  }
+
+  &.is-valid {
+    background-color: var(--color-valid-digit);
+  }
+
+  &--full-width {
+    width: 100%;
+  }
+}

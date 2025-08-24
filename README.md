@@ -1,35 +1,86 @@
-[![Node.js CI](https://github.com/s-pyadyshev/sleeping-dogs-super-hacker/actions/workflows/node.js.yml/badge.svg)](https://github.com/s-pyadyshev/sleeping-dogs-super-hacker/actions/workflows/node.js.yml)
+# Sleeping Dogs Super Hacker - Nuxt 3 Version
 
-<a href="https://en.wikipedia.org/wiki/Sleeping_Dogs_(video_game)" target="_blank" rel="noopener noreferrer">Sleeping Dogs</a> Camera Hacking mini-game (<a href="https://en.wikipedia.org/wiki/Bulls_and_Cows" target="_blank" rel="noopener noreferrer">Bulls and Cows</a> variation).
-<br>
-<br/>
-<b>Tech stack</b>: React 18.2, TypeScript, MobX, SCSS, Firebase to save user info (name, company, code, time, attempts, date, comment), average time/attempts, wins/lost stats.
-<br/>
-<br/>
+A recreation of the Sleeping Dogs camera hacking mini-game (Bulls and Cows variation) built with Nuxt 3, Vue 3, Pinia, and Firebase.
 
-![example](example.jpg)
-<br/>
+## Tech Stack
 
-## :construction_worker: To Do
+- **Nuxt 3** - The Intuitive Vue Framework
+- **Vue 3** - Progressive JavaScript Framework
+- **Pinia** - State Management
+- **SCSS** - CSS Preprocessor
+- **Firebase** - Backend as a Service
+- **i18n** - Internationalization (English/Russian)
 
-<ul>
-  <li>Improve 1st place calculcation based on time + attempts (it's time only now)</li>
-  <li>Form validation?</li>
-  <li>Add default (indeterminate) digit input state</li>
-  <li>Add difficulty setting to play with limited time (like in the game)</li>
-  <li>Show last attempt (like in the game)</li>
-  <li>Add easter eggs in Scoreboard for unique numbers</li>
-  <li>Two player mode?</li>
-  <li>Improve UI/UX</li>
-</ul>
+## Features
 
-## :bug: Bugs
+- 🎮 Interactive Bulls and Cows game mechanics
+- 🏆 Leaderboard with Firebase integration
+- 🌍 Multi-language support (EN/RU)
+- 📱 Responsive design
+- ⚡ Server-side rendering with Nuxt 3
+- 🎨 Authentic Sleeping Dogs UI design
 
-<ul>
-  <li>DIN Condensed font has wrong line height on MacOS</li>
-</ul>
+## Development Setup
 
-## :hammer_and_wrench: Installation
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-- \$ make install<br>
-- \$ make start
+2. **Set up environment variables:**
+   ```bash
+   cp .env.example .env
+   # Fill in your Firebase configuration
+   ```
+
+3. **Start development server:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Build for production:**
+   ```bash
+   npm run build
+   ```
+
+## Game Rules
+
+Guess 4 UNIQUE digits. You have 6 attempts only. And the clock is ticking!
+
+- 🟢 **Green**: Correct digit in correct position
+- 🟡 **Yellow**: Correct digit in wrong position  
+- 🔴 **Red**: Digit not in the code
+
+## Controls
+
+- **WASD** or **Arrow Keys**: Navigate and change digits
+- **Enter**: Submit your guess
+
+## Project Structure
+
+```
+├── assets/          # Styles, images, fonts
+├── components/      # Vue components
+├── composables/     # Vue composables
+├── layouts/         # Nuxt layouts
+├── pages/           # File-based routing
+├── stores/          # Pinia stores
+├── utils/           # Utility functions
+└── server/          # Server-side code
+```
+
+## Migration Status
+
+- ✅ **Phase 1**: Project setup and architecture
+- ⏳ **Phase 2**: State management (Pinia stores)
+- ⏳ **Phase 3**: Component migration
+- ⏳ **Phase 4**: Firebase integration
+- ⏳ **Phase 5**: Testing and optimization
+
+## License
+
+This project is for educational purposes. Game concept and assets belong to Square Enix Ltd.
+
+## Original Project
+
+Based on the React version: [sleeping-dogs-super-hacker](https://github.com/s-pyadyshev/sleeping-dogs-super-hacker)

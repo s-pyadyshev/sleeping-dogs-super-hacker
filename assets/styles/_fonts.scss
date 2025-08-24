@@ -1,0 +1,10 @@
+// Google Fonts are loaded via nuxt.config.ts
+// Custom fonts can be added here if needed
+
+body {
+  font-family: $font-family-primary;
+}
+
+.font-secondary {
+  font-family: $font-family-secondary;
+}

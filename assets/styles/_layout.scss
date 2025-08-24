@@ -1,0 +1,39 @@
+#__nuxt {
+  height: 100%;
+}
+
+.app {
+  height: 100%;
+  background-image: url('~/assets/images/watch-dogs.jpg');
+  background-size: cover;
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    height: 100%;
+
+    .aside {
+      flex-basis: 100%;
+      text-align: center;
+
+      @include desktop {
+        flex-basis: 20%;
+        padding-right: 32px;
+        text-align: left;
+      }
+    }
+
+    .main {
+      flex-basis: 100%;
+
+      &:only-child {
+        flex-basis: 100%;
+      }
+
+      @include desktop {
+        flex-basis: 80%;
+      }
+    }
+  }
+}

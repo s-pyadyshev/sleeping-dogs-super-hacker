@@ -1,0 +1,28 @@
+.instructions {
+  font-size: 24px;
+
+  a {
+    color: var(--link-color);
+  }
+}
+
+.icon {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  margin-right: 16px;
+  vertical-align: middle;
+}
+
+.icon-invalid-place {
+  background-color: var(--color-invalid-place);
+  border-radius: 50%;
+}
+
+.icon-invalid-digit {
+  background-color: var(--color-invalid-digit);
+}
+
+.icon-valid-digit {
+  background-color: var(--color-valid-digit);
+}
