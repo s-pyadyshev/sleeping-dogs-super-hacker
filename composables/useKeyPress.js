@@ -2,16 +2,15 @@ export const useKeyPress = (targetKeys, callback) => {
   const keyPressed = ref(false)
 
   const downHandler = (event) => {
-    const key = event.code || event.key
-    if (targetKeys.includes(key)) {
+    if (targetKeys.includes(event.code) || targetKeys.includes(event.key)) {
+      event.preventDefault() // Prevent default browser behavior
       keyPressed.value = true
       callback()
     }
   }
 
   const upHandler = (event) => {
-    const key = event.code || event.key
-    if (targetKeys.includes(key)) {
+    if (targetKeys.includes(event.code) || targetKeys.includes(event.key)) {
       keyPressed.value = false
     }
   }
@@ -27,4 +26,3 @@ export const useKeyPress = (targetKeys, callback) => {
   })
 
   return keyPressed
-}

@@ -46,11 +46,13 @@
 </template>
 
 <script setup>
-import { debounce } from 'lodash'
+import { debounce } from '~/utils'
+import { useGameStore } from '~/stores/game'
+import { useCounterStore } from '~/stores/counter'
 
-// Stores (will be implemented in Phase 2)
-const gameStore = ref({ isGameStarted: false }) // Placeholder
-const counterStore = ref({}) // Placeholder
+// Stores
+const gameStore = useGameStore()
+const counterStore = useCounterStore()
 
 const { locale, locales } = useI18n()
 const router = useRouter()
@@ -63,14 +65,25 @@ const removeInputBlur = (event) => {
 
 const startGame = () => {
   router.push('/game')
-  // Game logic will be implemented in Phase 2
+  gameStore.gameStart()
+  counterStore.startCounter()
 }
 
 const debouncedStartGame = debounce(startGame, 1000)
 
 const handleStartClick = (event) => {
   removeInputBlur(event)
-  debouncedStartGame()
+  
+  if (gameStore.isGameStarted) {
+    // Restart game
+    gameStore.gameRestart()
+    counterStore.resetCounter()
+    counterStore.startCounter()
+    router.push('/game')
+  } else {
+    // Start new game
+    debouncedStartGame()
+  }
 }
 
 const switchLanguage = (code) => {
