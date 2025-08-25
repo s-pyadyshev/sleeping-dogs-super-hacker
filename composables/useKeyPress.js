@@ -26,3 +26,4 @@ export const useKeyPress = (targetKeys, callback) => {
   })
 
   return keyPressed
+}
