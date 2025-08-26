@@ -4,7 +4,7 @@
       <li class="game-menu__item">
         <NuxtLink 
           to="/" 
-          :class="{ 'is-active': $route.path === '/' }"
+          :class="{ 'is-active': isActiveRoute('/') }"
         >
           {{ $t('menu.howtoplay') }}
         </NuxtLink>
@@ -17,7 +17,7 @@
       <li class="game-menu__item">
         <NuxtLink 
           to="/about" 
-          :class="{ 'is-active': $route.path === '/about' }"
+          :class="{ 'is-active': isActiveRoute('/about') }"
         >
           {{ $t('menu.about') }}
         </NuxtLink>
@@ -25,7 +25,7 @@
       <li class="game-menu__item">
         <NuxtLink 
           to="/highscore" 
-          :class="{ 'is-active': $route.path === '/highscore' }"
+          :class="{ 'is-active': isActiveRoute('/highscore') }"
         >
           {{ $t('menu.highscore') }}
         </NuxtLink>
@@ -47,15 +47,14 @@
 
 <script setup>
 import { debounce } from '~/utils'
-import { useGameStore } from '~/stores/game'
-import { useCounterStore } from '~/stores/counter'
+import { useNavigation } from '~/composables/useNavigation'
 
-// Stores
-const gameStore = useGameStore()
-const counterStore = useCounterStore()
+// Navigation composable
+const { navigateToGame, isActiveRoute } = useNavigation()
+const { gameStore } = useGame()
 
 const { locale, locales } = useI18n()
-const router = useRouter()
+const route = useRoute()
 
 const availableLocales = computed(() => locales.value)
 
@@ -63,27 +62,12 @@ const removeInputBlur = (event) => {
   event.target.blur()
 }
 
-const startGame = () => {
-  router.push('/game')
-  gameStore.gameStart()
-  counterStore.startCounter()
-}
-
-const debouncedStartGame = debounce(startGame, 1000)
+const debouncedStartGame = debounce(navigateToGame, 1000)
 
 const handleStartClick = (event) => {
   removeInputBlur(event)
   
-  if (gameStore.isGameStarted) {
-    // Restart game
-    gameStore.gameRestart()
-    counterStore.resetCounter()
-    counterStore.startCounter()
-    router.push('/game')
-  } else {
-    // Start new game
-    debouncedStartGame()
-  }
+  debouncedStartGame()
 }
 
 const switchLanguage = (code) => {

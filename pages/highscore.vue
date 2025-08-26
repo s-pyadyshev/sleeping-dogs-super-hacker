@@ -9,12 +9,26 @@
 </template>
 
 <script setup>
+// SEO and Meta
 definePageMeta({
-  title: 'Highscore - Sleeping Dogs Super Hacker'
+  title: 'Highscore - Sleeping Dogs Super Hacker',
+  description: 'View the top scores and statistics for the Sleeping Dogs Super Hacker game.',
+  layout: 'default',
+  middleware: 'scoreboard'
 })
 
 useSeoMeta({
   title: 'Highscore - Sleeping Dogs Super Hacker',
-  description: 'View the highscores for the Sleeping Dogs Super Hacker game'
+  description: 'View the top scores and statistics for the Sleeping Dogs Super Hacker game.',
+  ogTitle: 'Highscore - Sleeping Dogs Super Hacker',
+  ogDescription: 'Check out the leaderboard and see how you rank against other players.',
+  ogImage: '/og-image.jpg',
+  keywords: 'highscore, leaderboard, sleeping dogs game, top scores'
+})
+
+// Page transition
+definePageTransition({
+  name: 'page',
+  mode: 'out-in'
 })
 </script>

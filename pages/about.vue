@@ -85,12 +85,26 @@
 </template>
 
 <script setup>
+// SEO and Meta
 definePageMeta({
-  title: 'About - Sleeping Dogs Super Hacker'
+  title: 'About - Sleeping Dogs Super Hacker',
+  description: 'Learn about the Sleeping Dogs Super Hacker game project built with Nuxt 3, Vue 3, and Pinia.',
+  layout: 'default'
 })
 
 useSeoMeta({
   title: 'About - Sleeping Dogs Super Hacker',
-  description: 'Learn about the Sleeping Dogs Super Hacker game project'
+  description: 'Learn about the Sleeping Dogs Super Hacker game project built with Nuxt 3, Vue 3, and Pinia.',
+  ogTitle: 'About - Sleeping Dogs Super Hacker',
+  ogDescription: 'Recreation of the Sleeping Dogs camera hacking mini-game built with modern web technologies.',
+  ogImage: '/og-image.jpg',
+  twitterCard: 'summary_large_image',
+  keywords: 'sleeping dogs, vue3, nuxt3, pinia, firebase, game development'
+})
+
+// Page transition
+definePageTransition({
+  name: 'page',
+  mode: 'out-in'
 })
 </script>

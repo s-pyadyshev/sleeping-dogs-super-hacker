@@ -50,11 +50,29 @@ export default defineNuxtConfig({
         { 
           name: 'description', 
           content: 'Sleeping Dogs Hacking minigame made with Nuxt 3 and Vue 3' 
-        }
+        },
+        { name: 'author', content: 'Sleeping Dogs Super Hacker Team' },
+        { name: 'keywords', content: 'sleeping dogs, hacking game, bulls and cows, puzzle game, vue3, nuxt3' }
       ],
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+        { rel: 'manifest', href: '/manifest.json' }
       ]
     }
+  },
+
+  // Route rules for better SEO and performance
+  routeRules: {
+    '/': { prerender: true },
+    '/about': { prerender: true },
+    '/game': { ssr: false }, // Game page doesn't need SSR
+    '/highscore': { isr: true }, // Incremental Static Regeneration for scores
+    '/404': { prerender: true }
+  },
+
+  // Experimental features
+  experimental: {
+    payloadExtraction: false // Better performance for SPA pages
   }
 })
