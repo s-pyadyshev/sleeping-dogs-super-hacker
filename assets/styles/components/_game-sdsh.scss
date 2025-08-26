@@ -1,0 +1,190 @@
+@@ .. @@
+ .form-code {
+   position: relative;
+   width: 100%;
+   max-width: 361px;
+-  height: 676px;
++  min-height: 676px;
+   margin: 0 auto;
+-  padding: 12px;
++  padding: var(--spacing-md);
+   background-image: url('~/assets/images/phone.png');
+   background-repeat: no-repeat;
+   background-position: 50% 50%;
+   background-size: contain;
++  
++  @include mobile {
++    max-width: 300px;
++    min-height: 500px;
++    padding: var(--spacing-sm);
++  }
+ 
+   &__interface {
+     position: relative;
+     z-index: 2;
++    height: 100%;
++    display: flex;
++    flex-direction: column;
++    justify-content: space-between;
+   }
+ 
+   &__stats {
+-    margin-bottom: 20px;
++    margin-bottom: var(--spacing-lg);
+     text-align: center;
++    background: rgba(13, 33, 53, 0.9);
++    padding: var(--spacing-md);
++    border-radius: var(--radius-lg);
++    backdrop-filter: blur(10px);
++    border: 2px solid var(--card-border-color);
++    
++    @include mobile {
++      padding: var(--spacing-sm);
++      margin-bottom: var(--spacing-md);
++    }
+ 
+     &-attempts-value {
+       font-weight: 700;
++      color: var(--color-primary);
++      font-size: $font-size-lg;
++      text-shadow: 0 0 10px rgba(108, 185, 246, 0.5);
+     }
+   }
+ 
+   &__input-group {
+     display: flex;
+-    justify-content: space-between;
+-    margin-bottom: 20px;
++    justify-content: center;
++    gap: var(--spacing-sm);
++    margin-bottom: var(--spacing-lg);
++    padding: var(--spacing-lg);
++    background: rgba(13, 33, 53, 0.8);
++    border-radius: var(--radius-xl);
++    backdrop-filter: blur(10px);
++    border: 2px solid var(--card-border-color);
++    
++    @include mobile {
++      gap: var(--spacing-xs);
++      padding: var(--spacing-md);
++      margin-bottom: var(--spacing-md);
++    }
+   }
+ 
+   &__input {
+-    width: calc(100% / 4);
++    display: flex;
++    flex-direction: column;
++    align-items: center;
++    gap: var(--spacing-xs);
++    position: relative;
++    
++    &::before {
++      content: '';
++      position: absolute;
++      top: -4px;
++      left: -4px;
++      right: -4px;
++      bottom: -4px;
++      background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
++      border-radius: var(--radius-lg);
++      opacity: 0;
++      transition: opacity var(--transition-duration) var(--transition-timing);
++      z-index: -1;
++    }
++    
++    &--active::before {
++      opacity: 0.3;
++      animation: pulse 2s ease-in-out infinite;
++    }
+ 
+     input {
+-      width: 50px;
+-      height: 50px;
+-      font-size: 40px;
++      width: 60px;
++      height: 60px;
++      font-size: $font-size-3xl;
++      font-weight: 700;
+       text-align: center;
+-      border: 1px solid var(--color-black);
++      border: 3px solid var(--card-border-color);
+       outline: none;
+       pointer-events: none;
++      font-family: $font-family-mono;
++      border-radius: var(--radius-lg);
++      background: var(--input-background-color);
++      color: var(--color-black);
++      transition: all var(--transition-duration) var(--transition-timing);
++      position: relative;
++      z-index: 1;
++      
++      @include mobile {
++        width: 50px;
++        height: 50px;
++        font-size: $font-size-2xl;
++      }
+ 
+       &.is-focus {
+-        box-shadow: inset 0 0 0 3px var(--card-text-color);
++        box-shadow: 
++          inset 0 0 0 3px var(--color-primary),
++          0 0 20px rgba(108, 185, 246, 0.4);
++        border-color: var(--color-primary);
++        transform: scale(1.05);
+       }
+ 
+       &.is-invalid {
+         background-color: var(--color-invalid-digit);
++        color: var(--color-white);
++        border-color: var(--color-error);
++        animation: shake 0.5s ease-in-out;
+       }
+ 
+       &.is-exist {
+         background-color: var(--color-invalid-place);
+-        border-radius: 50%;
++        color: var(--color-white);
++        border-color: var(--color-warning);
++        border-radius: var(--radius-full);
++        animation: pulse 1s ease-in-out;
+       }
+ 
+       &.is-valid {
+         background-color: var(--color-valid-digit);
++        color: var(--color-black);
++        border-color: var(--color-success);
++        animation: bounce-in 0.5s ease-out;
++        box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+       }
+     }
+   }
+ 
+   &__button-enter {
+     text-align: center;
++    margin-top: var(--spacing-lg);
++    
++    .button-enter {
++      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
++      
++      &:hover {
++        filter: 
++          drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4))
++          brightness(1.1);
++      }
++    }
+   }
++}
++
++// Additional animations
++@keyframes shake {
++  0%, 100% {
++    transform: translateX(0);
++  }
++  10%, 30%, 50%, 70%, 90% {
++    transform: translateX(-2px);
++  }
++  20%, 40%, 60%, 80% {
++    transform: translateX(2px);
++  }
+ }

@@ -3,33 +3,111 @@
   // Colors
   --color-white: #fff;
   --color-black: #000;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
   
   // Theme colors
   --link-color: #fef2a4;
   --color-invalid-place: #bd9238;
   --color-invalid-digit: #990000;
   --color-valid-digit: #00fe00;
+  --color-primary: #6cb9f6;
+  --color-secondary: #fef2a4;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
   
   // States
   --state-disabled: #ccc;
+  --state-hover: rgba(108, 185, 246, 0.1);
+  --state-active: rgba(108, 185, 246, 0.2);
+  --state-focus: rgba(108, 185, 246, 0.3);
   
   // Input
   --input-background-color: #f6f6f6;
   --input-border-active: #6cb9f6;
+  --input-border-error: #ef4444;
+  --input-border-success: #10b981;
   
   // Card
   --card-background-color: #0d2135;
   --card-border-color: #1e2224;
   --card-text-color: #6cb9f6;
   --card-shadow-color: #0a0e13;
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --card-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   
   // Transition
   --transition-duration: 0.3s;
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  // Spacing
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  
+  // Border radius
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+  
+  // Z-index
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal: 1040;
+  --z-popover: 1050;
+  --z-tooltip: 1060;
+}
+
+// Dark theme
+[data-theme="dark"] {
+  --color-white: #111827;
+  --color-black: #f9fafb;
+  --card-background-color: #1f2937;
+  --card-border-color: #374151;
+  --input-background-color: #374151;
 }
 
 // Fonts
 $font-family-primary: "Barlow Condensed", "Ubuntu", "Helvetica Neue", sans-serif;
 $font-family-secondary: "DIN Condensed", "Ubuntu", "Helvetica Neue", sans-serif;
+$font-family-mono: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", monospace;
+
+// Font sizes
+$font-size-xs: 0.75rem;
+$font-size-sm: 0.875rem;
+$font-size-base: 1rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.25rem;
+$font-size-2xl: 1.5rem;
+$font-size-3xl: 1.875rem;
+$font-size-4xl: 2.25rem;
+$font-size-5xl: 3rem;
 
 // Container
 $container-width-lg: 1400px;
+$container-width-md: 1024px;
+$container-width-sm: 768px;
+
+// Breakpoints
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+$breakpoint-2xl: 1536px;

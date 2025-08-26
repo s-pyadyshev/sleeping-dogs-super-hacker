@@ -1,25 +1,135 @@
 .button {
-  padding: 8px 12px;
-  border-radius: 8px;
+  @include button-reset;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  font-size: $font-size-base;
+  line-height: 1.5;
+  text-align: center;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all var(--transition-duration) var(--transition-timing);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  &:hover::before {
+    left: 100%;
+  }
 
   &:disabled {
     color: var(--state-disabled);
     opacity: 0.5;
     pointer-events: none;
+    cursor: not-allowed;
+  }
+  
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  
+  // Size variants
+  &--sm {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: $font-size-sm;
+  }
+  
+  &--lg {
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: $font-size-lg;
+  }
+  
+  &--xl {
+    padding: var(--spacing-lg) var(--spacing-xl);
+    font-size: $font-size-xl;
+  }
+  
+  // Full width
+  &--full {
+    width: 100%;
   }
 }
 
 .button-primary {
-  background-color: var(--card-text-color);
-  transition-duration: var(--transition-duration);
-  transition-property: background-color;
+  background: linear-gradient(135deg, var(--color-primary), #5a9fd8);
+  color: var(--color-white);
+  border-color: var(--color-primary);
+  @include card-shadow;
 
   &:focus,
   &:hover,
   &:active {
-    background-color: var(--link-color);
-    transition-duration: var(--transition-duration);
-    transition-property: background-color;
+    background: linear-gradient(135deg, #5a9fd8, var(--color-primary));
+    transform: translateY(-2px);
+    box-shadow: var(--card-shadow-lg);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.button-secondary {
+  background: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  
+  &:focus,
+  &:hover,
+  &:active {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    transform: translateY(-1px);
+  }
+}
+
+.button-success {
+  background: linear-gradient(135deg, var(--color-success), #059669);
+  color: var(--color-white);
+  border-color: var(--color-success);
+  
+  &:focus,
+  &:hover,
+  &:active {
+    background: linear-gradient(135deg, #059669, var(--color-success));
+    transform: translateY(-2px);
+  }
+}
+
+.button-error {
+  background: linear-gradient(135deg, var(--color-error), #dc2626);
+  color: var(--color-white);
+  border-color: var(--color-error);
+  
+  &:focus,
+  &:hover,
+  &:active {
+    background: linear-gradient(135deg, #dc2626, var(--color-error));
+    transform: translateY(-2px);
+  }
+}
+
+.button-ghost {
+  background: transparent;
+  color: var(--card-text-color);
+  border: none;
+  
+  &:focus,
+  &:hover,
+  &:active {
+    background-color: var(--state-hover);
+    color: var(--color-primary);
   }
 }
 
@@ -32,6 +142,17 @@
   border-color: var(--card-text-color) transparent transparent transparent;
   border-style: solid;
   border-width: 9px 25px 0 25px;
+  cursor: pointer;
+  transition: all var(--transition-duration) var(--transition-timing);
+  
+  &:hover {
+    border-top-color: var(--color-primary);
+    transform: scale(1.1);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
 }
 
 .button-increment {
@@ -43,11 +164,41 @@
   border-color: transparent transparent var(--card-text-color) transparent;
   border-style: solid;
   border-width: 0 25px 9px 25px;
+  cursor: pointer;
+  transition: all var(--transition-duration) var(--transition-timing);
+  
+  &:hover {
+    border-bottom-color: var(--color-primary);
+    transform: scale(1.1);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
 }
 
 .button-enter {
   width: 105px;
   height: 44px;
   background-image: url('~/assets/images/button-enter.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   border: 0;
+  cursor: pointer;
+  transition: all var(--transition-duration) var(--transition-timing);
+  
+  &:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+  }
+  
+  &:active {
+    transform: scale(0.98);
+  }
+  
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+  }
 }

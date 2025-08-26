@@ -1,42 +1,42 @@
 // Page transitions
 .page-enter-active,
 .page-leave-active {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all var(--transition-duration) var(--transition-timing);
 }
 
 .page-enter-from {
   opacity: 0;
-  transform: translateX(20px);
+  transform: translateX(30px) scale(0.98);
 }
 
 .page-leave-to {
   opacity: 0;
-  transform: translateX(-20px);
+  transform: translateX(-30px) scale(1.02);
 }
 
 // Game-specific transitions
 .game-enter-active {
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s var(--transition-timing);
 }
 
 .game-leave-active {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.6, 1);
+  transition: all var(--transition-duration) var(--transition-timing);
 }
 
 .game-enter-from {
   opacity: 0;
-  transform: scale(0.95) translateY(20px);
+  transform: scale(0.9) translateY(40px) rotateX(10deg);
 }
 
 .game-leave-to {
   opacity: 0;
-  transform: scale(1.05) translateY(-10px);
+  transform: scale(1.1) translateY(-20px) rotateX(-5deg);
 }
 
 // Component transitions
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity var(--transition-duration) var(--transition-timing);
 }
 
 .fade-enter-from,
@@ -46,28 +46,115 @@
 
 .slide-up-enter-active,
 .slide-up-leave-active {
-  transition: all 0.3s ease;
+  transition: all var(--transition-duration) var(--transition-timing);
 }
 
 .slide-up-enter-from {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(40px) scale(0.95);
 }
 
 .slide-up-leave-to {
   opacity: 0;
-  transform: translateY(-30px);
+  transform: translateY(-40px) scale(1.05);
+}
+
+.slide-down-enter-active,
+.slide-down-leave-active {
+  transition: all var(--transition-duration) var(--transition-timing);
+}
+
+.slide-down-enter-from {
+  opacity: 0;
+  transform: translateY(-40px) scale(0.95);
+}
+
+.slide-down-leave-to {
+  opacity: 0;
+  transform: translateY(40px) scale(1.05);
+}
+
+.slide-left-enter-active,
+.slide-left-leave-active {
+  transition: all var(--transition-duration) var(--transition-timing);
+}
+
+.slide-left-enter-from {
+  opacity: 0;
+  transform: translateX(40px);
+}
+
+.slide-left-leave-to {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: all var(--transition-duration) var(--transition-timing);
+}
+
+.slide-right-enter-from {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+
+.slide-right-leave-to {
+  opacity: 0;
+  transform: translateX(40px);
+}
+
+.scale-enter-active,
+.scale-leave-active {
+  transition: all var(--transition-duration) var(--transition-bounce);
+}
+
+.scale-enter-from {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.scale-leave-to {
+  opacity: 0;
+  transform: scale(1.2);
+}
+
+.rotate-enter-active,
+.rotate-leave-active {
+  transition: all 0.5s var(--transition-timing);
+}
+
+.rotate-enter-from {
+  opacity: 0;
+  transform: rotate(-10deg) scale(0.9);
+}
+
+.rotate-leave-to {
+  opacity: 0;
+  transform: rotate(10deg) scale(1.1);
 }
 
 // Loading spinner
 .loading-spinner {
   display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 2px solid var(--card-text-color);
-  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--color-gray-300);
+  border-radius: var(--radius-full);
   border-top-color: transparent;
-  animation: spin 1s ease-in-out infinite;
+  animation: spin 1s linear infinite;
+  
+  &--lg {
+    width: 40px;
+    height: 40px;
+    border-width: 4px;
+  }
+  
+  &--sm {
+    width: 16px;
+    height: 16px;
+    border-width: 2px;
+  }
 }
 
 @keyframes spin {
@@ -78,44 +165,112 @@
 
 // Pulse animation for active elements
 .pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: pulse 2s var(--transition-timing) infinite;
 }
 
 @keyframes pulse {
   0%, 100% {
     opacity: 1;
+    transform: scale(1);
   }
   50% {
-    opacity: 0.7;
+    opacity: 0.8;
+    transform: scale(1.02);
   }
 }
 
 // Bounce animation for notifications
 .bounce-enter-active {
-  animation: bounce-in 0.5s;
+  animation: bounce-in 0.5s var(--transition-bounce);
 }
 
 .bounce-leave-active {
-  animation: bounce-out 0.3s;
+  animation: bounce-out var(--transition-duration) var(--transition-timing);
 }
 
 @keyframes bounce-in {
   0% {
+    opacity: 0;
     transform: scale(0);
   }
-  50% {
+  30% {
+    opacity: 1;
     transform: scale(1.1);
   }
+  50% {
+    transform: scale(0.95);
+  }
   100% {
+    opacity: 1;
     transform: scale(1);
   }
 }
 
 @keyframes bounce-out {
   0% {
+    opacity: 1;
     transform: scale(1);
   }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
   100% {
+    opacity: 0;
     transform: scale(0);
   }
+}
+
+// Shake animation for errors
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-4px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(4px);
+  }
+}
+
+// Glow effect
+.glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px var(--color-primary);
+  }
+  to {
+    box-shadow: 0 0 20px var(--color-primary), 0 0 30px var(--color-primary);
+  }
+}
+
+// Notification-specific transitions
+.notification-enter-active {
+  transition: all 0.4s var(--transition-bounce);
+}
+
+.notification-leave-active {
+  transition: all var(--transition-duration) var(--transition-timing);
+}
+
+.notification-enter-from {
+  opacity: 0;
+  transform: translateX(100%) scale(0.8);
+}
+
+.notification-leave-to {
+  opacity: 0;
+  transform: translateX(100%) scale(0.8);
+}
+
+.notification-move {
+  transition: transform 0.4s var(--transition-timing);
 }

@@ -7,6 +7,7 @@
 html {
   box-sizing: border-box;
   height: 100%;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -18,6 +19,8 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-white);
+  transition: background-color var(--transition-duration) var(--transition-timing);
 }
 
 ul {
@@ -34,11 +37,47 @@ h4,
 h5,
 h6 {
   margin-top: 0;
+  font-family: $font-family-secondary;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: $font-size-4xl;
+  
+  @include mobile {
+    font-size: $font-size-3xl;
+  }
+}
+
+h2 {
+  font-size: $font-size-3xl;
+  
+  @include mobile {
+    font-size: $font-size-2xl;
+  }
+}
+
+h3 {
+  font-size: $font-size-2xl;
+  
+  @include mobile {
+    font-size: $font-size-xl;
+  }
+}
+
+p {
+  margin-bottom: var(--spacing-md);
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 img {
   max-width: 100%;
   height: auto;
+  display: block;
 }
 
 button {
@@ -48,46 +87,128 @@ button {
   cursor: pointer;
   background: none;
   border: 0;
+  transition: all var(--transition-duration) var(--transition-timing);
+  
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 }
 
 select {
   background-color: var(--color-white);
   border-radius: 0;
   appearance: none;
+  transition: all var(--transition-duration) var(--transition-timing);
 }
 
 input {
   font-size: inherit;
   font-family: inherit;
   border: 0;
+  transition: all var(--transition-duration) var(--transition-timing);
+  
+  &:focus {
+    @include input-focus;
+  }
 }
 
 textarea {
   font-family: inherit;
   resize: vertical;
+  transition: all var(--transition-duration) var(--transition-timing);
+  
+  &:focus {
+    @include input-focus;
+  }
 }
 
 label {
   font-weight: 500;
+  display: block;
+  margin-bottom: var(--spacing-xs);
 }
 
 svg {
   fill: currentColor;
+  transition: fill var(--transition-duration) var(--transition-timing);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: all var(--transition-duration) var(--transition-timing);
+  
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 }
 
 .container {
   max-width: $container-width-lg;
   margin-right: auto;
   margin-left: auto;
-  padding-right: 0;
-  padding-left: 0;
+  padding-right: var(--spacing-md);
+  padding-left: var(--spacing-md);
 
   @include tablet {
-    padding-right: 32px;
-    padding-left: 32px;
+    padding-right: var(--spacing-xl);
+    padding-left: var(--spacing-xl);
+  }
+  
+  &--sm {
+    max-width: $container-width-sm;
+  }
+  
+  &--md {
+    max-width: $container-width-md;
   }
 }
 
 .full-width {
   width: 100%;
+}
+
+.sr-only {
+  @include visually-hidden;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.font-mono {
+  font-family: $font-family-mono;
+}
+
+// Focus styles for accessibility
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

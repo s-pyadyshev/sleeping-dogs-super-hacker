@@ -77,9 +77,13 @@ const switchLanguage = (code) => {
 
 <style lang="scss" scoped>
 .game-menu {
-  padding: 8px;
+  padding: var(--spacing-sm);
   color: var(--link-color);
   text-transform: uppercase;
+  
+  @include mobile {
+    padding: var(--spacing-xs);
+  }
 
   @include desktop {
     padding: 0;
@@ -87,46 +91,77 @@ const switchLanguage = (code) => {
 
   button {
     text-transform: uppercase;
-    border: 0;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
   }
 
   a,
   button {
     display: inline-block;
-    padding: 8px;
+    padding: var(--spacing-sm) var(--spacing-md);
     color: inherit;
     font-weight: 500;
-    font-size: 18px;
+    font-size: $font-size-lg;
     line-height: 1.5;
     text-decoration: none;
     background: none;
-    border: 1px solid transparent;
-    border-radius: 8px;
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
     outline: none;
-    transition-duration: var(--transition-duration);
-    transition-property: border, box-shadow;
+    transition: all var(--transition-duration) var(--transition-timing);
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s;
+    }
+    
+    &:hover::before {
+      left: 100%;
+    }
 
     @include tablet {
-      padding: 8px 12px;
-      font-size: 32px;
+      padding: var(--spacing-md) var(--spacing-lg);
+      font-size: $font-size-2xl;
+    }
+    
+    @include mobile {
+      padding: var(--spacing-xs) var(--spacing-sm);
+      font-size: $font-size-base;
     }
 
     &:focus,
     &:hover,
     &:active,
     &.is-active {
-      border: 1px solid var(--color-white);
-      box-shadow: inset 0 0 8px 1px var(--link-color), 0 0 8px 1px var(--link-color);
-      transition-duration: var(--transition-duration);
-      transition-property: border, box-shadow;
+      border-color: var(--color-white);
+      box-shadow: 
+        inset 0 0 12px 2px rgba(254, 242, 164, 0.3), 
+        0 0 16px 2px rgba(254, 242, 164, 0.4);
+      transform: translateY(-2px);
+      text-shadow: 0 0 10px rgba(254, 242, 164, 0.8);
+    }
+    
+    &.is-active {
+      background: rgba(254, 242, 164, 0.1);
+      backdrop-filter: blur(5px);
     }
   }
 
   &__item {
+    position: relative;
+    
     &:not(:last-child) {
+      margin-bottom: var(--spacing-xs);
+      
       @include tablet {
-        margin-bottom: 16px;
+        margin-bottom: var(--spacing-md);
       }
     }
   }
@@ -134,9 +169,17 @@ const switchLanguage = (code) => {
   &__list {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    
+    @include mobile {
+      justify-content: center;
+      gap: var(--spacing-xs);
+    }
 
     @include desktop {
       display: block;
+      gap: 0;
     }
   }
 }

@@ -1,32 +1,165 @@
-@mixin link-hover {
-  text-decoration: none;
-  border-bottom: 2px solid var(--link-color);
-  transition-duration: var(--transition-duration);
-  transition-property: border-bottom-color;
-
-  &:focus,
-  &:hover,
-  &:active {
-    border-bottom-color: transparent;
-    transition-duration: var(--transition-duration);
-    transition-property: border-bottom-color;
-  }
-}
-
-@mixin desktop {
-  @media (min-width: 1200px) {
+// Responsive breakpoints
+@mixin mobile {
+  @media (max-width: #{$breakpoint-sm - 1px}) {
     @content;
   }
 }
 
 @mixin tablet {
-  @media (min-width: 768px) {
+  @media (min-width: #{$breakpoint-md}) {
     @content;
   }
 }
 
-@mixin mobile {
-  @media (max-width: 767px) {
+@mixin desktop {
+  @media (min-width: #{$breakpoint-lg}) {
     @content;
+  }
+}
+
+@mixin desktop-lg {
+  @media (min-width: #{$breakpoint-xl}) {
+    @content;
+  }
+}
+
+// Utility mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin card-shadow {
+  box-shadow: var(--card-shadow);
+  transition: box-shadow var(--transition-duration) var(--transition-timing);
+  
+  &:hover {
+    box-shadow: var(--card-shadow-lg);
+  }
+}
+
+@mixin button-reset {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+@mixin input-focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--state-focus);
+  transition: all var(--transition-duration) var(--transition-timing);
+}
+
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+@mixin link-hover {
+  text-decoration: none;
+  border-bottom: 2px solid var(--link-color);
+  transition: border-bottom-color var(--transition-duration) var(--transition-timing);
+
+  &:focus,
+  &:hover,
+  &:active {
+    border-bottom-color: transparent;
+  }
+}
+
+// Animation mixins
+@mixin fade-in($duration: 0.3s) {
+  animation: fade-in $duration var(--transition-timing);
+}
+
+@mixin slide-up($duration: 0.3s) {
+  animation: slide-up $duration var(--transition-timing);
+}
+
+@mixin bounce-in($duration: 0.5s) {
+  animation: bounce-in $duration var(--transition-bounce);
+}
+
+@mixin pulse($duration: 2s) {
+  animation: pulse $duration ease-in-out infinite;
+}
+
+// Keyframes
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
   }
 }
