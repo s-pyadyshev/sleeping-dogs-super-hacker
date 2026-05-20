@@ -1,3 +1,4 @@
+import { describe, expect, test } from "vitest";
 import { shuffle, shuffleCutCode } from "./index";
 
 describe("Test shuffle", () => {

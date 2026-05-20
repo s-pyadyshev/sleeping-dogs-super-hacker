@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.scss";
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
 import { QueryProvider } from "./providers/QueryProvider";
 import { GameProvider } from "./contexts/GameProvider";
 
@@ -18,5 +17,3 @@ root.render(
     </QueryProvider>
   </React.StrictMode>
 );
-
-reportWebVitals();

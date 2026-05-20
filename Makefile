@@ -1,14 +1,20 @@
 install:
-	npm i
+	npm install
 
 lint:
-	npx eslint .
+	npm run lint
 
 start:
-	npm start
+	npm run dev
+
+dev:
+	npm run dev
 
 build:
 	npm run build
 
 test:
 	npm run test
+
+preview:
+	npm run preview
