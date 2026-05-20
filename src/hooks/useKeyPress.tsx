@@ -1,35 +1,17 @@
-import { useState, useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export function useKeyPress(targetKey: string[], cb: () => void) {
-  // State for keeping track of whether key is pressed
-  const [keyPressed, setKeyPressed] = useState(false);
+  const cbRef = useRef(cb);
+  cbRef.current = cb;
 
-  // If pressed key is our target key then set to true
-  function downHandler({ key }: KeyboardEvent) {
-    if (targetKey.includes(key)) {
-      setKeyPressed(true);
-      cb();
-    }
-  }
-
-  // If released key is our target key then set to false
-  const upHandler = ({ key }: KeyboardEvent) => {
-    if (targetKey.includes(key)) {
-      setKeyPressed(false);
-    }
-  };
-
-  // Add event listeners
   useEffect(() => {
-    window.addEventListener("keydown", downHandler);
-    window.addEventListener("keyup", upHandler);
-    // Remove event listeners on cleanup
-    return () => {
-      window.removeEventListener("keydown", downHandler);
-      window.removeEventListener("keyup", upHandler);
+    const downHandler = ({ key }: KeyboardEvent) => {
+      if (targetKey.includes(key)) {
+        cbRef.current();
+      }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Empty array ensures that effect is only run on mount and unmount
 
-  return keyPressed;
+    window.addEventListener("keydown", downHandler);
+    return () => window.removeEventListener("keydown", downHandler);
+  }, [targetKey]);
 }

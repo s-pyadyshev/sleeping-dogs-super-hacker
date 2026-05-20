@@ -1,29 +1,34 @@
 import { useCallback, useState } from "react";
 
+const DIGIT_COUNT = 4;
+const LAST_DIGIT_ID = DIGIT_COUNT - 1;
+
 export const useActiveDigit = () => {
   const [currentDigitId, setCurrentDigitId] = useState(0);
 
-  const increment = useCallback(() => {
-    setCurrentDigitId((id) => id + 1);
+  const moveLeft = useCallback(() => {
+    setCurrentDigitId((id) => (id === 0 ? LAST_DIGIT_ID : id - 1));
   }, []);
 
-  const decrement = useCallback(() => {
-    setCurrentDigitId((id) => id - 1);
+  const moveRight = useCallback(() => {
+    setCurrentDigitId((id) => (id === LAST_DIGIT_ID ? 0 : id + 1));
   }, []);
 
   const resetToFirst = useCallback(() => {
     setCurrentDigitId(0);
   }, []);
 
-  const resetToLast = useCallback(() => {
-    setCurrentDigitId(3);
+  const setActiveDigit = useCallback((id: number) => {
+    if (id >= 0 && id <= LAST_DIGIT_ID) {
+      setCurrentDigitId(id);
+    }
   }, []);
 
   return {
     currentDigitId,
-    increment,
-    decrement,
+    moveLeft,
+    moveRight,
     resetToFirst,
-    resetToLast,
+    setActiveDigit,
   };
 };

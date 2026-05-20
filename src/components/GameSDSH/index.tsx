@@ -31,19 +31,11 @@ const GameSDSH = () => {
   };
 
   const pressLeftCallback = () => {
-    if (activeDigit.currentDigitId === 0) {
-      activeDigit.resetToLast();
-    } else {
-      activeDigit.decrement();
-    }
+    activeDigit.moveLeft();
   };
 
-  const pressRighttCallback = () => {
-    if (activeDigit.currentDigitId === 3) {
-      activeDigit.resetToFirst();
-    } else {
-      activeDigit.increment();
-    }
+  const pressRightCallback = () => {
+    activeDigit.moveRight();
   };
 
   const pressEnterCallback = () => {
@@ -53,10 +45,14 @@ const GameSDSH = () => {
   useKeyPress(["Up", "ArrowUp", "W", "w", "Ц", "ц"], pressUpCallback);
   useKeyPress(["Left", "ArrowLeft", "A", "a", "Ф", "ф"], pressLeftCallback);
   useKeyPress(["Down", "ArrowDown", "S", "s", "Ы", "ы"], pressDownCallback);
-  useKeyPress(["Right", "ArrowRight", "D", "d", "В", "в"], pressRighttCallback);
+  useKeyPress(["Right", "ArrowRight", "D", "d", "В", "в"], pressRightCallback);
   useKeyPress(["Enter"], pressEnterCallback);
 
-  const handleFocus = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+    const key = event.target.getAttribute("data-key");
+    if (key !== null) {
+      activeDigit.setActiveDigit(parseInt(key, 10));
+    }
     event.target.select();
   };
 

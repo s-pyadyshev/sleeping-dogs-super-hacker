@@ -8,19 +8,36 @@ import {
   useSubmitScoreMutation,
 } from "../../hooks/queries";
 
+const formatSubmitDate = (): string => {
+  const today = new Date();
+  return (
+    today.getFullYear() +
+    "." +
+    (today.getMonth() + 1) +
+    "." +
+    today.getDate() +
+    " " +
+    "(" +
+    today.getHours() +
+    ":" +
+    today.getMinutes() +
+    ")"
+  );
+};
+
 const SubmitForm = () => {
   const { t } = useTranslation();
   const game = useGame();
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [userForm, setUserForm] = useState<SubmitFormInterface>({
-    score: 9999,
-    attemptsUsed: 6,
-    code: [0, 0, 0, 0],
+  const [userForm, setUserForm] = useState<SubmitFormInterface>(() => ({
+    score: game.counter,
+    attemptsUsed: game.attemptsUsed,
+    code: [...game.code],
     username: "anonym",
     company: "unknown",
-    date: "",
+    date: formatSubmitDate(),
     comment: "no comments",
-  });
+  }));
   const inputRef = useRef<HTMLInputElement>(null);
   const winsRecorded = useRef(false);
   const submitScoreMutation = useSubmitScoreMutation();
@@ -47,44 +64,23 @@ const SubmitForm = () => {
   ) => {
     const name = event.target.getAttribute("name");
     if (name) {
-      setUserForm({
-        ...userForm,
+      setUserForm((prev) => ({
+        ...prev,
         [name]: event.target.value,
-      });
+      }));
     }
   };
 
   useEffect(() => {
-    const today = new Date();
-    const currentDate =
-      today.getFullYear() +
-      "." +
-      (today.getMonth() + 1) +
-      "." +
-      today.getDate() +
-      " " +
-      "(" +
-      today.getHours() +
-      ":" +
-      today.getMinutes() +
-      ")";
-    setUserForm((prev) => ({
-      ...prev,
-      date: currentDate,
-      score: game.counter,
-      attemptsUsed: game.attemptsUsed,
-      code: game.code,
-    }));
-
-    if (inputRef.current !== null) {
-      inputRef.current.focus();
-    }
+    inputRef.current?.focus();
 
     if (!winsRecorded.current) {
       winsRecorded.current = true;
       incrementStatMutation.mutate("wins");
     }
-  }, [game.counter, game.attemptsUsed, game.code, incrementStatMutation]);
+    // Run once on mount only (mutate + focus).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="submit-form card">
@@ -111,11 +107,11 @@ const SubmitForm = () => {
             </h3>
             <h3>
               {t("scoreForm.time")}:&nbsp;
-              <span className="label-value">{game.counter}s</span>
+              <span className="label-value">{userForm.score}s</span>
             </h3>
             <h3>
               {t("scoreForm.attempts")}:&nbsp;
-              <span className="label-value">{game.attemptsUsed}</span>
+              <span className="label-value">{userForm.attemptsUsed}</span>
             </h3>
 
             <h3>

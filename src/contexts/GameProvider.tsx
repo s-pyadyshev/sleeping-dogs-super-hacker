@@ -40,9 +40,14 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
+  const pauseCounter = useCallback(() => {
+    clearCounterTimeout();
+  }, [clearCounterTimeout]);
+
   const endCounter = useCallback(() => {
     clearCounterTimeout();
     setElapsedCounter(0);
+    setState((current) => ({ ...current, counter: 0 }));
   }, [clearCounterTimeout]);
 
   const resetCounter = useCallback(() => {
@@ -58,7 +63,7 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (!state.isGameStarted || state.isUnlocked) {
-      clearCounterTimeout();
+      pauseCounter();
       return;
     }
 
@@ -70,6 +75,7 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
     state.isUnlocked,
     scheduleCounterTick,
     clearCounterTimeout,
+    pauseCounter,
   ]);
 
   useEffect(() => {
@@ -98,16 +104,24 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
 
   const checkCode = useCallback((): boolean => {
     let isGameOver = false;
+    let unlocked = false;
     setState((current) => {
       const checked = applyCodeCheck(current);
+      if (checked.isUnlocked) {
+        unlocked = true;
+      }
       if (!checked.isUnlocked && checked.attempts === 0) {
         isGameOver = true;
         return applyGameOver(checked);
       }
       return checked;
     });
+    if (unlocked) {
+      pauseCounter();
+      setState((current) => ({ ...current, counter: elapsedCounter }));
+    }
     return isGameOver;
-  }, []);
+  }, [elapsedCounter, pauseCounter]);
 
   const value = useMemo<GameContextValue>(
     () => ({
