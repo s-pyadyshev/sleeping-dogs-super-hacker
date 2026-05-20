@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useStores } from "../../hooks/use-stores";
 import { SubmitFormInterface } from "../../interfaces/submit-form";
-import { firestore, updateStats } from "../../firebase/firebase.util";
+import { useGame } from "../../contexts/GameProvider";
 import "./style.scss";
 import { useTranslation } from "react-i18next";
+import {
+  useIncrementStatMutation,
+  useSubmitScoreMutation,
+} from "../../hooks/queries";
 
 const SubmitForm = () => {
   const { t } = useTranslation();
-  const { gameSDSHStore, counterStore } = useStores();
+  const game = useGame();
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [userForm, setUserForm] = useState<SubmitFormInterface>({
     score: 9999,
@@ -19,28 +22,29 @@ const SubmitForm = () => {
     comment: "no comments",
   });
   const inputRef = useRef<HTMLInputElement>(null);
+  const winsRecorded = useRef(false);
+  const submitScoreMutation = useSubmitScoreMutation();
+  const incrementStatMutation = useIncrementStatMutation();
 
-  const submitUserScore = (event: React.ChangeEvent<HTMLFormElement>) => {
+  const submitUserScore = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // TODO refactor form logic
-    firestore
-      .collection("scores")
-      .doc(userForm.username)
-      .set(userForm)
-      .then(() => {
+    submitScoreMutation.mutate(userForm, {
+      onSuccess: () => {
         setFormSubmitted(true);
-        // TODO refactor route logic
         setTimeout(() => {
           document.location.href = "/";
         }, 3000);
-      })
-      .catch((error) => {
+      },
+      onError: (error) => {
         console.error("Error writing document: ", error);
-      });
+      },
+    });
   };
 
-  const handleInput = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInput = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const name = event.target.getAttribute("name");
     if (name) {
       setUserForm({
@@ -64,21 +68,23 @@ const SubmitForm = () => {
       ":" +
       today.getMinutes() +
       ")";
-    setUserForm({
-      ...userForm,
+    setUserForm((prev) => ({
+      ...prev,
       date: currentDate,
-      score: gameSDSHStore.counter,
-      attemptsUsed: gameSDSHStore.attemptsUsed,
-      code: gameSDSHStore.code,
-    });
+      score: game.counter,
+      attemptsUsed: game.attemptsUsed,
+      code: game.code,
+    }));
 
     if (inputRef.current !== null) {
       inputRef.current.focus();
     }
 
-    updateStats("wins");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [counterStore, gameSDSHStore]);
+    if (!winsRecorded.current) {
+      winsRecorded.current = true;
+      incrementStatMutation.mutate("wins");
+    }
+  }, [game.counter, game.attemptsUsed, game.code, incrementStatMutation]);
 
   return (
     <div className="submit-form card">
@@ -101,15 +107,15 @@ const SubmitForm = () => {
           <div className="input-group-stacked">
             <h3>
               {t("scoreForm.number")}:&nbsp;
-              <span className="label-value">{gameSDSHStore.code}</span>
+              <span className="label-value">{game.code}</span>
             </h3>
             <h3>
               {t("scoreForm.time")}:&nbsp;
-              <span className="label-value">{gameSDSHStore.counter}s</span>
+              <span className="label-value">{game.counter}s</span>
             </h3>
             <h3>
               {t("scoreForm.attempts")}:&nbsp;
-              <span className="label-value">{gameSDSHStore.attemptsUsed}</span>
+              <span className="label-value">{game.attemptsUsed}</span>
             </h3>
 
             <h3>

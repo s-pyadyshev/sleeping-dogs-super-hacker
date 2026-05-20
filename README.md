@@ -3,7 +3,11 @@
 <a href="https://en.wikipedia.org/wiki/Sleeping_Dogs_(video_game)" target="_blank" rel="noopener noreferrer">Sleeping Dogs</a> Camera Hacking mini-game (<a href="https://en.wikipedia.org/wiki/Bulls_and_Cows" target="_blank" rel="noopener noreferrer">Bulls and Cows</a> variation).
 <br>
 <br/>
-<b>Tech stack</b>: React 18.2, TypeScript, MobX, SCSS, Firebase to save user info (name, company, code, time, attempts, date, comment), average time/attempts, wins/lost stats.
+<b>Tech stack</b>: React 18.2, TypeScript, TanStack Query (remote data), React Context (game state), SCSS, Firebase to save user info (name, company, code, time, attempts, date, comment), average time/attempts, wins/lost stats.
+<br/>
+<br/>
+
+See [docs/REQUESTS.md](docs/REQUESTS.md) for how GitHub and Firestore requests work.
 <br/>
 <br/>
 

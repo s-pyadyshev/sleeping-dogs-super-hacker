@@ -1,7 +1,6 @@
 import React from "react";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { observer } from "mobx-react";
 import AboutPage from "./pages/AboutPage";
 import CounterPage from "./pages/CounterPage";
 import GameSDSHPage from "./pages/GameSDSHPage";
@@ -12,7 +11,7 @@ import GameMenu from "./components/GameMenu";
 import "./App.scss";
 import "./i18n";
 
-const App: React.FC = observer(() => {
+const App: React.FC = () => {
   return (
     <div className="App">
       <Helmet>
@@ -39,6 +38,6 @@ const App: React.FC = observer(() => {
       </div>
     </div>
   );
-});
+};
 
 export default App;

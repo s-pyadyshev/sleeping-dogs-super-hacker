@@ -1,24 +1,23 @@
 import React, { useEffect } from "react";
-import { observer } from "mobx-react";
 import GameSDSH from "../../components/GameSDSH";
 import GameOver from "../../components/GameOver";
-import { useStores } from "../../hooks/use-stores";
+import { useGame } from "../../contexts/GameProvider";
 import SubmitForm from "../../components/SubmitForm";
 
-const GameSDSHPage: React.FC = observer(() => {
-  const { gameSDSHStore } = useStores();
+const GameSDSHPage: React.FC = () => {
+  const game = useGame();
 
   useEffect(() => {
-    gameSDSHStore.gameStart();
-  }, [gameSDSHStore]);
+    game.gameStart();
+  }, [game.gameStart]);
 
   return (
     <>
-      {gameSDSHStore.isGameStarted ? <GameSDSH /> : null}
-      {gameSDSHStore.isUnlocked ? <SubmitForm /> : null}
-      {gameSDSHStore.isGameOver ? <GameOver /> : null}
+      {game.isGameStarted ? <GameSDSH /> : null}
+      {game.isUnlocked ? <SubmitForm /> : null}
+      {game.isGameOver ? <GameOver /> : null}
     </>
   );
-});
+};
 
 export default GameSDSHPage;

@@ -1,8 +1,7 @@
 import React from "react";
-import { observer } from "mobx-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
-import { useStores } from "../../hooks/use-stores";
+import { useGame } from "../../contexts/GameProvider";
 import "./style.scss";
 import { useTranslation } from "react-i18next";
 
@@ -14,8 +13,8 @@ const languages: LanguagesType = {
   ru: { name: "Ru" },
 };
 
-const GameMenu: React.FC = observer(() => {
-  const { gameSDSHStore, counterStore } = useStores();
+const GameMenu: React.FC = () => {
+  const game = useGame();
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
 
@@ -25,22 +24,15 @@ const GameMenu: React.FC = observer(() => {
 
   const startGame = () => {
     navigate("/game");
-    counterStore.counter = 0;
-    counterStore.endCounter();
-    gameSDSHStore.gameStart();
+    game.resetCounter();
+    game.gameStart();
   };
 
   const debouncedStartGame = debounce(startGame, 1000);
 
   const handleStartClick = (event: React.FormEvent<HTMLButtonElement>) => {
-    // TODO refactor for new React, events are no more null
-    removeInputBlur(event); // to avoid React event pooling:
-    // the event object (a wrapper created by React over the actual event object) that is passed to an event callback is reused
-    // and hence it will be nullified or cleared once the event callback finishes.
-    // So accessing event.target.value in the example above throws an error because event object was nullified
-    // when the event callback finished and we are trying to access it later through the debounce function.
+    removeInputBlur(event);
     debouncedStartGame();
-    // TODO - set focus on 1st input
   };
 
   return (
@@ -56,8 +48,8 @@ const GameMenu: React.FC = observer(() => {
           </NavLink>
         </li>
         <li className="game-menu__item">
-          <button className="button" onClick={handleStartClick}>
-            {gameSDSHStore.isGameStarted ? t("menu.restart") : t("menu.start")}
+          <button type="button" className="button" onClick={handleStartClick}>
+            {game.isGameStarted ? t("menu.restart") : t("menu.start")}
           </button>
         </li>
         <li className="game-menu__item">
@@ -91,6 +83,6 @@ const GameMenu: React.FC = observer(() => {
       </ul>
     </nav>
   );
-});
+};
 
 export default GameMenu;
