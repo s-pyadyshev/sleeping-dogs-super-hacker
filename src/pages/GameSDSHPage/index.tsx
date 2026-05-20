@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import GameSDSH from "../../components/GameSDSH";
 import GameOver from "../../components/GameOver";
 import { useGame } from "../../contexts/GameProvider";
@@ -6,10 +6,12 @@ import SubmitForm from "../../components/SubmitForm";
 
 const GameSDSHPage: React.FC = () => {
   const game = useGame();
+  const gameRef = useRef(game);
+  gameRef.current = game;
 
   useEffect(() => {
-    game.gameStart();
-  }, [game.gameStart]);
+    gameRef.current.gameStart();
+  }, []);
 
   return (
     <>

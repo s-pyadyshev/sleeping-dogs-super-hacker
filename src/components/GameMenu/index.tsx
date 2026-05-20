@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
 import { useGame } from "../../contexts/GameProvider";
 import "./style.scss";
@@ -16,6 +16,7 @@ const languages: LanguagesType = {
 const GameMenu: React.FC = () => {
   const game = useGame();
   const navigate = useNavigate();
+  const location = useLocation();
   const { t, i18n } = useTranslation();
 
   const removeInputBlur = (event: React.FormEvent<HTMLButtonElement>) => {
@@ -23,9 +24,11 @@ const GameMenu: React.FC = () => {
   };
 
   const startGame = () => {
+    if (location.pathname === "/game") {
+      game.gameStart();
+      return;
+    }
     navigate("/game");
-    game.resetCounter();
-    game.gameStart();
   };
 
   const debouncedStartGame = debounce(startGame, 1000);

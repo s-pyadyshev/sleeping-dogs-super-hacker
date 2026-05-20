@@ -8,8 +8,32 @@ import HighScorePage from "./pages/HighScorePage";
 import InstructionsPage from "./pages/InstructionsPage";
 import SecretPage from "./pages/SecretPage";
 import GameMenu from "./components/GameMenu";
+import { useGameRouteSync } from "./hooks/use-game-route-sync";
 import "./App.scss";
 import "./i18n";
+
+const AppRoutes = () => {
+  useGameRouteSync();
+
+  return (
+    <>
+      <aside className="aside">
+        <GameMenu />
+      </aside>
+
+      <main className="main">
+        <Routes>
+          <Route path="/" element={<InstructionsPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/game" element={<GameSDSHPage />} />
+          <Route path="/highscore" element={<HighScorePage />} />
+          <Route path="/counter" element={<CounterPage />} />
+          <Route path="/secret" element={<SecretPage />} />
+        </Routes>
+      </main>
+    </>
+  );
+};
 
 const App: React.FC = () => {
   return (
@@ -20,20 +44,8 @@ const App: React.FC = () => {
       </Helmet>
       <div className="container">
         <Router>
-          <aside className="aside">
-            <GameMenu />
-          </aside>
+          <AppRoutes />
 
-          <main className="main">
-            <Routes>
-              <Route path="/" element={<InstructionsPage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/game" element={<GameSDSHPage />} />
-              <Route path="/highscore" element={<HighScorePage />} />
-              <Route path="/counter" element={<CounterPage />} />
-              <Route path="/secret" element={<SecretPage />} />
-            </Routes>
-          </main>
         </Router>
       </div>
     </div>
