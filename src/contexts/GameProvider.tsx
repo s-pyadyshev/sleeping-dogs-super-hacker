@@ -32,6 +32,7 @@ const GameContext = createContext<GameContextValue | null>(null);
 export const GameProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, setState] = useState<GameState>(createInitialGameState);
   const [elapsedCounter, setElapsedCounter] = useState(0);
+  const [startCount, setStartCount] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const clearCounterInterval = useCallback(() => {
@@ -55,21 +56,20 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
     endCounter();
   }, [endCounter]);
 
-  const isTimerRunning =
-    state.isGameStarted && !state.isUnlocked && !state.isGameOver;
+  const isTimerRunning = state.isGameStarted && !state.isUnlocked && !state.isGameOver;
 
   useEffect(() => {
     if (!isTimerRunning) {
       clearCounterInterval();
       return;
     }
-
+  
     intervalRef.current = setInterval(() => {
       setElapsedCounter((value) => value + 1);
     }, 1000);
-
+  
     return clearCounterInterval;
-  }, [isTimerRunning, clearCounterInterval]);
+  }, [isTimerRunning, startCount, clearCounterInterval]);
 
   useEffect(() => {
     setState((current) => ({ ...current, counter: elapsedCounter }));
@@ -85,6 +85,7 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
     clearCounterInterval();
     setElapsedCounter(0);
     setState(createGameStartState());
+    setStartCount((n) => n + 1); // force timer effect to re-run
   }, [clearCounterInterval]);
 
   const incrementDigit = useCallback((id: number) => {

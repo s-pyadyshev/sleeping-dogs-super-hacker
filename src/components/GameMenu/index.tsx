@@ -4,6 +4,7 @@ import { debounce } from "lodash";
 import { useGame } from "../../contexts/GameProvider";
 import "./style.scss";
 import { useTranslation } from "react-i18next";
+import { useRef, useEffect } from "react";
 
 type LanguagesType = {
   [key: string]: { name: string };
@@ -31,12 +32,23 @@ const GameMenu: React.FC = () => {
     navigate("/game");
   };
 
-  const debouncedStartGame = debounce(startGame, 1000);
-
+  const startGameRef = useRef(startGame);
+  startGameRef.current = startGame;
+  
+  const debouncedStartGame = useRef(
+    debounce(() => startGameRef.current(), 500)
+  ).current;
+  
   const handleStartClick = (event: React.FormEvent<HTMLButtonElement>) => {
     removeInputBlur(event);
     debouncedStartGame();
   };
+
+  useEffect(() => {
+    return () => {
+      debouncedStartGame.cancel();
+    };
+  }, [debouncedStartGame]);
 
   return (
     <nav className="game-menu">
